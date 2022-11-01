@@ -11,6 +11,9 @@ namespace Logic.Companys.Request
         private DateTime weekNeeded;
 
 
+        public WeeklyNeed()
+        {
 
+        }
     }
 }
