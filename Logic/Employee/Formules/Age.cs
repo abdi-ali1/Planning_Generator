@@ -25,11 +25,10 @@ namespace Logic.Employee.Formules
         {
             int age = DateTime.Now.Year - birthDate.Year;
 
-            if (DateTime.Now.Month < birthDate.Month || DateTime.Now.Day < birthDate.Day)
+            if (DateTime.Now.Month < birthDate.Month && DateTime.Now.Day < birthDate.Day)
             {
                 age -= 1;
             }
-
             return age;
         }
 

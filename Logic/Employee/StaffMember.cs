@@ -21,7 +21,6 @@ namespace Logic.Employee
         private StaffSchedule schedule;
 
         //properties (getters//setters)
-
         public string Name { get { return name; } }
         public Gender Gender { get { return gender; } }
         public CompanyRole Role { get { return role; } }
@@ -43,22 +42,22 @@ namespace Logic.Employee
 
 
 
-        public StaffMember(string name, Gender gender, CompanyRole role, Age age, List<Degree> degrees)
+        public StaffMember(string name, Gender gender, CompanyRole role, DateTime birthDate, List<Degree> degrees)
         {
             this.name = name;
             this.gender = gender;
             this.role = role;
-            this.age = age;
+            age = new(birthDate);
             this.allDegrees = degrees;
         }
 
-        public StaffMember(string name, Gender gender, CompanyRole role, Age age, Degree degree)
+        public StaffMember(string name, Gender gender, CompanyRole role, DateTime birthDate, Degree degree)
         {
             this.name = name;
             this.gender = gender;
             this.role = role;
-            this.age = age;
-            allDegrees.Add(degree);
+            age = new(birthDate);
+            this.allDegrees.Add(degree);
         }
 
 
