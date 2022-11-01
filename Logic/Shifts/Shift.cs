@@ -13,6 +13,10 @@ namespace Logic.Shifts
         private DayOfWeek day;
         private ShiftHour kindOfShift;
 
+        public DayOfWeek Day { get { return day; } }
+        public ShiftHour KindOfShift { get { return kindOfShift; } }
+
+
         public Shift(DayOfWeek day, ShiftHour kindOfShift)
         {
             this.day = day;

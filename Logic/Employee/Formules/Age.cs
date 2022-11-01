@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Employee.Formules
 {
-    internal class Age
+    public class Age
     {
         private DateTime birthDate;
 

@@ -1,6 +1,7 @@
 ﻿using Logic.Employee.Degrees;
 using Logic.Employee.Formules;
 using Logic.Enum;
+using Logic.Schedules.Staff;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +18,7 @@ namespace Logic.Employee
         private CompanyRole role;
         private Age age;
         private List<Degree> allDegrees = new List<Degree>();
-        private staffSchedule schedule;
+        private StaffSchedule schedule;
 
         //properties (getters//setters)
 
