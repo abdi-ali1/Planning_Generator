@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Logic.Companys.Request;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +11,9 @@ namespace Logic.Companys
     {
         private string name;
         private DateTime addedTime;
-    
-
        
+
+
 
         public string Name { get { return name; } }
 

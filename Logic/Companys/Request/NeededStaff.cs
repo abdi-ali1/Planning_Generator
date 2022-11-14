@@ -1,4 +1,5 @@
 ﻿using Logic.Enum;
+using Logic.Shifts;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,41 +13,17 @@ namespace Logic.Companys.Request
     public class NeededStaff
     {
         private Occaption occaption;
-        private DayOfWeek neededDay;
-        private Dictionary<ShiftHour, int> staffPerHour = new();
+        private Shift neededShift;
 
-        public Occaption Occaption { get { return occaption; }  }
-        public DayOfWeek NeededDay { get { return neededDay; } }
+        public Occaption Occaption { get { return occaption; } }
+        public Shift NeededShift { get { return NeededShift; } }
 
+       
 
-        public ReadOnlyDictionary<ShiftHour, int> StaffPerHour 
-        { 
-            get 
-            {
-                return new ReadOnlyDictionary<ShiftHour, int>(staffPerHour); 
-            } 
-        }
-
-
-        public NeededStaff(Occaption occaption, DayOfWeek neededDay, 
-            Dictionary<ShiftHour, int> staffPerHour)
+        public NeededStaff(Occaption occaption, Shift neededShift)
         {
             this.occaption = occaption;
-            this.neededDay = neededDay;
-            this.staffPerHour = staffPerHour;
+            this.neededShift = neededShift;
         }
-
-
-        public NeededStaff(Occaption occaption, DayOfWeek neededDay, 
-            ShiftHour kindOfShift, int amountNeededStaff)
-        {
-            this.occaption = occaption;
-            this.neededDay = neededDay;
-
-            staffPerHour.Add(kindOfShift, amountNeededStaff);
-            
-        }
-
-      
     }
 }

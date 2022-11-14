@@ -8,8 +8,8 @@ namespace Logic.Enum
 {
     public enum Occaption
     {
-        Picker,
-        Driver,
-        Mechinic
+        Picker = 1,
+        Driver = 2,
+        Mechinic = 3
     }
 }

@@ -10,28 +10,24 @@ namespace Logic.Employee.Degrees
     {
         // fields
         private string nameOfDegree;
-        private DateTime obtainedDate;
-        private string instition;
         private int degreeLevel;
 
+    
         //properties (getters and setters)
         public string NameOfDegree { get { return nameOfDegree; } }
         public int DegreeLevel { get { return degreeLevel; } }
 
-
-        public Degree(string nameOfDegree, DateTime obtainedDate, string instition, int degreeLevel)
+        /// <summary>
+        /// constructor sets the private fields
+        /// </summary>
+        /// <param name="nameOfDegree"></param>
+        /// <param name="degreeLevel"></param>
+        public Degree(string nameOfDegree, int degreeLevel)
         {
             this.nameOfDegree = nameOfDegree;
-            this.obtainedDate = obtainedDate;
-            this.instition = instition;
             this.degreeLevel = degreeLevel;
         }
 
-        public Degree(string nameOfDegree, DateTime obtainedDate, int degreeLevel)
-        {
-            this.nameOfDegree = nameOfDegree;
-            this.obtainedDate= obtainedDate;
-            this.degreeLevel = degreeLevel;
-        }
+
     }
 }

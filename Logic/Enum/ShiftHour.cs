@@ -8,8 +8,8 @@ namespace Logic.Enum
 {
    public enum ShiftHour
     {
-        MorningShift,
-        AfternoonShift,
-        EveningShift
+        MorningShift = 1,
+        AfternoonShift = 2,
+        EveningShift = 3
     }
 }

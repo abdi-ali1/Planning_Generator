@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Staff Send Availability";
+}
+
+<div class="text-center">
+    <p class="display-4">Verstuur jouw beschikbaarheid!</p>
+</div>
+<br />
+<br />
+
+<div class="p content">
+    <form method="POST" action="">
+        <label for="daysofweek">Selecteer de dag van beschikbaarheid</label>
+        <select class="form-select form-select-sm mb-3" name="daysofweek" id="daysofweek">
+            <option value="1">Maandag</option>
+            <option value="2">Dinsdag</option>
+            <option value="3">Woensdag</option>
+            <option value="4">Donderdag</option>
+            <option value="5">Vrijdag</option>
+        </select>
+        
+        <label for="shift">Selecteer de dienst</label>
+        <select class="form-select form-select-sm mb-3" name="shift" id="shift">
+            <option value="1">Ochtend Dients</option>
+            <option value="2">Middag Dienst</option>
+            <option value="3">Avond Dienst</option>
+        </select>
+           
+        <label for="company">Selecteer Bedrijf</label>
+        <select class="form-select form-select-sm mb-3" name="company" id="company">
+            <option value="1">Medtronic</option>
+            <option value="2">Google</option>
+            <option value="3">Mosadex</option>
+        </select>
+
+        <div class="mb-3">
+            <input type="submit" name="submit" value="Submit" class="btn btn-primary" />
+        </div>
+        <div class="mb-3">
+            <a class="btn btn-outline-primary" asp-action="Shedule">Zie rooster</a>
+        </div>
+        <div class="mb-3">
+            <a class="btn btn-outline-primary" asp-action="AddStaff">Management add staff</a>
+        </div>
+        <div class="mb-3">
+            <a class="btn btn-outline-primary" asp-action="AddCompany">Management add company</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,61 @@
+﻿@{
+
+}
+
+<div class="text-center">
+    <p class="display-4">Voeg een nieuwe medewerker toe!</p>
+</div>
+<br />
+<br />
+
+<div class="p content">
+    <form method="POST" action="AddStaff">
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="nameOfStaff" id="nameOfStaff" placeholder="Naam van de nieuwe medewerker">
+            <label for="nameOfStaff">Naam van de nieuwe medewerker</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="userNameOfStaff" id="userNameOfStaff" placeholder="Gebruikersnaam van de nieuwe medewerker">
+            <label for="userNameOfStaff">Gebruikersnaam van de nieuwe medewerker</label>
+        </div>
+
+        <label for="gender">Kies het geslacht</label>
+        <select class="form-select form-select-sm mb-3" name="gender" id="gender">
+            <option value="1">Man</option>
+            <option value="2">vrouw</option>
+        </select>
+
+        <label for="occupation">Kies het Beroep</label>
+        <select class="form-select form-select-sm mb-3" name="occupation" id="occupation">
+            <option value="1">Picker</option>
+            <option value="2">Chaufeur</option>
+            <option value="3">Lasser</option>
+        </select>
+
+        <label for="companyRole">Kies rol</label>
+        <select class="form-select form-select-sm mb-3" name="companyRole" id="companyRole">
+            <option value="1">Staff</option>
+            <option value="2">Manager</option>
+        </select>
+
+        <div class="form-floating mb-3">
+            <input type="date" class="form-control" name="birthDate" id="birthDate" placeholder="Geboorte datum van de nieuwe medewerker">
+            <label for="birthDate">Geboorte datum van de nieuwe medewerker</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" name="nameOfDegree" id="nameOfDegree" placeholder="Naam van de diploma">
+            <label for="nameOfDegree">Naam van de diploma</label>
+        </div>
+
+        <div class="form-floating mb-3">
+            <input type="number" class="form-control" name="levelOfDegree" id="levelOfDegree" placeholder="Niveau van de diploma">
+            <label for="levelOfDegree">Niveau van de diploma</label>
+        </div>
+      
+        <div class="mb-3">
+            <input type="submit" name="submit" value="Submit" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

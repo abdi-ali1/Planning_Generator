@@ -8,7 +8,7 @@ namespace Logic.Enum
 {
     public enum CompanyRole
     {
-        StaffMember,
-        Manager
+        StaffMember = 1,
+        Manager = 2
     }
 }

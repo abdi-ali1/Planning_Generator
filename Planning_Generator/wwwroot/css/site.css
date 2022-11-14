@@ -16,3 +16,16 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.home-image {
+    border-radius: 0.75rem;
+}
+
+.p {
+    padding: 2rem;
+}
+
+.content {
+    background: rgba(0, 0, 0, 0.02) !important;
+    border-radius: 0.75rem;
+}

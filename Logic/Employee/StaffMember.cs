@@ -18,8 +18,9 @@ namespace Logic.Employee
         private string name;
         private Gender gender;
         private CompanyRole role;
+        private Occaption occaption;
         private Age age;
-        private List<Degree> allDegrees = new List<Degree>();
+        private Degree degree;
         private StaffSchedule schedule;
         private AvailibiltyStaff availibilty;
 
@@ -31,8 +32,9 @@ namespace Logic.Employee
         public Gender Gender { get { return gender; } }
         public CompanyRole Role { get { return role; } }
         public int Age { get { return age.GetCurrentAge(); } }
+        public Occaption Occaption { get { return occaption; } }
         public AvailibiltyStaff Availibilty { get { return availibilty; } set { this.availibilty = value;} }
-        public IList<Degree> AllDegrees { get { return allDegrees.AsReadOnly(); } }
+        public Degree Degree { get { return degree; } } 
         public StaffSchedule Schedule 
         { 
             get 
@@ -48,25 +50,18 @@ namespace Logic.Employee
 
 
 
-        public StaffMember(string username,string name, Gender gender, CompanyRole role, DateTime birthDate, List<Degree> degrees)
+        public StaffMember(string username, string name, Gender gender, CompanyRole role, Occaption occaption, DateTime birthDate, Degree degree)
         {
             this.username = username;
             this.name = name;
             this.gender = gender;
             this.role = role;
-            age = new(birthDate);
-            this.allDegrees = degrees;
+            this.occaption = occaption;
+            this.age = new Age(birthDate);
+            this.degree = degree;
         }
 
-        public StaffMember(string username, string name, Gender gender, CompanyRole role, DateTime birthDate, Degree degree)
-        {
-            this.username = username;
-            this.name = name;
-            this.gender = gender;
-            this.role = role;
-            age = new(birthDate);
-            this.allDegrees.Add(degree);
-        }
+
 
 
     }
