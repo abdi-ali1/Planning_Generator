@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO", "DTO\DTO.csproj", "{A
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj", "{B112D3DA-B5A3-4902-8A36-72D7467F43D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Planning_Generator", "Planning_Generator\Planning_Generator.csproj", "{21CE6176-BD87-4F8C-B643-28482FB81320}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planning_Generator", "Planning_Generator\Planning_Generator.csproj", "{21CE6176-BD87-4F8C-B643-28482FB81320}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

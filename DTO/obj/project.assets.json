@@ -324,16 +324,6 @@
             "rid": "win"
           }
         }
-      },
-      "Logic/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "compile": {
-          "bin/placeholder/Logic.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Logic.dll": {}
-        }
       }
     }
   },
@@ -895,16 +885,10 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
-    },
-    "Logic/1.0.0": {
-      "type": "project",
-      "path": "../Logic/Logic.csproj",
-      "msbuildProject": "../Logic/Logic.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Logic >= 1.0.0",
       "MySql.Data >= 8.0.31"
     ]
   },
@@ -939,11 +923,7 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {
-            "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\Logic\\Logic.csproj": {
-              "projectPath": "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\Logic\\Logic.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

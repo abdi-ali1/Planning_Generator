@@ -1,4 +1,5 @@
 ﻿using Logic.Companys.Request;
+using Logic.Schedules.Company;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,17 +11,19 @@ namespace Logic.Companys
     public class Company
     {
         private string name;
-        private DateTime addedTime;
-       
-
-
+        private List<CompanySchedule> schedules;
 
         public string Name { get { return name; } }
+        public List<CompanySchedule> Schedules { get => schedules; set => schedules = value; }
 
-        public Company(string name, DateTime addedTime)
+        public Company(string name)
         {
             this.name = name;
-            this.addedTime = addedTime;
+        }
+
+        public Company(string name, DateTime addedTime, List<CompanySchedule> schedules) : this(name)
+        {
+            this.schedules = schedules;
         }
     }
 }

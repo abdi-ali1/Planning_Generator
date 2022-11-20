@@ -7,15 +7,10 @@ namespace Planning_Generator
     public class Startup
     {
        
-
-
-      
-
-
         public Startup(IConfiguration configuration)
         {
-            this.configuration = configuration;
-            DataManagement = new DataManagement(configuration.GetConnectionString("myDb"));
+           /* this.configuration = configuration;
+            DataManagement = new DataManagement(configuration.GetConnectionString("myDb"));*/
         }
     }
 }

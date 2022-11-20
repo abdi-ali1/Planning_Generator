@@ -18,8 +18,7 @@ namespace DTO.DataMangement
 
         public DataManagement(string connectionString)
         {
-            staffTable = new StaffTable(connectionString);
-            companyTable = new CompanyTabel(connectionString);
+            
         }
 
 
