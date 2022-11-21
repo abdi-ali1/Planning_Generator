@@ -12,6 +12,8 @@ namespace Logic.Companys
     {
         private string name;
         private List<CompanySchedule> schedules;
+        private WeeklyNeed WeeklyNeed;
+ 
 
         public string Name { get { return name; } }
         public List<CompanySchedule> Schedules { get => schedules; set => schedules = value; }

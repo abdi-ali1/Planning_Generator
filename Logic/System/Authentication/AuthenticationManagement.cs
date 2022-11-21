@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace Logic.System.Authentication
 {
@@ -14,45 +15,51 @@ namespace Logic.System.Authentication
         private List<StaffMember> allStaffMembers = new();
         private List<Company> allCompany = new();
 
+        public AuthenticationManagement(List<StaffMember> allStaffMembers, List<Company> allCompany)
+        {
+            this.allStaffMembers = allStaffMembers;
+            this.allCompany = allCompany;
+        }
+
 
         /// <summary>
         /// Checks if user exist (tempory solution)
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        public bool AuthenticateCurrentStaff(string username)
+        public StaffMember AuthenticateCurrentStaffMember(string username)
         {
-            bool isAuthenticated = false;
+            StaffMember currentStaffMember = null;
             foreach (StaffMember staff in allStaffMembers)
             {
-                if (staff.Username == username)
+                if (staff.Name == username)
                 {
-                    isAuthenticated = true;
+                    currentStaffMember = staff;
+                    break;
                 }
-             
             }
-
-            return isAuthenticated;
+            return currentStaffMember;
         }
 
+
         /// <summary>
-        /// checks if company exist (tempory solution)
+        /// checks if company exist
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public bool AuthenticateCurrentCompany(string name)
+        public Company AuthenticateCurrentCompany(string name)
         {
-            bool isAuthenticated = false;
+            Company currentCompany = null;
             foreach (Company company in allCompany)
             {
                 if (company.Name == name)
                 {
-                    isAuthenticated = true;
+                    currentCompany = company;
+                    break;
                 }
-
             }
 
-            return isAuthenticated;
+            return currentCompany;
         }
 
 

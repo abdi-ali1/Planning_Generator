@@ -1,6 +1,4 @@
-﻿using DTO.DatabaseConnection;
-using Logic.Employee;
-using MySql.Data.MySqlClient;
+﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +26,7 @@ namespace DTO.DbTables
             comm.Parameters.AddWithValue("@companyRole", staffMember.Role.ToString());
             comm.Parameters.AddWithValue("@occupation", staffMember.Occaption.ToString());
             comm.Parameters.AddWithValue("@age", staffMember.Age);
-            comm.Parameters.AddWithValue("@username", staffMember.Username);*/*/
+            comm.Parameters.AddWithValue("@username", staffMember.Username);*/
           
         }
     }

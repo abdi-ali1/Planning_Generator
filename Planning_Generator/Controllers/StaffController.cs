@@ -1,4 +1,4 @@
-﻿using DTO.DataMangement;
+﻿using Logic.Companys;
 using Logic.Employee;
 using Logic.Employee.Degrees;
 using Microsoft.AspNetCore.Mvc;
@@ -17,8 +17,9 @@ namespace Planning_Generator.Controllers
             return View();
         }
 
-        public IActionResult AddCompany()
+        public IActionResult AddCompany(FormCollection data)
         {
+                
             return View();
         }
 

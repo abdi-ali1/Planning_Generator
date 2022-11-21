@@ -12,18 +12,17 @@ namespace Logic.System.Generator
 {
     public class ScheduleGenerator
     {
-
+        private List<Company> allCompanies = new();
         private List<StaffMember> allStaffMembers = new();
         private List<IWorkRule> allWorkRules = new();
 
         //constructer
-        public ScheduleGenerator(List<StaffMember> allStaffMembers, List<IWorkRule> allWorkRules)
+        public ScheduleGenerator(List<Company> allCompanies, List<StaffMember> allStaffMembers, List<IWorkRule> allWorkRules)
         {
+            this.allCompanies = allCompanies;
             this.allStaffMembers = allStaffMembers;
             this.allWorkRules = allWorkRules;
         }
-
-
 
 
         /// <summary>

@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "UYJXlbGQ0h5J9y66qQvg4Pgwblhfzzcfuc1SruC4sLyqcgINkEsR7P8HN+tUq4DpvwuZK7saBcqNSeybr9c+1w==",
+  "dgSpecHash": "SFylkOaLBMs+V52P/L3KjYytDI2+E971Hvcj7OIg9SdMszp77nr6SO1P5w0fOqq0WSDSV1UzBrjgvx9ZTn4ViQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\Logic\\Logic.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\abdi1\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }
