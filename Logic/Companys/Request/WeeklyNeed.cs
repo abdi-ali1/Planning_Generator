@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Companys.Request
 {
+    [Serializable]
     public class WeeklyNeed
     {
         // fields

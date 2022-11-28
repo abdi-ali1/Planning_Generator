@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logic", "Logic\Logic.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planning_Generator", "Planning_Generator\Planning_Generator.csproj", "{21CE6176-BD87-4F8C-B643-28482FB81320}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DTO_BinaryFile", "DTO_BinaryFile\DTO_BinaryFile.csproj", "{0F6F82ED-622C-4573-98A9-05FC1E1883D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO_BinaryFile", "DTO_BinaryFile\DTO_BinaryFile.csproj", "{0F6F82ED-622C-4573-98A9-05FC1E1883D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest_Pl", "UnitTest_Pl\UnitTest_Pl.csproj", "{3988A92D-FCB5-4A7D-9B66-62967CE9F518}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{0F6F82ED-622C-4573-98A9-05FC1E1883D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F6F82ED-622C-4573-98A9-05FC1E1883D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F6F82ED-622C-4573-98A9-05FC1E1883D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3988A92D-FCB5-4A7D-9B66-62967CE9F518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3988A92D-FCB5-4A7D-9B66-62967CE9F518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3988A92D-FCB5-4A7D-9B66-62967CE9F518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3988A92D-FCB5-4A7D-9B66-62967CE9F518}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

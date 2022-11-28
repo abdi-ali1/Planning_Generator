@@ -32,13 +32,12 @@ namespace Planning_Generator.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddStaff(string nameOfStaff, string userNameOfStaff, string gender,
-        string occupation, string companyRole, string birthDate, string nameOfDegree, string levelOfDegree)
+        public IActionResult AddStaff(FormCollection collection)
         {
-            Degree degree = new Degree(nameOfDegree, int.Parse(levelOfDegree));
+           /* Degree degree = new Degree(nameOfDegree, int.Parse(levelOfDegree));
             StaffMember staff = new StaffMember(userNameOfStaff, nameOfStaff, (Logic.Enum.Gender)int.Parse(gender),
                (Logic.Enum.CompanyRole)int.Parse(companyRole), (Logic.Enum.Occaption)int.Parse(occupation),
-                DateTime.Parse(birthDate), degree);
+                DateTime.Parse(birthDate), degree);*/
 
            
             return View();

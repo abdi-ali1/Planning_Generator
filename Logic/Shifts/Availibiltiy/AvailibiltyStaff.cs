@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Shifts.Availibiltiy
 {
+    [Serializable]
     public class AvailibiltyStaff
     {
         // fields

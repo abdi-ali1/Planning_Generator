@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Enum
 {
+    [Serializable]
     public enum Gender
     {
         Male = 1,

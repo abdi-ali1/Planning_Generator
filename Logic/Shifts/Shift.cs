@@ -8,6 +8,7 @@ using DayOfWeek = Logic.Enum.DayOfWeek;
 
 namespace Logic.Shifts
 {
+    [Serializable]
     public class Shift
     {
         private DayOfWeek day;

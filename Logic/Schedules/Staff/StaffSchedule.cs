@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Schedules.Staff
 {
+    [Serializable]
     public class StaffSchedule
     {
         // fields
@@ -17,7 +18,7 @@ namespace Logic.Schedules.Staff
         // properties
         public DateTime CurrentWeek { get { return currentWeek; } }
         public IList<Shift> AllShifts { get { return allShifts.AsReadOnly(); } }
-        public float TotalWorkingHours { get { return new WorkHour().GetTotalWeekWorkingHour(allShifts); } }
+        public float TotalWorkingHours { get { return  WorkHour.GetTotalWeekWorkingHour(allShifts); } }
 
         public StaffSchedule(DateTime currentWeek, List<Shift> shifts)
         {

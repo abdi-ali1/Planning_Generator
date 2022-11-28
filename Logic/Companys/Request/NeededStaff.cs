@@ -10,6 +10,7 @@ using DayOfWeek = Logic.Enum.DayOfWeek;
 
 namespace Logic.Companys.Request
 {
+    [Serializable]
     public class NeededStaff
     {
         private Occaption occaption;

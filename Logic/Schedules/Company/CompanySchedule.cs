@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Schedules.Company
 {
+    [Serializable]
     public class CompanySchedule
     {
         private DateTime currentWeek; 

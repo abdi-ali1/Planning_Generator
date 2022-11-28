@@ -8,24 +8,28 @@ using System.Threading.Tasks;
 
 namespace Logic.Companys
 {
-    public class Company
+    [Serializable]
+    public class Company: ICompany
     {
         private string name;
         private List<CompanySchedule> schedules;
-        private WeeklyNeed WeeklyNeed;
+        private List<WeeklyNeed> weeklyNeed;
  
 
         public string Name { get { return name; } }
         public List<CompanySchedule> Schedules { get => schedules; set => schedules = value; }
+        public List<WeeklyNeed> WeeklyNeed { get => weeklyNeed; set => weeklyNeed = value; }
 
         public Company(string name)
         {
             this.name = name;
         }
 
-        public Company(string name, DateTime addedTime, List<CompanySchedule> schedules) : this(name)
+        public Company(string name, List<CompanySchedule> schedules, List<WeeklyNeed> weeklyNeed):this(name)
         {
+          
             this.schedules = schedules;
+            this.weeklyNeed = weeklyNeed;
         }
     }
 }

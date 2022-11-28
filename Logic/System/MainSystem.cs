@@ -1,36 +1,39 @@
 ﻿using DTO_BinaryFile.Manager;
-using Logic.Companys;
-using Logic.Companys.Request;
-using Logic.Employee;
-using Logic.Interface;
+
 using Logic.System.Authentication;
 using Logic.System.Generator;
 using Logic.System.Management;
-
+using ModelManager = Logic.System.Management.ModelManager;
 
 namespace Logic.System
 {
     public class MainSystem
     {
-       
+        private IModelManager models;
+        private ScheduleGenerator scheduleGenerator;
         private AuthenticationManagement authentication;
-        private ManagerSystem managerSystem;
 
-        private StaffMember currentStaffMember;
-        private Company currentCompany;
-        private ScheduleGenerator generator;
+        public IModelManager ModelManager { get => models; }
+        public ScheduleGenerator Generator { get => scheduleGenerator; }
+        public AuthenticationManagement Authentication { get => authentication; }
 
-
-   
-        public AuthenticationManagement Authentication { get => authentication;  }
-        public ManagerSystem ManagerSystem { get => managerSystem;  }
-        public StaffMember CurrentStaffMember { get => currentStaffMember;  }
-        public Company CurrentCompany { get => currentCompany; }
-        public ScheduleGenerator Generator { get => generator;  }
-
-
+        public IModelManager Models { get => models; }
+        
         public MainSystem()
         {
+            // probably this wil be a static class, but downt now for sure
+            // going to ask for feedback tommorow
+            models = BinaryFileManager.ReadFromBinaryFile<IModelManager>();
+
         }
+
+
+
+
+
+
+
+
+
     }
 }

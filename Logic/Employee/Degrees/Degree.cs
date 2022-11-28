@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Employee.Degrees
 {
+    [Serializable]
     public class Degree
     {
         // fields

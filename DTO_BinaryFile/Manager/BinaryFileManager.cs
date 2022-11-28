@@ -1,81 +1,42 @@
-﻿using Newtonsoft.Json;
-using System.IO;
-using System.Runtime.Intrinsics.X86;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Xml;
-using System.Xml.Linq;
-using System.Xml.Serialization;
-using static System.Net.WebRequestMethods;
-
+﻿
 namespace DTO_BinaryFile.Manager
 {
-    internal class BinaryFileManager
+    public static class BinaryFileManager
     {
 
-        /// <summary>
-        /// Serializes an object.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="serializableObject"></param>
-        /// <param name="fileName"></param>
-        public void SerializeObject<T>(T serializableObject)
-        {
-            if (serializableObject == null) { return; }
+        private static string fileLocation = "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\DTO_BinaryFile\\Files\\data.bin";
 
-            try
+        /// <summary>
+        /// Writes the given object instance to a binary file.
+        /// <para>Object type (and all child types) must be decorated with the [Serializable] attribute.</para>
+        /// <para>To prevent a variable from being serialized, decorate it with the [NonSerialized] attribute; cannot be applied to properties.</para>
+        /// </summary>
+        /// <typeparam name="T">The type of object being written to the XML file.</typeparam>
+        /// <param name="filePath">The file path to write the object instance to.</param>
+        /// <param name="objectToWrite">The object instance to write to the XML file.</param>
+        /// <param name="append">If false the file will be overwritten if it already exists. If true the contents will be appended to the file.</param>
+        public static void WriteToBinaryFile<T>(T objectToWrite)
+        {
+            using (Stream stream = File.Open(fileLocation, false ? FileMode.Append : FileMode.Create))
             {
-                XmlDocument xmlDocument = new XmlDocument();
-                XmlSerializer serializer = new XmlSerializer(serializableObject.GetType());
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    serializer.Serialize(stream, serializableObject);
-                    stream.Position = 0;
-                    xmlDocument.Load(stream);
-                    xmlDocument.Save(("C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\DTO_BinaryFile\\Files\\Data.xml"));
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex);
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                binaryFormatter.Serialize(stream, objectToWrite);
             }
         }
 
-
         /// <summary>
-        /// Deserializes an xml file into an object list
+        /// Reads an object instance from a binary file.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="fileName"></param>
-        /// <returns></returns>
-        public T DeSerializeObject<T>()
+        /// <typeparam name="T">The type of object to read from the XML.</typeparam>
+        /// <param name="filePath">The file path to read the object instance from.</param>
+        /// <returns>Returns a new instance of the object read from the binary file.</returns>
+        public static T  ReadFromBinaryFile<T>()
         {
-        
-
-            T objectOut = default(T);
-
-            try
+            using (Stream stream = File.Open(fileLocation, FileMode.Open))
             {
-                XmlDocument xmlDocument = new XmlDocument();
-                xmlDocument.Load("C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\DTO_BinaryFile\\Files\\Data.xml");
-                string xmlString = xmlDocument.OuterXml;
-
-                using (StringReader read = new StringReader(xmlString))
-                {
-                    Type outType = typeof(T);
-
-                    XmlSerializer serializer = new XmlSerializer(outType);
-                    using (XmlReader reader = new XmlTextReader(read))
-                    {
-                        objectOut = (T)serializer.Deserialize(reader);
-                    }
-                }
+                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                return (T)binaryFormatter.Deserialize(stream);
             }
-            catch (Exception ex)
-            {
-                //Log exception here
-            }
-
-            return objectOut;
         }
 
     }

@@ -12,16 +12,9 @@ namespace Logic.System.Authentication
     public class AuthenticationManagement
     {
 
-        private List<StaffMember> allStaffMembers = new();
-        private List<Company> allCompany = new();
+        
 
-        public AuthenticationManagement(List<StaffMember> allStaffMembers, List<Company> allCompany)
-        {
-            this.allStaffMembers = allStaffMembers;
-            this.allCompany = allCompany;
-        }
-
-
+/*
         /// <summary>
         /// Checks if user exist (tempory solution)
         /// </summary>
@@ -63,6 +56,19 @@ namespace Logic.System.Authentication
         }
 
 
+        /// <summary>
+        /// checks if the current staffmember is a manager
+        /// </summary>
+        /// <param name="staffMember"></param>
+        /// <returns></returns>
+        public bool AuthenticateManager(StaffMember staffMember)
+        {
+            if (staffMember.Role == Enum.CompanyRole.Manager) return true;
+
+            return false;
+        }
+
+*/
 
 
 

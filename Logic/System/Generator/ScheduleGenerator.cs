@@ -1,7 +1,6 @@
 ﻿using Logic.Companys;
 using Logic.Companys.Request;
 using Logic.Employee;
-using Logic.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,17 +11,16 @@ namespace Logic.System.Generator
 {
     public class ScheduleGenerator
     {
-        private List<Company> allCompanies = new();
-        private List<StaffMember> allStaffMembers = new();
-        private List<IWorkRule> allWorkRules = new();
 
-        //constructer
-        public ScheduleGenerator(List<Company> allCompanies, List<StaffMember> allStaffMembers, List<IWorkRule> allWorkRules)
+        private IModelManager modelManager;
+        private List<IWorkRule> workRule;
+
+        public ScheduleGenerator(IModelManager modelManager, List<IWorkRule> workRule)
         {
-            this.allCompanies = allCompanies;
-            this.allStaffMembers = allStaffMembers;
-            this.allWorkRules = allWorkRules;
+            this.modelManager = modelManager;
+            this.workRule = workRule;
         }
+
 
 
         /// <summary>
@@ -30,9 +28,37 @@ namespace Logic.System.Generator
         /// 
         /// </summary>
         /// <param name="weeklyNeed"> will probably be changed to a diffrent data type</param>
-        public void GenerateSchedule(Company company)
+        public void GenerateSchedule(ICompany company)
         {
+
+            foreach (WeeklyNeed weekly in company.WeeklyNeed)
+            {
+                if (true)
+                {
+
+                }
+            }
         }
+
+        private bool GetCurrentWeek(WeeklyNeed weekly)
+        {
+            // check if it is current week
+
+            return true;
+        }
+
+
+        #region to do
+        private void SetStaffSchedules()
+        {
+            // to do sets the chosen staff schedules
+        }
+
+        private void SetCompanySchedule()
+        {
+            // todo sets the schedule for company (maybe this isnt the smartes way)
+        }
+        #endregion
 
     }
 }
