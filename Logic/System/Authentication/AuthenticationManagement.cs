@@ -11,19 +11,26 @@ namespace Logic.System.Authentication
 {
     public class AuthenticationManagement
     {
+      private IModelManager modelManager;
 
-        
+        public AuthenticationManagement(IModelManager modelManager)
+        {
+            this.modelManager = modelManager;
+        }
 
-/*
+
+
+
+
         /// <summary>
         /// Checks if user exist (tempory solution)
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        public StaffMember AuthenticateCurrentStaffMember(string username)
+        public IStaff AuthenticateCurrentStaffMember(string username)
         {
-            StaffMember currentStaffMember = null;
-            foreach (StaffMember staff in allStaffMembers)
+            IStaff currentStaffMember = null;
+            foreach (IStaff staff in modelManager.AllStaffMembers)
             {
                 if (staff.Name == username)
                 {
@@ -40,10 +47,10 @@ namespace Logic.System.Authentication
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public Company AuthenticateCurrentCompany(string name)
+        public ICompany AuthenticateCurrentCompany(string name)
         {
-            Company currentCompany = null;
-            foreach (Company company in allCompany)
+            ICompany currentCompany = null;
+            foreach (ICompany company in modelManager.AllCompanies)
             {
                 if (company.Name == name)
                 {
@@ -61,14 +68,14 @@ namespace Logic.System.Authentication
         /// </summary>
         /// <param name="staffMember"></param>
         /// <returns></returns>
-        public bool AuthenticateManager(StaffMember staffMember)
+        public bool AuthenticateManager(IStaff staffMember)
         {
             if (staffMember.Role == Enum.CompanyRole.Manager) return true;
 
             return false;
         }
 
-*/
+
 
 
 
