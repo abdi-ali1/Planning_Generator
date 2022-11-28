@@ -1,10 +1,12 @@
-﻿
+﻿using Logic;
+using Logic.Interface;
+
 namespace DTO_BinaryFile.Manager
 {
-    public static class BinaryFileManager
+    public class BinaryFileManager : IBinaryFileManager
     {
 
-        private static string fileLocation = "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\DTO_BinaryFile\\Files\\data.bin";
+        private string fileLocation = "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\DTO_BinaryFile\\Files\\data.bin";
 
         /// <summary>
         /// Writes the given object instance to a binary file.
@@ -15,7 +17,7 @@ namespace DTO_BinaryFile.Manager
         /// <param name="filePath">The file path to write the object instance to.</param>
         /// <param name="objectToWrite">The object instance to write to the XML file.</param>
         /// <param name="append">If false the file will be overwritten if it already exists. If true the contents will be appended to the file.</param>
-        public static void WriteToBinaryFile<T>(T objectToWrite)
+        public  void WriteToBinaryFile(IModelManager objectToWrite)
         {
             using (Stream stream = File.Open(fileLocation, false ? FileMode.Append : FileMode.Create))
             {
@@ -30,12 +32,12 @@ namespace DTO_BinaryFile.Manager
         /// <typeparam name="T">The type of object to read from the XML.</typeparam>
         /// <param name="filePath">The file path to read the object instance from.</param>
         /// <returns>Returns a new instance of the object read from the binary file.</returns>
-        public static T  ReadFromBinaryFile<T>()
+        public  IModelManager ReadFromBinaryFile()
         {
             using (Stream stream = File.Open(fileLocation, FileMode.Open))
             {
                 var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                return (T)binaryFormatter.Deserialize(stream);
+                return (IModelManager)binaryFormatter.Deserialize(stream);
             }
         }
 

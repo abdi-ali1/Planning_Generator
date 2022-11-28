@@ -1,5 +1,5 @@
 ﻿using DTO_BinaryFile.Manager;
-
+using Logic.Interface;
 using Logic.System.Authentication;
 using Logic.System.Generator;
 using Logic.System.Management;
@@ -19,12 +19,11 @@ namespace Logic.System
 
         public IModelManager Models { get => models; }
         
-        public MainSystem()
-        {
-            // probably this wil be a static class, but downt now for sure
-            // going to ask for feedback tommorow
-            models = BinaryFileManager.ReadFromBinaryFile<IModelManager>();
 
+
+        public MainSystem(IBinaryFileManager model)
+        {
+            models = model.ReadFromBinaryFile();
         }
 
 

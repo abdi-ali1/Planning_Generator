@@ -12,8 +12,4 @@
     <None Remove="Interface\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\DTO_BinaryFile\DTO_BinaryFile.csproj" />
-  </ItemGroup>
-
 </Project>
