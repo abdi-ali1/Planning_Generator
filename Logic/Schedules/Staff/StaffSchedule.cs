@@ -1,6 +1,8 @@
-﻿using Logic.Schedules.Staff.formules;
+﻿using Logic.Employee;
+using Logic.Schedules.Staff.formules;
 using Logic.Shifts;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,17 +22,33 @@ namespace Logic.Schedules.Staff
         public IList<Shift> AllShifts { get { return allShifts.AsReadOnly(); } }
         public float TotalWorkingHours { get { return  WorkHour.GetTotalWeekWorkingHour(allShifts); } }
 
-        public StaffSchedule(DateTime currentWeek, List<Shift> shifts)
+        public StaffSchedule(DateTime currentWeek)
         {
             this.currentWeek = currentWeek;
-            this.allShifts = shifts;
         }
 
-        public StaffSchedule(DateTime currentWeek, Shift shift)
+        public StaffSchedule(DateTime currentWeek, List<Shift> allShifts) : this(currentWeek)
         {
-            this.currentWeek = currentWeek;
-            allShifts.Add(shift);
+            this.allShifts = allShifts;
         }
+
+        public bool AddNewShift(Shift shift)
+        {
+            bool doesntExist = true;
+            foreach (Shift s in AllShifts)
+            {
+                if (s.Equals(shift))
+                {
+                    doesntExist = false;
+                    break;
+                }
+            }
+            if (doesntExist) allShifts.Add(shift);
+
+            return doesntExist;
+        }
+
+    
 
     }
 }

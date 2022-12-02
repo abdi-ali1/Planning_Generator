@@ -11,11 +11,11 @@ namespace Logic.Companys.Request
     {
         // fields
         private DateTime weekNeeded;
-        private List<NeededStaff> neededStaff = new();
+        private List<NeededStaff> neededStaff = new List<NeededStaff>();
 
         // properties
         public DateTime WeekNeeded { get { return weekNeeded; } }
-        public List<NeededStaff> NeededStaff { get { return neededStaff; } }
+        public IList<NeededStaff> NeededStaff { get { return neededStaff.AsReadOnly(); } }
         
         // constructors
         public WeeklyNeed(DateTime weekNeeded, List<NeededStaff> neededStaff)
@@ -23,10 +23,11 @@ namespace Logic.Companys.Request
             this.weekNeeded = weekNeeded;
             this.neededStaff = neededStaff;
         }
-        public WeeklyNeed(DateTime weekNeeded, NeededStaff neededStaff)
+            
+        
+        public void AddNeededStaff(NeededStaff needed)
         {
-            this.weekNeeded = weekNeeded;
-            this.neededStaff.Add(neededStaff);
+            neededStaff.Add(needed);
         }
     }
 }

@@ -10,6 +10,6 @@ namespace Logic
 
    public interface IWorkRule
    {
-        public bool IsRuleAdhered(StaffMember[] staffMembers); 
+        public bool IsRuleAdhered(StaffMember staff); 
    }
 }

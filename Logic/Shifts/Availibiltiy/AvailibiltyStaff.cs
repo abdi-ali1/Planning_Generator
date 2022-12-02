@@ -20,21 +20,35 @@ namespace Logic.Shifts.Availibiltiy
         public Company Company { get { return company; } }
         public IList<Shift> Shifts { get { return shifts.AsReadOnly(); }  }
 
-        //constructors
-        public AvailibiltyStaff(DateTime neededWeek, Company company, List<Shift> shifts)
+        public AvailibiltyStaff(DateTime neededWeek, Company company)
         {
             this.neededWeek = neededWeek;
             this.company = company;
+        }
+
+
+        //constructors
+        public AvailibiltyStaff(DateTime neededWeek, Company company, List<Shift> shifts): this(neededWeek, company)
+        {
             this.shifts = shifts;
         }
 
-        public AvailibiltyStaff(DateTime neededWeek, Company company, Shift shift)
-        {
-            this.neededWeek = neededWeek;
-            this.company = company;
-            this.shifts.Add(shift);
-        }
 
+        public bool AddNewShift(Shift shift)
+        {
+            bool doesntExist = true;
+            foreach (Shift s in Shifts)
+            {
+                if (s.Equals(shift))
+                {
+                    doesntExist = false;
+                    break;
+                }
+            }
+            if (doesntExist) Shifts.Add(shift);
+
+            return doesntExist;
+        }
 
     }
 }

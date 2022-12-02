@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 namespace Logic.Companys
 {
     [Serializable]
-    public class Company: ICompany
+    public class Company
     {
         private string name;
-        private List<CompanySchedule> schedules;
-        private List<WeeklyNeed> weeklyNeed;
+        private List<CompanySchedule> schedules = new List<CompanySchedule>();
+        private List<WeeklyNeed> weeklyNeed = new List<WeeklyNeed>();
  
 
         public string Name { get { return name; } }
-        public List<CompanySchedule> Schedules { get => schedules; set => schedules = value; }
-        public List<WeeklyNeed> WeeklyNeed { get => weeklyNeed; set => weeklyNeed = value; }
+        public IList<CompanySchedule> Schedules { get => schedules.AsReadOnly();}
+        public IList<WeeklyNeed> WeeklyNeed { get => weeklyNeed.AsReadOnly();  }
 
         public Company(string name)
         {
@@ -27,9 +27,20 @@ namespace Logic.Companys
 
         public Company(string name, List<CompanySchedule> schedules, List<WeeklyNeed> weeklyNeed):this(name)
         {
-          
             this.schedules = schedules;
             this.weeklyNeed = weeklyNeed;
         }
+
+        public void AddSchedules(CompanySchedule schedule)
+        {
+            schedules.Add(schedule);
+        }
+
+       public void AddWeeklyNeed(WeeklyNeed weekly)
+       {
+            weeklyNeed.Add(weekly);
+       }
+
+
     }
 }

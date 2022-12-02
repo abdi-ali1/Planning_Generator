@@ -12,14 +12,40 @@ namespace Logic.Schedules.Company
     {
         private DateTime currentWeek; 
         
-        private List<StaffMember> AllStaffMembers = new();
+        private List<StaffMember> allStaffMembers = new();
+
+        public IList<StaffMember> AllStaffMembers { get { return allStaffMembers.AsReadOnly(); } }
 
 
-        public CompanySchedule(DateTime currentWeek, List<StaffMember> staffMembers)
+        public CompanySchedule(DateTime currentWeek) 
         {
             this.currentWeek = currentWeek;
-            this.AllStaffMembers = staffMembers;
         }
+
+        public CompanySchedule(DateTime currentWeek, List<StaffMember> staffMembers) : this(currentWeek)
+        {
+         
+            this.allStaffMembers = staffMembers;
+        }
+
+        public bool AddStaff(StaffMember staff)
+        {
+            bool doesntExist = true;
+            foreach (StaffMember s in allStaffMembers)
+            {
+                if (s.Equals(staff))
+                {
+                    doesntExist = false;
+                    break;
+                }
+            }
+            if (doesntExist) allStaffMembers.Add(staff);
+
+            return doesntExist;
+        }
+      
+
+      
 
        
 

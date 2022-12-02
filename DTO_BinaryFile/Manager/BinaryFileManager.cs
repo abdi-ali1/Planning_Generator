@@ -1,5 +1,4 @@
 ﻿using Logic;
-using Logic.Interface;
 
 namespace DTO_BinaryFile.Manager
 {

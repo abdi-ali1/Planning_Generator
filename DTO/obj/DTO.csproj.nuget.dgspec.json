@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\AbdiAli\\source\\repos\\abdi-ali1\\Planning_Generator\\DTO\\DTO.csproj": {}
+    "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\DTO\\DTO.csproj": {}
   },
   "projects": {
-    "C:\\Users\\AbdiAli\\source\\repos\\abdi-ali1\\Planning_Generator\\DTO\\DTO.csproj": {
+    "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\DTO\\DTO.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\AbdiAli\\source\\repos\\abdi-ali1\\Planning_Generator\\DTO\\DTO.csproj",
+        "projectUniqueName": "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\DTO\\DTO.csproj",
         "projectName": "DTO",
-        "projectPath": "C:\\Users\\AbdiAli\\source\\repos\\abdi-ali1\\Planning_Generator\\DTO\\DTO.csproj",
-        "packagesPath": "C:\\Users\\AbdiAli\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\AbdiAli\\source\\repos\\abdi-ali1\\Planning_Generator\\DTO\\obj\\",
+        "projectPath": "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\DTO\\DTO.csproj",
+        "packagesPath": "C:\\Users\\abdi1\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\DTO\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\AbdiAli\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\abdi1\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -66,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
         }
       }
     }

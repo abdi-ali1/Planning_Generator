@@ -1,5 +1,6 @@
 ﻿using Logic.System;
 using DTO_BinaryFile.Manager;
+using Logic;
 
 namespace Planning_Generator
 {
@@ -10,8 +11,8 @@ namespace Planning_Generator
 
         static LogicManager()
         {
-          BinaryFileManager binaryFileManager = new BinaryFileManager();
-            mainSystem = new MainSystem();
+            IBinaryFileManager binaryFileManager = new BinaryFileManager();
+            mainSystem = new MainSystem(binaryFileManager);
         }
 
 

@@ -19,9 +19,6 @@ namespace Logic.System.Authentication
         }
 
 
-
-
-
         /// <summary>
         /// Checks if user exist (tempory solution)
         /// </summary>

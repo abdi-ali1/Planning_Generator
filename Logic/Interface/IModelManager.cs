@@ -1,6 +1,4 @@
-﻿
-
-using Logic.Companys;
+﻿using Logic.Companys;
 using Logic.Employee;
 
 namespace Logic
