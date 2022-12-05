@@ -1,6 +1,7 @@
 ﻿using Logic.Companys;
 using Logic.Companys.Request;
 using Logic.Employee;
+using Logic.Shifts.Availibiltiy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +13,12 @@ namespace Logic.System.Generator
     public class ScheduleGenerator
     {
 
-        private IModelManager modelManager;
+        private IList<StaffMember> allStaffMembers;
         private List<IWorkRule> workRule;
 
-        public ScheduleGenerator(IModelManager modelManager, List<IWorkRule> workRule)
+        public ScheduleGenerator(IList<StaffMember> allStaffMembers, List<IWorkRule> workRule)
         {
-            this.modelManager = modelManager;
+            this.allStaffMembers = allStaffMembers;
             this.workRule = workRule;
         }
 
@@ -28,24 +29,92 @@ namespace Logic.System.Generator
         /// 
         /// </summary>
         /// <param name="weeklyNeed"> will probably be changed to a diffrent data type</param>
-        public void GenerateSchedule(ICompany company)
+        public void GenerateSchedule(Company company, DateTime weekNeeded)
         {
+            WeeklyNeed neededWeekData = GetNeededWeek(company.WeeklyNeed, weekNeeded);
+            IList<StaffMember> workingStaff = new List<StaffMember>();
+           // workingStaff = SetWorkingStaff()
 
-            foreach (WeeklyNeed weekly in company.WeeklyNeed)
+         
+
+
+               
+        }
+
+
+      
+      
+        private WeeklyNeed GetNeededWeek(IList<WeeklyNeed> weeklyNeeds, DateTime weekneeded)
+        {
+            WeeklyNeed weekly = null;
+
+            foreach (WeeklyNeed weeklyNeed in weeklyNeeds)
             {
-                if (true)
+                if (weeklyNeed.WeekNeeded == weekneeded)
                 {
-
+                    weekly = weeklyNeed;
                 }
             }
+            return weekly;
         }
 
-        private bool GetCurrentWeek(WeeklyNeed weekly)
+
+        private IList<StaffMember> SetWorkingStaff(IList<NeededStaff> neededStaff, IList<StaffMember> staffMembers)
         {
-            // check if it is current week
+            List<StaffMember> workingStaffList = new List<StaffMember>();
+            foreach (NeededStaff needed in neededStaff)
+            {
+                foreach (StaffMember staff in staffMembers)
+                {
+                   
+                       
+                    
+                }
+            }
 
-            return true;
+
+            return workingStaffList;
         }
+
+
+        private IList<StaffMember> GetAvailibelStaffMembers(DateTime dateTime)
+        {
+            IList<StaffMember> workingStaffList = new List<StaffMember>();
+
+            foreach (StaffMember staff in allStaffMembers)
+            {
+                foreach (AvailibiltyStaff availibilty in staff.Availibilty)
+                {
+                    if (availibilty.WeekAvailbilty == dateTime)
+                    {
+                        workingStaffList.Add(staff);
+                    }
+                }
+            }
+
+            return workingStaffList;
+
+        }
+
+
+        private AvailibiltyStaff GetAvailibiltyStaffObject(StaffMember staff ,DateTime dateTime)
+        {
+            AvailibiltyStaff availibiltyStaff = null;
+
+            foreach (AvailibiltyStaff availibilty in staff.Availibilty)
+            {
+                if (availibilty.WeekAvailbilty == dateTime)
+                {
+                    availibiltyStaff = availibilty;
+                    break;
+                }
+            }
+
+            return availibiltyStaff;
+
+        }
+
+
 
 
         #region to do

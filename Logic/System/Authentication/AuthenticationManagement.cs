@@ -11,11 +11,14 @@ namespace Logic.System.Authentication
 {
     public class AuthenticationManagement
     {
-      private IModelManager modelManager;
+        private List<StaffMember> allStaffMembers;
+        private List<Company> allCompanies;
 
-        public AuthenticationManagement(IModelManager modelManager)
+
+        public AuthenticationManagement(List<StaffMember> allStaffMembers, List<Company> allCompanies)
         {
-            this.modelManager = modelManager;
+            this.allStaffMembers = allStaffMembers;
+            this.allCompanies = allCompanies;
         }
 
 
@@ -24,10 +27,10 @@ namespace Logic.System.Authentication
         /// </summary>
         /// <param name="username"></param>
         /// <returns></returns>
-        public IStaff AuthenticateCurrentStaffMember(string username)
+        public StaffMember AuthenticateCurrentStaffMember(string username)
         {
-            IStaff currentStaffMember = null;
-            foreach (IStaff staff in modelManager.AllStaffMembers)
+            StaffMember currentStaffMember = null;
+            foreach (StaffMember staff in allStaffMembers)
             {
                 if (staff.Name == username)
                 {
@@ -44,10 +47,10 @@ namespace Logic.System.Authentication
         /// </summary>
         /// <param name="name"></param>
         /// <returns></returns>
-        public ICompany AuthenticateCurrentCompany(string name)
+        public Company AuthenticateCurrentCompany(string name)
         {
-            ICompany currentCompany = null;
-            foreach (ICompany company in modelManager.AllCompanies)
+            Company currentCompany = null;
+            foreach (Company company in allCompanies)
             {
                 if (company.Name == name)
                 {
@@ -65,17 +68,11 @@ namespace Logic.System.Authentication
         /// </summary>
         /// <param name="staffMember"></param>
         /// <returns></returns>
-        public bool AuthenticateManager(IStaff staffMember)
+        public bool AuthenticateManager(StaffMember staffMember)
         {
             if (staffMember.Role == Enum.CompanyRole.Manager) return true;
 
             return false;
         }
-
-
-
-
-
-
     }
 }

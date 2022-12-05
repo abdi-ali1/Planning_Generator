@@ -11,18 +11,18 @@ namespace Logic.Shifts.Availibiltiy
     public class AvailibiltyStaff
     {
         // fields
-        private DateTime neededWeek;
+        private DateTime weekAvailbilty;
         private Company company;
         private List<Shift> shifts = new();
 
         // properties
-        public DateTime NeededWeek { get { return neededWeek; } }
+        public DateTime WeekAvailbilty { get { return weekAvailbilty; } }
         public Company Company { get { return company; } }
         public IList<Shift> Shifts { get { return shifts.AsReadOnly(); }  }
 
         public AvailibiltyStaff(DateTime neededWeek, Company company)
         {
-            this.neededWeek = neededWeek;
+            this.weekAvailbilty = neededWeek;
             this.company = company;
         }
 

@@ -10,6 +10,7 @@ namespace Logic
 
    public interface IWorkRule
    {
-        public bool IsRuleAdhered(StaffMember staff); 
+        // TODO: Maybe interface diversion
+        public bool IsRuleAdhered(StaffMember staff, DateTime week); 
    }
 }

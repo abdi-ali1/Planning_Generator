@@ -16,6 +16,10 @@ namespace Logic.Companys.Request
         private Occaption occaption;
         private Shift neededShift;
 
+        // Be emplemanted later on
+        private int DegreeLevel;
+        private int reviewScore;
+
         public Occaption Occaption { get { return occaption; } }
         public Shift NeededShift { get { return NeededShift; } }
 

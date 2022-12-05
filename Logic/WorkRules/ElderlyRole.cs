@@ -15,7 +15,7 @@ namespace Logic.WorkRules
         /// </summary>
         /// <param name="staff"></param>
         /// <returns></returns>
-        public bool IsRuleAdhered(StaffMember staff)
+        public bool IsRuleAdhered(StaffMember staff, DateTime dateTime)
         {
             if (staff.Age > 50){ return true;}
             return false;   

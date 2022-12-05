@@ -6,12 +6,12 @@ namespace Logic
     public interface IModelManager
     {
 
-        public List<IStaff> AllStaffMembers { get; }
-        public List<ICompany> AllCompanies { get; }
+        public IList<StaffMember> AllStaffMembers { get; }
+        public IList<Company> AllCompanies { get; }
 
 
-        public void AddStaffMember(IStaff staffMember);
-        public void AddCompany(ICompany company);
+        public void AddStaffMember(StaffMember staffMember);
+        public void AddCompany(Company company);
 
 
         // only use it  for dummy data
