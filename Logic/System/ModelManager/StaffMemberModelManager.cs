@@ -1,24 +1,22 @@
 ﻿using Logic.Employee;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Logic.Interface;
 
 namespace Logic.System.ModelManager
 {
     public class StaffMemberModelManager: IStaffMemberModelManager
     {
         private List<StaffMember> allStaffMembers;
+        private IBinarayFileManager fileManager;
 
         public IList<StaffMember> AllStaffMembers { get { return allStaffMembers.AsReadOnly(); } }
 
 
-        public StaffMemberModelManager(List<StaffMember> allStaffMembers)
+        public StaffMemberModelManager(IBinarayFileManager fileManager)
         {
-            this.allStaffMembers = allStaffMembers;
-        }
 
+            this.fileManager = fileManager;    
+            this.allStaffMembers = fileManager.ReadFromBinaryFile<List<StaffMember>>();
+        }
 
         public bool AddNewStaff(StaffMember staffMember)
         {   
@@ -27,6 +25,16 @@ namespace Logic.System.ModelManager
             allStaffMembers.Add(staffMember);
             return true;
         }
+
+
+        public void SaveStaffMembers()
+        {
+            fileManager.WriteToBinaryFile<List<StaffMember>>(allStaffMembers);
+           
+        }
+
+
+
 
 
     }

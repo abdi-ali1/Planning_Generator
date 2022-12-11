@@ -14,13 +14,11 @@ namespace Logic.System.Authentication
         private List<StaffMember> allStaffMembers;
         private List<Company> allCompanies;
 
-
-        public AuthenticationManagement(List<StaffMember> allStaffMembers, List<Company> allCompanies)
+        public AuthenticationManagement(IList<StaffMember> allStaffMembers, IList<Company> allCompanies)
         {
             this.allStaffMembers = allStaffMembers;
             this.allCompanies = allCompanies;
         }
-
 
         /// <summary>
         /// Checks if user exist (tempory solution)

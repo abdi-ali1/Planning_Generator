@@ -17,18 +17,21 @@ namespace Logic.Companys.Request
         private Shift neededShift;
 
         // Be emplemanted later on
-        private int DegreeLevel;
+        private int degreeLevel;
         private int reviewScore;
 
         public Occaption Occaption { get { return occaption; } }
         public Shift NeededShift { get { return NeededShift; } }
+        public int DegreeLevel { get { return degreeLevel; } }
+
 
        
 
-        public NeededStaff(Occaption occaption, Shift neededShift)
+        public NeededStaff(Occaption occaption, Shift neededShift, int degreelevel)
         {
             this.occaption = occaption;
             this.neededShift = neededShift;
+            this.degreeLevel = degreelevel;
         }
     }
 }

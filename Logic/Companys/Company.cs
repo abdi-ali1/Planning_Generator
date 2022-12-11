@@ -1,10 +1,6 @@
 ﻿using Logic.Companys.Request;
-using Logic.Schedules.Company;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Logic.Schedules;
+
 
 namespace Logic.Companys
 {
@@ -24,12 +20,12 @@ namespace Logic.Companys
         {
             this.name = name;
         }
-
+/*
         public Company(string name, List<CompanySchedule> schedules, List<WeeklyNeed> weeklyNeed):this(name)
         {
             this.schedules = schedules;
             this.weeklyNeed = weeklyNeed;
-        }
+        }*/
 
         public void AddSchedules(CompanySchedule schedule)
         {

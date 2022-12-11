@@ -1,4 +1,6 @@
-﻿using Logic.Companys;
+﻿using Logic;
+using Logic.Companys;
+using Logic.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,15 +9,19 @@ using System.Threading.Tasks;
 
 namespace Logic.System.ModelManager
 {
-    public class CompanyModelManager
+    public class CompanyModelManager: ICompanyModelManager
     {
         private List<Company> allCompanies;
+        private IBinarayFileManager fileManager { get; set; }
 
         public IList<Company> AllCompanies { get { return allCompanies.AsReadOnly(); } }
 
-        public CompanyModelManager(List<Company> allCompanies)
+
+
+        public CompanyModelManager(IBinarayFileManager fileManager)
         {
-            this.allCompanies = allCompanies;
+            this.fileManager = fileManager;
+            this.allCompanies = this.fileManager.ReadFromBinaryFile<List<Company>>();
         }
 
 
@@ -24,6 +30,11 @@ namespace Logic.System.ModelManager
             if (allCompanies.Contains(company)) return false;        
             allCompanies.Add(company);
             return true;
+        }
+
+        public void SafeProducts()
+        {
+            fileManager.WriteToBinaryFile<List<Company>>(allCompanies);
         }
 
     }

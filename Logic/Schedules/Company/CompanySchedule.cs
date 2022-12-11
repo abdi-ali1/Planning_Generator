@@ -1,34 +1,37 @@
 ﻿using Logic.Employee;
+using Logic.Schedules.Company;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logic.Schedules.Company
+namespace Logic.Schedules
 {
     [Serializable]
     public class CompanySchedule
     {
         private DateTime currentWeek; 
-        
-        private List<StaffMember> allStaffMembers = new();
-
-        public IList<StaffMember> AllStaffMembers { get { return allStaffMembers.AsReadOnly(); } }
+        private List<CompanyScheduleInfo> scheduleInfos = new();
 
 
+        public DateTime CurrentWeek { get { return currentWeek; }  }
+        public IList<CompanyScheduleInfo> ScheduleInfos { get { return scheduleInfos.AsReadOnly(); } }
+
+/*
         public CompanySchedule(DateTime currentWeek) 
         {
             this.currentWeek = currentWeek;
         }
+*/
 
-        public CompanySchedule(DateTime currentWeek, List<StaffMember> staffMembers) : this(currentWeek)
+        public CompanySchedule(DateTime currentWeek, List<CompanyScheduleInfo> scheduleInfos)
         {
-         
-            this.allStaffMembers = staffMembers;
+            this.currentWeek = currentWeek;
+            this.scheduleInfos = scheduleInfos;
         }
 
-        public bool AddStaff(StaffMember staff)
+    /*    public bool AddStaff(StaffMember staff)
         {
             bool doesntExist = true;
             foreach (StaffMember s in allStaffMembers)
@@ -42,7 +45,7 @@ namespace Logic.Schedules.Company
             if (doesntExist) allStaffMembers.Add(staff);
 
             return doesntExist;
-        }
+        }*/
       
 
       

@@ -13,7 +13,7 @@ namespace Logic.Shifts.Availibiltiy
         // fields
         private DateTime weekAvailbilty;
         private Company company;
-        private List<Shift> shifts = new();
+        private List<Shift> shifts = new List<Shift>();
 
         // properties
         public DateTime WeekAvailbilty { get { return weekAvailbilty; } }
@@ -27,8 +27,7 @@ namespace Logic.Shifts.Availibiltiy
         }
 
 
-        //constructors
-        public AvailibiltyStaff(DateTime neededWeek, Company company, List<Shift> shifts): this(neededWeek, company)
+        public AvailibiltyStaff(DateTime neededWeek, Company company, List<Shift> shifts) : this(neededWeek, company)
         {
             this.shifts = shifts;
         }
@@ -45,6 +44,7 @@ namespace Logic.Shifts.Availibiltiy
                     break;
                 }
             }
+
             if (doesntExist) Shifts.Add(shift);
 
             return doesntExist;

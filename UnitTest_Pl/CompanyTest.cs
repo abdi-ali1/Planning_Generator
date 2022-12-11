@@ -22,13 +22,16 @@ namespace UnitTest_Pl
             Company company = new Company(name);
 
             //assert
-            Assert.AreEqual("Mosdex", company.Name);
+            Assert.AreEqual("Mosadex", company.Name);
         }
 
 
         [Test]
         public void CompanyAddWeeklyNeed()
         {
+
+
+
 
         }
 

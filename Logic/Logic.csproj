@@ -8,8 +8,13 @@
 
   <ItemGroup>
 
+  
+
     <EmbeddedResource Remove="Interface\**" />
+
+    <EmbeddedResource Remove="Schedules\Company\**" />
     <None Remove="Interface\**" />
+    <None Remove="Schedules\Company\**" />
   </ItemGroup>
 
 </Project>

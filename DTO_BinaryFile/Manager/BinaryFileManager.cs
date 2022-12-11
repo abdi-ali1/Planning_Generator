@@ -1,11 +1,17 @@
-﻿using Logic;
+﻿using Logic.Enum;
+using Logic.Interface;
 
 namespace DTO_BinaryFile.Manager
 {
-    public class BinaryFileManager : IBinaryFileManager
+    public class BinaryFileManager: IBinarayFileManager
     {
 
-        private string fileLocation = "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\DTO_BinaryFile\\Files\\data.bin";
+    
+
+        /*public BinaryFileManager()
+        {
+            this.fileLocation += fileName;
+        }*/
 
         /// <summary>
         /// Writes the given object instance to a binary file.
@@ -16,9 +22,9 @@ namespace DTO_BinaryFile.Manager
         /// <param name="filePath">The file path to write the object instance to.</param>
         /// <param name="objectToWrite">The object instance to write to the XML file.</param>
         /// <param name="append">If false the file will be overwritten if it already exists. If true the contents will be appended to the file.</param>
-        public  void WriteToBinaryFile(IModelManager objectToWrite)
+        public void WriteToBinaryFile<T>(T objectToWrite, RepositoryType type)
         {
-            using (Stream stream = File.Open(fileLocation, false ? FileMode.Append : FileMode.Create))
+            using (Stream stream = File.Open(FileSetterManager.SetFileLocation(type), false ? FileMode.Append : FileMode.Create))
             {
                 var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 binaryFormatter.Serialize(stream, objectToWrite);
@@ -31,12 +37,12 @@ namespace DTO_BinaryFile.Manager
         /// <typeparam name="T">The type of object to read from the XML.</typeparam>
         /// <param name="filePath">The file path to read the object instance from.</param>
         /// <returns>Returns a new instance of the object read from the binary file.</returns>
-        public  IModelManager ReadFromBinaryFile()
+        public T ReadFromBinaryFile<T>(RepositoryType type)
         {
-            using (Stream stream = File.Open(fileLocation, FileMode.Open))
+            using (Stream stream = File.Open(FileSetterManager.SetFileLocation(type), FileMode.Open))
             {
                 var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                return (IModelManager)binaryFormatter.Deserialize(stream);
+                return (T)binaryFormatter.Deserialize(stream);
             }
         }
 

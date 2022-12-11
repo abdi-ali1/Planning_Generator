@@ -1,13 +1,10 @@
 ﻿using Logic.Employee.Degrees;
 using Logic.Employee.Formules;
 using Logic.Enum;
+using Logic.Schedules;
 using Logic.Schedules.Staff;
 using Logic.Shifts.Availibiltiy;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Logic.Employee
 {
