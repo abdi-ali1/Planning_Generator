@@ -8,23 +8,23 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\abdi1\\.nuget\\packages\\": {},
+    "C:\\Users\\AbdiAli\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\Logic\\Logic.csproj",
+      "projectUniqueName": "C:\\Users\\AbdiAli\\source\\repos\\abdi-ali1\\Planning_Generator\\Logic\\Logic.csproj",
       "projectName": "Logic",
-      "projectPath": "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\Logic\\Logic.csproj",
-      "packagesPath": "C:\\Users\\abdi1\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\Logic\\obj\\",
+      "projectPath": "C:\\Users\\AbdiAli\\source\\repos\\abdi-ali1\\Planning_Generator\\Logic\\Logic.csproj",
+      "packagesPath": "C:\\Users\\AbdiAli\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\AbdiAli\\source\\repos\\abdi-ali1\\Planning_Generator\\Logic\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\abdi1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\AbdiAli\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -33,6 +33,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -66,7 +67,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

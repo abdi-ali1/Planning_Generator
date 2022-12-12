@@ -1,4 +1,5 @@
 ﻿using Logic.Companys.Request;
+using Logic.Interface;
 using Logic.Schedules;
 
 
@@ -9,39 +10,45 @@ namespace Logic.Companys
     {
         private string name;
         private List<CompanySchedule> schedules = new List<CompanySchedule>();
-        private List<WeeklyNeed> weeklyNeed = new List<WeeklyNeed>();
+        private List<IWeeklyNeed> weeklyNeed = new List<IWeeklyNeed>();
  
 
         public string Name { get { return name; } }
         public IList<CompanySchedule> Schedules { get => schedules.AsReadOnly();}
-        public IList<WeeklyNeed> WeeklyNeed { get => weeklyNeed.AsReadOnly();  }
+        public IList<WeeklyNeed> WeeklyNeed { get => (IList<WeeklyNeed>)weeklyNeed.AsReadOnly();  }
 
         public Company(string name)
         {
             this.name = name;
         }
-/*
-        public Company(string name, List<CompanySchedule> schedules, List<WeeklyNeed> weeklyNeed):this(name)
-        {
-            this.schedules = schedules;
-            this.weeklyNeed = weeklyNeed;
-        }*/
 
-        public void AddSchedules(CompanySchedule schedule)
+
+        public bool AddSchedules(CompanySchedule schedule)
         {
-           
+                bool isAdded = false;
                 if (!schedules.Contains(schedule))
                 {
-                   
+                    schedules.Add(schedule);
+                    isAdded = true;
                 }
-            
-        
-        }
 
-       public void AddWeeklyNeed(WeeklyNeed weekly)
+            return isAdded;
+        }
+        
+
+
+       public bool AddWeeklyNeed(IWeeklyNeed weekly)
        {
-            weeklyNeed.Add(weekly);
-       }
+            bool isAdded = false;
+            if (!weeklyNeed.Contains(weekly))
+            {
+                weeklyNeed.Add(weekly);
+                isAdded = true;
+            }
+
+            return isAdded;
+        }
+          
 
 
     }
