@@ -1,4 +1,5 @@
 ﻿using Logic.Employee;
+using Logic.Enum;
 using Logic.Interface;
 
 namespace Logic.System.ModelManager
@@ -15,7 +16,7 @@ namespace Logic.System.ModelManager
         {
 
             this.fileManager = fileManager;    
-            this.allStaffMembers = fileManager.ReadFromBinaryFile<List<StaffMember>>();
+            this.allStaffMembers = fileManager.ReadFromBinaryFile<List<StaffMember>>(RepositoryType.Staff);
         }
 
         public bool AddNewStaff(StaffMember staffMember)
@@ -29,7 +30,7 @@ namespace Logic.System.ModelManager
 
         public void SaveStaffMembers()
         {
-            fileManager.WriteToBinaryFile<List<StaffMember>>(allStaffMembers);
+            fileManager.WriteToBinaryFile<List<StaffMember>>(allStaffMembers, RepositoryType.Staff);
            
         }
 

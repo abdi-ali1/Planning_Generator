@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Logic.Companys;
 
+
 namespace Logic.Schedules.Staff
 {
     [Serializable]
@@ -17,16 +18,16 @@ namespace Logic.Schedules.Staff
         // fields
         private DateTime currentWeek;
         private List<Shift> allShifts = new List<Shift>();
-        private Company company;
+        private Companys.Company company;
 
 
         // properties
         public DateTime CurrentWeek { get { return currentWeek; } }
         public IList<Shift> AllShifts { get { return allShifts.AsReadOnly(); } }
         public float TotalWorkingHours { get { return  WorkHour.GetTotalWeekWorkingHour(allShifts); } }
-        private Company Company { get { return company; } }
+        private Companys.Company Company { get { return company; } }
 
-        public StaffSchedule(DateTime currentWeek, Company company)
+        public StaffSchedule(DateTime currentWeek, Companys.Company company)
         {
             this.currentWeek = currentWeek;
             this.company = company;

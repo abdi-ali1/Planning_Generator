@@ -1,5 +1,6 @@
 ﻿using Logic;
 using Logic.Companys;
+using Logic.Enum;
 using Logic.Interface;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Logic.System.ModelManager
         public CompanyModelManager(IBinarayFileManager fileManager)
         {
             this.fileManager = fileManager;
-            this.allCompanies = this.fileManager.ReadFromBinaryFile<List<Company>>();
+            this.allCompanies = (List<Company>?)this.fileManager.ReadFromBinaryFile<IList<Company>>(RepositoryType.Company);
         }
 
 
@@ -34,7 +35,7 @@ namespace Logic.System.ModelManager
 
         public void SafeProducts()
         {
-            fileManager.WriteToBinaryFile<List<Company>>(allCompanies);
+            fileManager.WriteToBinaryFile<List<Company>>(allCompanies, RepositoryType.Company);
         }
 
     }

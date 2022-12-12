@@ -29,7 +29,13 @@ namespace Logic.Companys
 
         public void AddSchedules(CompanySchedule schedule)
         {
-            schedules.Add(schedule);
+           
+                if (!schedules.Contains(schedule))
+                {
+                   
+                }
+            
+        
         }
 
        public void AddWeeklyNeed(WeeklyNeed weekly)

@@ -13,16 +13,18 @@ namespace UnitTest_Pl
         }
 
         [Test]
-        public void CompanyNameTest()
+        [TestCase("Mosadex")]
+        [TestCase("Vista")]
+        [TestCase("GorrilaGames")]
+        public void CompanyNameTest(string name)
         {
             //arrange
-            string name = "Mosadex";
 
             // act
             Company company = new Company(name);
 
             //assert
-            Assert.AreEqual("Mosadex", company.Name);
+            Assert.AreEqual(name, company.Name);
         }
 
 

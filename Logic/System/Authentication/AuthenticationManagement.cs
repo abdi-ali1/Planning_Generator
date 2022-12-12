@@ -11,8 +11,8 @@ namespace Logic.System.Authentication
 {
     public class AuthenticationManagement
     {
-        private List<StaffMember> allStaffMembers;
-        private List<Company> allCompanies;
+        private IList<StaffMember> allStaffMembers;
+        private IList<Company> allCompanies;
 
         public AuthenticationManagement(IList<StaffMember> allStaffMembers, IList<Company> allCompanies)
         {
