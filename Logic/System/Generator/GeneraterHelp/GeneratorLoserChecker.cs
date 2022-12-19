@@ -14,9 +14,9 @@ namespace Logic.System.Generator.GeneraterHelp
 {
     internal class GeneratorLoserChecker : IAvailibiltyChecker
     {
-        public bool IsChosen(NeededStaff needed, StaffMember staff, DateTime date)
+        public CompanyScheduleInfo IsChosen(NeededStaff needed, StaffMember staff, DateTime date)
         {
-            bool isChosen = false;
+            CompanyScheduleInfo companyScheduleInfo = null;
             foreach (AvailibiltyStaff availibilty in staff.Availibilty)
             {
                 if (availibilty.WeekAvailbilty == date)
@@ -27,14 +27,16 @@ namespace Logic.System.Generator.GeneraterHelp
                         {
                             if (needed.Occaption.Equals(staff.Occaption) && needed.DegreeLevel.Equals(staff.Degree.DegreeLevel))
                             {
-                                isChosen = true;
+                                companyScheduleInfo = new CompanyScheduleInfo(staff, shift);
                                 break;
                             }
                         }
                     }
                 }
             }
-            return isChosen;
+            return companyScheduleInfo;
         }
+
+  
     }
 }

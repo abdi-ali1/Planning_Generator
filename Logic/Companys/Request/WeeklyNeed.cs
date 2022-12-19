@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Logic.Interface;
 
 namespace Logic.Companys.Request
 {
     [Serializable]
-    public class WeeklyNeed
+    public class WeeklyNeed: IWeeklyNeed
     {
         // fields
         private DateTime weekNeeded;
