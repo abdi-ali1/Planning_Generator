@@ -1,9 +1,11 @@
 ﻿using Logic.Companys;
 using Logic.Companys.Request;
 using Logic.Employee;
+using Logic.Interface;
 using Logic.Schedules;
+using Logic.Schedules.Company;
 using Logic.Schedules.Staff;
-
+using Logic.System.Generator.GeneraterHelp;
 
 namespace Logic.System.Generator
 {
@@ -12,78 +14,46 @@ namespace Logic.System.Generator
 
         private IList<StaffMember> allStaffMembers;
         private IList<IWorkRule> workRules;
+        private IGetLoopInfoWeeklyNeed getLoopInfoWeeklyNeed = new WeeklyNeedLooper();
+        private IAvailibiltyChecker availibiltyChecker = new GeneratorAvailibilityChecker();
+        private IAvailibiltyChecker loserAvailibilty = new GeneratorLoserChecker();
 
 
-        public ScheduleGenerator(IList<StaffMember> allStaffMembers, List<IWorkRule> workRule)
+        public ScheduleGenerator(IList<StaffMember> allStaffMembers)
         {
             this.allStaffMembers = allStaffMembers;
-            this.workRules = workRule;
+            this.workRules = (IList<IWorkRule>)RuleManager.GetLoadableTypes();
         }
 
 
-
+        //TODO interface that Uses This Method
         /// <summary>
         /// will generate schedules for the company and the chosen staffmembers
         /// </summary>
         /// <param name="weeklyNeed"> will probably be changed to a diffrent data type</param>
-        public IList<StaffMember> GenerateSchedule(Company company, DateTime weekNeeded)
+        public CompanySchedule GenerateSchedule(Company company, DateTime weekNeeded)
         {
-            WeeklyNeed neededWeekData = GeneraterloopContext.GetNeededWeek(company.WeeklyNeed, weekNeeded);
-            IList<StaffMember> availibilStaff = new List<StaffMember>();
-            int neededAmountEmployees = GeneraterloopContext.AmountOfNeededStaff(neededWeekData);
+            WeeklyNeed neededWeekData = getLoopInfoWeeklyNeed.GetInfo(company, weekNeeded);
+            CompanySchedule schedule = new CompanySchedule(weekNeeded);
 
             foreach (NeededStaff needed in neededWeekData.NeededStaff)
             {
                 foreach (StaffMember staff in allStaffMembers)
                 {
-                    if (GeneraterloopContext.IsChosen(needed, staff, weekNeeded))
+                    CompanyScheduleInfo scheduleInfo = availibiltyChecker.IsChosen(needed, staff, weekNeeded);
+                    if (scheduleInfo != null)
                     {
-                        availibilStaff.Add(staff);
+                       schedule.AddComapanySchedule(scheduleInfo);
                     }
                 }
             }
 
-            if (neededAmountEmployees != availibilStaff.Count)
-            {
-                foreach (NeededStaff needed in neededWeekData.NeededStaff)
-                {
-                    foreach (StaffMember staff in allStaffMembers)
-                    {
-                        if (GeneraterloopContext.IsAbelToWork(needed, staff, weekNeeded))
-                        {
-                            if (!availibilStaff.Contains(staff))
-                            {
-                                availibilStaff.Add(staff);
-                            }
-                        }
-                    }
-                }
-            }
-
-   /*         company.AddSchedules(new CompanySchedule(weekNeeded, (List<StaffMember>)availibilStaff));*/
-
-     
-
-            return availibilStaff;
+            return schedule;
         }
 
 
-        /// <summary>
-        /// Adds a new workrule
-        /// weet niet als dit handig kan zijn
-        /// </summary>
-        /// <param name="workRule"></param>
-        /// <returns></returns>
-        public bool AddRule(IWorkRule workRule)
-        {
-            if (!workRules.Contains(workRule))
-            {
-                workRules.Add(workRule);
-                return true;
-            }
 
-            return false;
-        }
+
 
 
       

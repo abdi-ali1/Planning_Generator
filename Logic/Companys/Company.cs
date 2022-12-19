@@ -20,22 +20,14 @@ namespace Logic.Companys
         {
             this.name = name;
         }
-/*
-        public Company(string name, List<CompanySchedule> schedules, List<WeeklyNeed> weeklyNeed):this(name)
-        {
-            this.schedules = schedules;
-            this.weeklyNeed = weeklyNeed;
-        }*/
+
 
         public void AddSchedules(CompanySchedule schedule)
         {
-           
-                if (!schedules.Contains(schedule))
-                {
-                   
-                }
-            
-        
+            if (!schedules.Contains(schedule))
+            {
+                schedules.Add(schedule);
+            }
         }
 
        public void AddWeeklyNeed(WeeklyNeed weekly)

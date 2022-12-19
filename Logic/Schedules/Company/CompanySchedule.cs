@@ -12,18 +12,18 @@ namespace Logic.Schedules
     public class CompanySchedule
     {
         private DateTime currentWeek; 
-        private List<CompanyScheduleInfo> scheduleInfos = new();
+        private List<CompanyScheduleInfo> scheduleInfos = new List<CompanyScheduleInfo>();
 
 
         public DateTime CurrentWeek { get { return currentWeek; }  }
         public IList<CompanyScheduleInfo> ScheduleInfos { get { return scheduleInfos.AsReadOnly(); } }
 
-/*
-        public CompanySchedule(DateTime currentWeek) 
+
+        public CompanySchedule(DateTime currentWeek)
         {
             this.currentWeek = currentWeek;
         }
-*/
+
 
         public CompanySchedule(DateTime currentWeek, List<CompanyScheduleInfo> scheduleInfos)
         {
@@ -31,21 +31,20 @@ namespace Logic.Schedules
             this.scheduleInfos = scheduleInfos;
         }
 
-    /*    public bool AddStaff(StaffMember staff)
-        {
-            bool doesntExist = true;
-            foreach (StaffMember s in allStaffMembers)
-            {
-                if (s.Equals(staff))
-                {
-                    doesntExist = false;
-                    break;
-                }
-            }
-            if (doesntExist) allStaffMembers.Add(staff);
 
-            return doesntExist;
-        }*/
+        public bool AddComapanySchedule(CompanyScheduleInfo scheduleInfo)
+        {
+            bool alreadyExist = true;
+            if (!scheduleInfos.Contains(scheduleInfo))
+            {
+                scheduleInfos.Add(scheduleInfo);
+                alreadyExist = false;
+            }
+
+            return alreadyExist;
+        }
+
+       
       
 
       
