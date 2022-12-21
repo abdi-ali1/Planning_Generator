@@ -10,33 +10,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logic.System.Generator.GeneraterHelp
+namespace Logic.System.Generator
 {
     internal class GeneratorLoserChecker : IAvailibiltyChecker
     {
-        public CompanyScheduleInfo IsChosen(NeededStaff needed, StaffMember staff, DateTime date)
+        public bool MatchesNeed(NeededStaff needed, StaffMember staff, DateTime date)
         {
-            CompanyScheduleInfo companyScheduleInfo = null;
+            bool matches = false;
             foreach (AvailibiltyStaff availibilty in staff.Availibilty)
             {
-                if (availibilty.WeekAvailbilty == date)
+                foreach (Shift shift in availibilty.Shifts)
                 {
-                    foreach (Shift shift in availibilty.Shifts)
+                    if (needed.NeededShift.Equals(shift))
                     {
-                        if (needed.NeededShift.Equals(shift) && needed.Occaption.Equals(staff.Occaption))
-                        {
-                            if (needed.Occaption.Equals(staff.Occaption) && needed.DegreeLevel.Equals(staff.Degree.DegreeLevel))
-                            {
-                                companyScheduleInfo = new CompanyScheduleInfo(staff, shift);
-                                break;
-                            }
-                        }
+                        matches = true;
+                        break;
                     }
                 }
             }
-            return companyScheduleInfo;
+            return matches;
         }
 
-  
+
+
     }
 }

@@ -2,6 +2,7 @@
 using Logic.Employee.Formules;
 using Logic.Enum;
 using Logic.Schedules;
+using Logic.Schedules.Company;
 using Logic.Schedules.Staff;
 using Logic.Shifts.Availibiltiy;
 
@@ -57,8 +58,6 @@ namespace Logic.Employee
         }
 
 
-
-
         public void AddSchedule(StaffSchedule staffSchedule)
         {
             schedule.Add(staffSchedule);
@@ -67,6 +66,17 @@ namespace Logic.Employee
         public void AddAvailibilty(AvailibiltyStaff availibiltyStaff)
         {
            Availibilty.Add(availibiltyStaff);
+        }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            StaffMember staff = (StaffMember)obj;
+            return (username == staff.Username);
         }
 
 

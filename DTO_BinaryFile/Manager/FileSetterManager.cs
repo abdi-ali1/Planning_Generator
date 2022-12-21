@@ -14,8 +14,6 @@ namespace DTO_BinaryFile.Manager
 
         public static string SetFileLocation(RepositoryType type)
         {
-           
-
             switch (type)
             {
                 case RepositoryType.Staff:
@@ -27,7 +25,6 @@ namespace DTO_BinaryFile.Manager
             }
 
             return null;
-
         }
 
 

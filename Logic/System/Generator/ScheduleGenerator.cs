@@ -4,7 +4,7 @@ using Logic.Employee;
 using Logic.Interface;
 using Logic.Schedules;
 using Logic.Schedules.Company;
-using Logic.Schedules.Staff;
+using Logic.Shifts.Availibiltiy;
 using Logic.System.Generator.GeneraterHelp;
 
 namespace Logic.System.Generator
@@ -13,18 +13,16 @@ namespace Logic.System.Generator
     {
 
         private IList<StaffMember> allStaffMembers;
-        private IList<IWorkRule> workRules;
+        private IList<IWorkRule> workRules = (IList<IWorkRule>)RuleManager.GetLoadableTypes();
         private IGetLoopInfoWeeklyNeed getLoopInfoWeeklyNeed = new WeeklyNeedLooper();
         private IAvailibiltyChecker availibiltyChecker = new GeneratorAvailibilityChecker();
-        private IAvailibiltyChecker loserAvailibilty = new GeneratorLoserChecker();
+        private IAvailibiltyChecker Secondeavailibilty = new GeneratorLoserChecker();
 
 
         public ScheduleGenerator(IList<StaffMember> allStaffMembers)
         {
             this.allStaffMembers = allStaffMembers;
-            this.workRules = (IList<IWorkRule>)RuleManager.GetLoadableTypes();
         }
-
 
         //TODO interface that Uses This Method
         /// <summary>
@@ -35,15 +33,16 @@ namespace Logic.System.Generator
         {
             WeeklyNeed neededWeekData = getLoopInfoWeeklyNeed.GetInfo(company, weekNeeded);
             CompanySchedule schedule = new CompanySchedule(weekNeeded);
+            List<StaffMember> staffMembersAvailibleOnDate = StaffMembersAvailibleOnDate((List<StaffMember>)allStaffMembers, weekNeeded);
 
             foreach (NeededStaff needed in neededWeekData.NeededStaff)
             {
-                foreach (StaffMember staff in allStaffMembers)
+                foreach (StaffMember staff in staffMembersAvailibleOnDate)
                 {
-                    CompanyScheduleInfo scheduleInfo = availibiltyChecker.IsChosen(needed, staff, weekNeeded);
-                    if (scheduleInfo != null)
+                    if (availibiltyChecker.MatchesNeed(needed, staff, weekNeeded) && 
+                            AdheredAllWorkRules(staff, weekNeeded))
                     {
-                       schedule.AddComapanySchedule(scheduleInfo);
+                        schedule.AddComapanyScheduleInfo(new CompanyScheduleInfo(staff, needed.NeededShift));
                     }
                 }
             }
@@ -52,14 +51,58 @@ namespace Logic.System.Generator
         }
 
 
+        public CompanySchedule GenerateBackUpSchedule(Company company, DateTime weekNeeded)
+        {
+            WeeklyNeed neededWeekData = getLoopInfoWeeklyNeed.GetInfo(company, weekNeeded);
+            CompanySchedule schedule = new CompanySchedule(weekNeeded);
+            List<StaffMember> staffMembersAvailibleOnDate = StaffMembersAvailibleOnDate((List<StaffMember>)allStaffMembers, weekNeeded);
 
+            foreach (NeededStaff needed in neededWeekData.NeededStaff)
+            {
+                foreach (StaffMember staff in staffMembersAvailibleOnDate)
+                {
+                    if (availibiltyChecker.MatchesNeed(needed, staff, weekNeeded) &&
+                            AdheredAllWorkRules(staff, weekNeeded))
+                    {
+                        schedule.AddComapanyScheduleInfo(new CompanyScheduleInfo(staff, needed.NeededShift));
+                    }
+                }
+            }
 
+            return schedule;
+        }
 
+        private List<StaffMember> StaffMembersAvailibleOnDate(List<StaffMember> staffMembers, DateTime dateTime)
+        {
+            List<StaffMember> staffMembersAvailible = new List<StaffMember>();
+            foreach (StaffMember staff in staffMembers)
+            {
+                foreach (AvailibiltyStaff availibilty in staff.Availibilty)
+                {
+                    if (availibilty.WeekAvailbilty == dateTime)
+                    {
+                        staffMembersAvailible.Add(staff);
+                    }
+                }
+            }
+            return staffMembersAvailible;
+        }
 
-      
+        private bool AdheredAllWorkRules(StaffMember staff, DateTime date)
+        {
+            bool adheredRule = true;
+            foreach (IWorkRule rule in workRules)
+            {
+                if(!rule.IsRuleAdhered(staff, date))
+                {
+                   adheredRule = false;
+                    break;
+                }
+            }
 
-      
-  
+            return adheredRule; 
+        }
 
+        
     }
 }

@@ -32,7 +32,7 @@ namespace Logic.Schedules
         }
 
 
-        public bool AddComapanySchedule(CompanyScheduleInfo scheduleInfo)
+        public bool AddComapanyScheduleInfo(CompanyScheduleInfo scheduleInfo)
         {
             bool alreadyExist = true;
             if (!scheduleInfos.Contains(scheduleInfo))

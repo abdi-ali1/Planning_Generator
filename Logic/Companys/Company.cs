@@ -26,20 +26,15 @@ namespace Logic.Companys
         public bool AddSchedules(CompanySchedule schedule)
         {
 
-
             bool isAdded = false;
             if (!schedules.Contains(schedule))
             {
                 schedules.Add(schedule);
                 isAdded = true;
             }
-
-
             return isAdded;
-
         }
         
-
 
        public bool AddWeeklyNeed(IWeeklyNeed weekly)
        {

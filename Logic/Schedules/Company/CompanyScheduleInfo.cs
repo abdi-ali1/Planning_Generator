@@ -22,5 +22,16 @@ namespace Logic.Schedules.Company
             this.staff = staff;
             this.shift = shift;
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            CompanyScheduleInfo info = (CompanyScheduleInfo)obj;
+            return (staff.Equals(info.staff)) && (shift.Equals(info.shift));
+        }
     }
 }

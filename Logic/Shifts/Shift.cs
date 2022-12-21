@@ -22,5 +22,18 @@ namespace Logic.Shifts
             this.day = day;
             this.kindOfShift = kindOfShift;
         }
+
+
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            Shift shift = (Shift)obj; 
+            return (day == shift.Day ) && (kindOfShift == shift.KindOfShift);
+        }
     }
 }
