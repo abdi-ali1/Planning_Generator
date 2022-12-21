@@ -24,7 +24,6 @@ namespace Logic.Shifts
         }
 
 
-
         public override bool Equals(object obj)
         {
             if (obj == null || !this.GetType().Equals(obj.GetType()))

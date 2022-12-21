@@ -13,10 +13,9 @@ namespace Logic.System.Generator
     {
 
         private IList<StaffMember> allStaffMembers;
-        private IList<IWorkRule> workRules = (IList<IWorkRule>)RuleManager.GetLoadableTypes();
         private IGetLoopInfoWeeklyNeed getLoopInfoWeeklyNeed = new WeeklyNeedLooper();
         private IAvailibiltyChecker availibiltyChecker = new GeneratorAvailibilityChecker();
-        private IAvailibiltyChecker Secondeavailibilty = new GeneratorLoserChecker();
+        private IAvailibiltyChecker secondeavailibilty = new GeneratorBackerChecker();
 
 
         public ScheduleGenerator(IList<StaffMember> allStaffMembers)
@@ -39,8 +38,7 @@ namespace Logic.System.Generator
             {
                 foreach (StaffMember staff in staffMembersAvailibleOnDate)
                 {
-                    if (availibiltyChecker.MatchesNeed(needed, staff, weekNeeded) && 
-                            AdheredAllWorkRules(staff, weekNeeded))
+                    if (availibiltyChecker.MatchesNeed(needed, staff, weekNeeded))
                     {
                         schedule.AddComapanyScheduleInfo(new CompanyScheduleInfo(staff, needed.NeededShift));
                     }
@@ -50,27 +48,6 @@ namespace Logic.System.Generator
             return schedule;
         }
 
-
-        public CompanySchedule GenerateBackUpSchedule(Company company, DateTime weekNeeded)
-        {
-            WeeklyNeed neededWeekData = getLoopInfoWeeklyNeed.GetInfo(company, weekNeeded);
-            CompanySchedule schedule = new CompanySchedule(weekNeeded);
-            List<StaffMember> staffMembersAvailibleOnDate = StaffMembersAvailibleOnDate((List<StaffMember>)allStaffMembers, weekNeeded);
-
-            foreach (NeededStaff needed in neededWeekData.NeededStaff)
-            {
-                foreach (StaffMember staff in staffMembersAvailibleOnDate)
-                {
-                    if (availibiltyChecker.MatchesNeed(needed, staff, weekNeeded) &&
-                            AdheredAllWorkRules(staff, weekNeeded))
-                    {
-                        schedule.AddComapanyScheduleInfo(new CompanyScheduleInfo(staff, needed.NeededShift));
-                    }
-                }
-            }
-
-            return schedule;
-        }
 
         private List<StaffMember> StaffMembersAvailibleOnDate(List<StaffMember> staffMembers, DateTime dateTime)
         {
@@ -88,20 +65,7 @@ namespace Logic.System.Generator
             return staffMembersAvailible;
         }
 
-        private bool AdheredAllWorkRules(StaffMember staff, DateTime date)
-        {
-            bool adheredRule = true;
-            foreach (IWorkRule rule in workRules)
-            {
-                if(!rule.IsRuleAdhered(staff, date))
-                {
-                   adheredRule = false;
-                    break;
-                }
-            }
-
-            return adheredRule; 
-        }
+ 
 
         
     }

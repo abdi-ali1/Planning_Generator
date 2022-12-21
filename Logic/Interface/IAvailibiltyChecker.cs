@@ -7,6 +7,7 @@ namespace Logic.Interface
 {
     internal interface IAvailibiltyChecker
     {
+        
         public bool MatchesNeed(NeededStaff needed, StaffMember staff, DateTime date);
     }
 }

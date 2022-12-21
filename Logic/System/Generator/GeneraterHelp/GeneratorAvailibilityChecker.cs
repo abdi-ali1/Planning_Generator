@@ -15,6 +15,13 @@ namespace Logic.System.Generator.GeneraterHelp
 {
     internal class GeneratorAvailibilityChecker: IAvailibiltyChecker
     {
+        private WorRuleHelper workRuleHelper;
+
+        public GeneratorAvailibilityChecker()
+        {
+            workRuleHelper = new WorRuleHelper();
+        }
+
         public bool MatchesNeed(NeededStaff needed, StaffMember staff, DateTime date)
         {
             bool matches = false;
@@ -22,7 +29,7 @@ namespace Logic.System.Generator.GeneraterHelp
             {
                 foreach (Shift shift in availibilty.Shifts)
                 {
-                    if (needed.NeededShift.Equals(shift) && IsEligible(needed, staff))
+                    if (needed.NeededShift.Equals(shift) && IsEligible(needed, staff) && workRuleHelper.AdheredAllWorkRules(staff, date))
                     {
                         matches = true;
                         break;
@@ -38,7 +45,7 @@ namespace Logic.System.Generator.GeneraterHelp
         /// <param name="neededStaff"></param>
         /// <param name="staff"></param>
         /// <returns></returns>
-        private bool IsEligible(NeededStaff neededStaff, StaffMember staff)
+        public bool IsEligible(NeededStaff neededStaff, StaffMember staff)
         {
             if (neededStaff.Occaption.Equals(staff.Occaption) &&
                         neededStaff.DegreeLevel.Equals(staff.Degree.DegreeLevel))
@@ -47,5 +54,11 @@ namespace Logic.System.Generator.GeneraterHelp
             }
             return false;
         }
+
+
+
+    
+
+     
     }
 }
