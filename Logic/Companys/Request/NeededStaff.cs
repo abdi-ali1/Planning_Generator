@@ -33,5 +33,7 @@ namespace Logic.Companys.Request
             this.neededShift = neededShift;
             this.degreeLevel = degreelevel;
         }
+
+
     }
 }

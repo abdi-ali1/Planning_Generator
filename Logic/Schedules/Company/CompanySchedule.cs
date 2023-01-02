@@ -31,25 +31,40 @@ namespace Logic.Schedules
             this.scheduleInfos = scheduleInfos;
         }
 
-
-        public bool AddComapanyScheduleInfo(CompanyScheduleInfo scheduleInfo)
+        /// <summary>
+        /// Adds a CompanyScheduleInfo object to the list of ScheduleInfos for the CompanySchedule.
+        /// </summary>
+        /// <param name="scheduleInfo">The scheduleInfo object to be added to the list.</param>
+        /// <returns>
+        /// A Result<string> object indicating the success or failure of the operation. If the operation is successful,
+        /// the Ok variant will contain a string message indicating that the StaffSchedule object was added to the list. 
+        /// If the operation fails, the Fail variant will contain an Exception object with more information about the 
+        /// error.
+        /// </returns>
+        public Result<bool> AddComapanyScheduleInfo(CompanyScheduleInfo scheduleInfo)
         {
-            bool alreadyExist = true;
-            if (!scheduleInfos.Contains(scheduleInfo))
+            try
             {
-                scheduleInfos.Add(scheduleInfo);
-                alreadyExist = false;
+                if (!scheduleInfos.Any(x => x.Staff == scheduleInfo.Staff && x.Shift == scheduleInfo.Shift))
+                {
+                    scheduleInfos.Add(scheduleInfo);
+                    return Result<bool>.Ok(true);
+                }
+                return Result<bool>.Fail(new Exception("already exist"));
             }
-
-            return alreadyExist;
+            catch (Exception e)
+            {
+                return Result<bool>.Fail(e);
+            
+            }        
         }
 
-       
-      
+
+
+
 
       
 
-       
 
     }
 }

@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 namespace Logic.Employee.Formules
 {
-    [Serializable]
-    public static class AgeCalculater
+
+    public class AgeCalculater
     {
-     
+
         /// <summary>
-        /// calculates and returns the current age
+        /// Calculates and returns the current age of a person based on their birth date.
         /// </summary>
-        /// <returns> the current age in round nummers</returns>
+        /// <param name="birthDate">The person's birth date.</param>
+        /// <returns>An int value representing the person's current age, rounded to the nearest whole number.</returns>
         public static int GetCurrentAge(DateTime birthDate)
         {
             int age = DateTime.Now.Year - birthDate.Year;

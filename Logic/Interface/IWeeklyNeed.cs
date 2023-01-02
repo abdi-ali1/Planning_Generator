@@ -6,7 +6,7 @@ namespace Logic.Interface
     {
         public DateTime WeekNeeded { get;  }
         public IList<NeededStaff> NeededStaff { get;  }
-        public void AddNeededStaff(NeededStaff needed);
+        public Result<string> AddNeededStaff(NeededStaff needed);
 
 
 

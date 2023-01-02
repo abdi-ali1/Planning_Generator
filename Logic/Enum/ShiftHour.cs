@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Enum
 {
-    [Serializable]
+
     public enum ShiftHour
     {
         MorningShift = 1,

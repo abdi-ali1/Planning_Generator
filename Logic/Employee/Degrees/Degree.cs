@@ -18,15 +18,23 @@ namespace Logic.Employee.Degrees
         public string NameOfDegree { get { return nameOfDegree; } }
         public int DegreeLevel { get { return degreeLevel; } }
 
-        /// <summary>
-        /// constructor sets the private fields
-        /// </summary>
-        /// <param name="nameOfDegree"></param>
-        /// <param name="degreeLevel"></param>
+   
         public Degree(string nameOfDegree, int degreeLevel)
         {
             this.nameOfDegree = nameOfDegree;
             this.degreeLevel = degreeLevel;
+        }
+
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            Degree degree =  (Degree)obj;
+            return (degree.nameOfDegree == nameOfDegree && degree.degreeLevel == degreeLevel);
         }
 
 

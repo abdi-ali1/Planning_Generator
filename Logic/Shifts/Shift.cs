@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DayOfWeek = Logic.Enum.DayOfWeek;
 
+
 namespace Logic.Shifts
 {
     [Serializable]
@@ -22,7 +23,6 @@ namespace Logic.Shifts
             this.day = day;
             this.kindOfShift = kindOfShift;
         }
-
 
         public override bool Equals(object obj)
         {

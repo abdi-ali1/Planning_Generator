@@ -12,7 +12,7 @@ namespace Logic.Interface
 
         public IList<Company> AllCompanies { get; }
 
-        public bool AddNewCompany(Company company);
+        public Result<string> AddNewCompany(Company company);
 
         public void SafeProducts();
     }

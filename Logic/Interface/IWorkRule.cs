@@ -1,4 +1,6 @@
-﻿using Logic.Employee;
+﻿using Logic.Companys.Request;
+using Logic.Employee;
+using Logic.Shifts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +13,6 @@ namespace Logic
    public interface IWorkRule
    {
         // TODO: Maybe interface diversion
-        public bool IsRuleAdhered(StaffMember staff, DateTime week); 
+        public bool IsRuleAdhered(StaffMember staff, NeededStaff needed); 
    }
 }

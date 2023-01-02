@@ -32,22 +32,47 @@ namespace Logic.Shifts.Availibiltiy
             this.shifts = shifts;
         }
 
-
-        public bool AddNewShift(Shift shift)
+        /// <summary>
+        /// Adds a shift object to the list of shifts for the AvailibiltyStaff.
+        /// </summary>
+        /// <param name="shift">The shift object to be added to the list.</param>
+        /// <returns>
+        /// A Result<string> object indicating the success or failure of the operation. If the operation is successful,
+        /// the Ok variant will contain a string message indicating that the StaffSchedule object was added to the list. 
+        /// If the operation fails, the Fail variant will contain an Exception object with more information about the 
+        /// error.
+        /// </returns>
+        public Result<string> AddNewShift(Shift shift)
         {
-            bool doesntExist = true;
-            foreach (Shift s in Shifts)
+
+            try
             {
-                if (s.Equals(shift))
+                if (!shifts.Any(x => x.Equals(shift)))
                 {
-                    doesntExist = false;
-                    break;
+                    shifts.Add(shift);
+                    return Result<string>.Ok("Added to list");
                 }
+
+                return Result<string>.Fail(new Exception("shift already exist"));
+            }
+            catch (Exception e)
+            {
+
+                return Result<string>.Fail(e);
+            }
+        }
+
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || !this.GetType().Equals(obj.GetType()))
+            {
+                return false;
             }
 
-            if (doesntExist) Shifts.Add(shift);
+            AvailibiltyStaff availibiltyStaff = (AvailibiltyStaff)obj;
 
-            return doesntExist;
+            return (availibiltyStaff.company.Name == company.Name && availibiltyStaff.WeekAvailbilty == weekAvailbilty);
         }
 
     }

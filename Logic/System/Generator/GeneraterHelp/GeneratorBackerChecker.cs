@@ -15,12 +15,7 @@ namespace Logic.System.Generator
 {
     internal class GeneratorBackerChecker : IAvailibiltyChecker
     {
-        private WorRuleHelper worRuleHelper;
-
-        public GeneratorBackerChecker()
-        {
-            worRuleHelper = new WorRuleHelper();
-        }
+        private WorkRuleHelper workRuleHelper = new WorkRuleHelper();
 
         public bool MatchesNeed(NeededStaff needed, StaffMember staff, DateTime date)
         {
@@ -29,7 +24,7 @@ namespace Logic.System.Generator
             {
                 foreach (Shift shift in availibilty.Shifts)
                 {
-                    if (needed.NeededShift.Equals(shift) && worRuleHelper.AdheredAllWorkRules(staff, date))
+                    if (needed.NeededShift.Equals(shift) && workRuleHelper.AdheredAllWorkRules(staff, date))
                     {
                         matches = true;
                         break;

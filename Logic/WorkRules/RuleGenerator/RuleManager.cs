@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Logic.System.Generator
 {
-    internal static class RuleManager
+    internal class RuleManager
     {
 
         public static IEnumerable<IWorkRule> GetLoadableTypes()
@@ -25,7 +25,6 @@ namespace Logic.System.Generator
                     }
                 }
             }
-
             return workRules;
         }
     }

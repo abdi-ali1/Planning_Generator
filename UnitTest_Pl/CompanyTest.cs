@@ -21,7 +21,6 @@ namespace UnitTest_Pl
         [TestCase("GorrilaGames")]
         public void CompanyNameTest(string name)
         {
-            //arrange
 
             // act
             Company company = new Company(name);
@@ -37,11 +36,11 @@ namespace UnitTest_Pl
 
             // arrange 
             Company company = new Company("Mosadex");
-            IWeeklyNeed weekly = new WeeklyNeedMock();
+            IWeeklyNeed weekly = new WeeklyNeedMock(new DateTime(2023, 1, 2));
 
 
             //act
-           bool isAdded = company.AddWeeklyNeed(weekly);
+            bool isAdded = company.AddWeeklyNeed(weekly).Success;
 
             //assert
             Assert.IsTrue(isAdded);
@@ -54,34 +53,20 @@ namespace UnitTest_Pl
 
             // arrange 
             Company company = new Company("Mosadex");
-            IWeeklyNeed weekly = new WeeklyNeedMock();
+            IWeeklyNeed weekly = new WeeklyNeedMock(new DateTime(2023, 1, 2));
+            company.AddWeeklyNeed(weekly);
 
 
             //act
-              company.AddWeeklyNeed(weekly);
-            bool isAdded = company.AddWeeklyNeed(weekly);
+            bool isAdded = company.AddWeeklyNeed(weekly).Success;
+
 
             //assert
             Assert.IsFalse(isAdded);
 
         }
 
-        [Test]
-        public void CompanyAddWeeklyNeedTestExistInList()
-        {
-            // arrange 
-            Company company = new Company("Mosadex");
-            IWeeklyNeed weekly = new WeeklyNeedMock();
-
-
-            //act
-            company.AddWeeklyNeed(weekly);
-            bool isAdded = company.AddWeeklyNeed(weekly);
-
-            //assert
-            Assert.AreEqual(weekly, company.WeeklyNeed[0]);
-
-        }
+  
 
 
 

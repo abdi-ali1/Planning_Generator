@@ -1,19 +1,16 @@
 ﻿using Logic.Companys;
 using Logic.Employee;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+
 
 namespace Logic.System.Authentication
 {
+    
     public class AuthenticationManagement
     {
         private IList<StaffMember> allStaffMembers;
         private IList<Company> allCompanies;
 
+       
         public AuthenticationManagement(IList<StaffMember> allStaffMembers, IList<Company> allCompanies)
         {
             this.allStaffMembers = allStaffMembers;
@@ -21,56 +18,55 @@ namespace Logic.System.Authentication
         }
 
         /// <summary>
-        /// Checks if user exist (tempory solution)
+        /// Authenticates the current staffmemeber based on its username.
         /// </summary>
-        /// <param name="username"></param>
-        /// <returns></returns>
-        public StaffMember AuthenticateCurrentStaffMember(string username)
+        /// <param name="username">A string value representing the username of the StaffMember to authenticate.</param>
+        /// <returns>
+        /// A Result<Company> object indicating the success or failure of the operation. If the operation is successful, 
+        /// the Ok variant will contain the authenticated StaffMember object. If the operation fails, the Fail variant will 
+        /// contain an Exception object with more information about the error.
+        /// </returns>
+        public Result<StaffMember> AuthenticateCurrentStaffMember(string username)
         {
-            StaffMember currentStaffMember = null;
-            foreach (StaffMember staff in allStaffMembers)
+            try
             {
-                if (staff.Name == username)
+                StaffMember currentStaffMember = allStaffMembers.FirstOrDefault(s => s.Name == username);
+                if (currentStaffMember == null)
                 {
-                    currentStaffMember = staff;
-                    break;
+                    return Result<StaffMember>.Fail(new ArgumentException("staff member does not exist"));
                 }
+                return Result<StaffMember>.Ok(currentStaffMember);
             }
-            return currentStaffMember;
+            catch (Exception e)
+            {
+                return Result<StaffMember>.Fail(e);
+            }
         }
 
-
         /// <summary>
-        /// checks if company exist
+        /// Authenticates the current company based on its name.
         /// </summary>
-        /// <param name="name"></param>
-        /// <returns></returns>
-        public Company AuthenticateCurrentCompany(string name)
+        /// <param name="name">A string value representing the name of the company to authenticate.</param>
+        /// <returns>
+        /// A Result<Company> object indicating the success or failure of the operation. If the operation is successful, 
+        /// the Ok variant will contain the authenticated Company object. If the operation fails, the Fail variant will 
+        /// contain an Exception object with more information about the error.
+        /// </returns>
+        public Result<Company> AuthenticateCurrentCompany(string name)
         {
-            Company currentCompany = null;
-            foreach (Company company in allCompanies)
+            try
             {
-                if (company.Name == name)
+                Company currentCompany = allCompanies.FirstOrDefault(c => c.Name == name);
+                if (currentCompany == null)
                 {
-                    currentCompany = company;
-                    break;
+                    return Result<Company>.Fail(new ArgumentException("company does not exist"));
                 }
+                return Result<Company>.Ok(currentCompany);
             }
-
-            return currentCompany;
-        }
-
-
-        /// <summary>
-        /// checks if the current staffmember is a manager
-        /// </summary>
-        /// <param name="staffMember"></param>
-        /// <returns></returns>
-        public bool AuthenticateManager(StaffMember staffMember)
-        {
-            if (staffMember.Role == Enum.CompanyRole.Manager) return true;
-
-            return false;
+            catch (Exception e)
+            {
+                return Result<Company>.Fail(e);
+            }
         }
     }
 }

@@ -11,9 +11,9 @@ namespace Logic.System.Generator
 {
     internal class WeeklyNeedLooper : IGetLoopInfoWeeklyNeed
     {
-        public WeeklyNeed GetInfo(Company company, DateTime dateTime)
+        public Result<T> GetInfo<T>(Company company, DateTime dateTime)
         {
-            WeeklyNeed weeklyNeed = null;
+           /* WeeklyNeed weeklyNeed = null;
             foreach(WeeklyNeed weekly in company.WeeklyNeed)
             {
                 if(weekly.WeekNeeded == dateTime)
@@ -23,6 +23,6 @@ namespace Logic.System.Generator
             }
 
             return weeklyNeed;
-        }
+        }*/
     }
 }

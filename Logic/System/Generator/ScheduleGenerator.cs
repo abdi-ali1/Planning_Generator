@@ -17,22 +17,24 @@ namespace Logic.System.Generator
         private IAvailibiltyChecker availibiltyChecker = new GeneratorAvailibilityChecker();
         private IAvailibiltyChecker secondeavailibilty = new GeneratorBackerChecker();
 
-
         public ScheduleGenerator(IList<StaffMember> allStaffMembers)
         {
             this.allStaffMembers = allStaffMembers;
         }
 
-        //TODO interface that Uses This Method
+
         /// <summary>
-        /// will generate schedules for the company and the chosen staffmembers
+        /// Generates a schedule for a company for a specific week.
         /// </summary>
-        /// <param name="weeklyNeed"> will probably be changed to a diffrent data type</param>
+        /// <param name="company">The company for which to generate a schedule.</param>
+        /// <param name="weekNeeded">The week for which to generate a schedule.</param>
+        /// <returns>A schedule for the company for the specified week.</returns>
         public CompanySchedule GenerateSchedule(Company company, DateTime weekNeeded)
         {
             WeeklyNeed neededWeekData = getLoopInfoWeeklyNeed.GetInfo(company, weekNeeded);
             CompanySchedule schedule = new CompanySchedule(weekNeeded);
-            List<StaffMember> staffMembersAvailibleOnDate = StaffMembersAvailibleOnDate((List<StaffMember>)allStaffMembers, weekNeeded);
+            List<StaffMember> staffMembersAvailibleOnDate = 
+                StaffMembersAvailibleOnDate((List<StaffMember>)allStaffMembers, weekNeeded);
 
             foreach (NeededStaff needed in neededWeekData.NeededStaff)
             {
@@ -44,10 +46,8 @@ namespace Logic.System.Generator
                     }
                 }
             }
-
             return schedule;
         }
-
 
         private List<StaffMember> StaffMembersAvailibleOnDate(List<StaffMember> staffMembers, DateTime dateTime)
         {
@@ -64,8 +64,6 @@ namespace Logic.System.Generator
             }
             return staffMembersAvailible;
         }
-
- 
 
         
     }

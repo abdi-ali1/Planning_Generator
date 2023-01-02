@@ -1,4 +1,5 @@
-﻿using Logic.Companys.Request;
+﻿using Logic;
+using Logic.Companys.Request;
 using Logic.Interface;
 using System;
 using System.Collections.Generic;
@@ -10,13 +11,22 @@ namespace UnitTest_Pl.Mocking.Companys
 {
     public class WeeklyNeedMock : IWeeklyNeed
     {
-        public DateTime WeekNeeded => throw new NotImplementedException();
+        private DateTime weekNeeded;
+        private List<NeededStaff> neededStaff = new List<NeededStaff>();
+        public DateTime WeekNeeded => weekNeeded;
 
-        public IList<NeededStaff> NeededStaff => throw new NotImplementedException();
+        IList<NeededStaff> IWeeklyNeed.NeededStaff => neededStaff;
 
-        public void AddNeededStaff(NeededStaff needed)
+        public WeeklyNeedMock(DateTime weekNeeded)
         {
-            throw new NotImplementedException();
+            this.weekNeeded = weekNeeded;
+        }
+
+        public IList<NeededStaff> NeededStaff = new List<NeededStaff>();
+
+        public Result<string> AddNeededStaff(NeededStaff needed)
+        {
+            return Result<string>.Ok("Mock class");
         }
     }
 }

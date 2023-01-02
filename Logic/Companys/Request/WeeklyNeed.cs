@@ -24,11 +24,40 @@ namespace Logic.Companys.Request
             this.weekNeeded = weekNeeded;
             this.neededStaff = neededStaff;
         }
-            
-        
-        public void AddNeededStaff(NeededStaff needed)
+
+
+        /// <summary>
+        /// Adds a NeededStaff object to the list of needed staff for the given week.
+        /// </summary>
+        /// <param name="needed">The NeededStaff object to be added to the list.</param>
+        /// <returns>
+        /// A Result<string> object indicating the success or failure of the operation. If the operation is successful,
+        /// the Ok variant will contain a string message indicating that the NeededStaff object was added to the list. If 
+        /// the operation fails, the Fail variant will contain an Exception object with more information about the error.
+        /// </returns>
+        public Result<string> AddNeededStaff(NeededStaff needed)
         {
-            neededStaff.Add(needed);
+            try
+            {
+                if (needed == null)
+                {
+                    return Result<string>.Fail(new Exception("given object was null"));
+                }
+
+                neededStaff.Add(needed);
+                return Result<string>.Ok("is added to list");
+
+            }
+            catch (Exception e)
+            {
+
+                return Result<string>.Fail(e);
+            }
+          
         }
+
+
+
+
     }
 }
