@@ -16,8 +16,7 @@ namespace Logic.System.Generator.GeneraterHelp
     internal class GeneratorAvailibilityChecker: IAvailibiltyChecker
     {
         private WorkRuleHelper workRuleHelper = new WorkRuleHelper();
-
-      
+     
 
         public bool MatchesNeed(NeededStaff needed, StaffMember staff, DateTime date)
         {
@@ -47,6 +46,7 @@ namespace Logic.System.Generator.GeneraterHelp
         {
             if (neededStaff.Occaption.Equals(staff.Occaption) &&
                         neededStaff.DegreeLevel.Equals(staff.Degree.DegreeLevel))
+                        
             {
                 return true;
             }

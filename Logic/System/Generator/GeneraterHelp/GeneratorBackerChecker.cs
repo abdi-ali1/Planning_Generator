@@ -24,7 +24,7 @@ namespace Logic.System.Generator
             {
                 foreach (Shift shift in availibilty.Shifts)
                 {
-                    if (needed.NeededShift.Equals(shift) && workRuleHelper.AdheredAllWorkRules(staff, date))
+                    if (needed.NeededShift.Equals(shift) && workRuleHelper.AdheredAllWorkRules(staff, needed))
                     {
                         matches = true;
                         break;
@@ -33,8 +33,5 @@ namespace Logic.System.Generator
             }
             return matches;
         }
-
-    
-
     }
 }

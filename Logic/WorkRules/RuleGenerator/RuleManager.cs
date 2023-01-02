@@ -9,7 +9,6 @@ namespace Logic.System.Generator
 {
     internal class RuleManager
     {
-
         public static IEnumerable<IWorkRule> GetLoadableTypes()
         {
             Type ti = typeof(IWorkRule);

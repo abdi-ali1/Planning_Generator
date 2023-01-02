@@ -30,7 +30,7 @@ namespace Planning_Generator
             staffMemberModelManager = new StaffMemberModelManager(fileManager);
             companyModelManager = new CompanyModelManager(fileManager);
             authentication = new AuthenticationManagement(staffMemberModelManager.AllStaffMembers, companyModelManager.AllCompanies);
-            scheduleGenerator = new ScheduleGenerator(staffMemberModelManager.AllStaffMembers);
+            //scheduleGenerator = new ScheduleGenerator(staffMemberModelManager.AllStaffMembers);
         }
 
 

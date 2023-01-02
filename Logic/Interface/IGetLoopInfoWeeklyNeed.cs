@@ -3,8 +3,8 @@ using Logic.Companys.Request;
 
 namespace Logic.Interface
 {
-    internal interface IGetLoopInfoWeeklyNeed
+    public interface IGetLoopInfoWeeklyNeed
     {
-        public Result<T> GetInfo<T>(Company company, DateTime dateTime);
+        public Result<WeeklyNeed> GetInfo(Company company, DateTime dateTime);
     }
 }

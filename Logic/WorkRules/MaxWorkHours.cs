@@ -14,7 +14,7 @@ namespace Logic.WorkRules
     {
         public bool IsRuleAdhered(StaffMember staff, NeededStaff needed)
         {
-            
+            return true;
         }
     }
 }

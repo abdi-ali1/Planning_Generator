@@ -11,18 +11,22 @@ namespace Logic.System.Generator
 {
     internal class WeeklyNeedLooper : IGetLoopInfoWeeklyNeed
     {
-        public Result<T> GetInfo<T>(Company company, DateTime dateTime)
+        public Result<WeeklyNeed> GetInfo(Company company, DateTime dateTime)
         {
-           /* WeeklyNeed weeklyNeed = null;
-            foreach(WeeklyNeed weekly in company.WeeklyNeed)
+            try
             {
-                if(weekly.WeekNeeded == dateTime)
+                WeeklyNeed weeklyNeed = company.WeeklyNeed.FirstOrDefault(x => x.WeekNeeded == dateTime);
+                if (weeklyNeed == null)
                 {
-                   weeklyNeed = weekly;
+                    return Result<WeeklyNeed>.Fail(new Exception("there doesnt exist a weeklyneed with the given date"));
                 }
-            }
 
-            return weeklyNeed;
-        }*/
+                return Result<WeeklyNeed>.Ok(weeklyNeed);
+            }
+            catch (Exception e)
+            {
+                return Result<WeeklyNeed>.Fail(e);
+            }
+        }
     }
 }
