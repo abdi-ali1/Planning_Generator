@@ -13,6 +13,6 @@ namespace Logic
    public interface IWorkRule
    {
         // TODO: Maybe interface diversion
-        public bool IsRuleAdhered(StaffMember staff, NeededStaff needed); 
+        public bool IsRuleAdhered(StaffMember staff); 
    }
 }

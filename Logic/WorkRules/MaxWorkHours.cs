@@ -12,9 +12,29 @@ namespace Logic.WorkRules
 {
     internal class MaxWorkHours : IWorkRule
     {
-        public bool IsRuleAdhered(StaffMember staff, NeededStaff needed)
+        private DateTime weekNeeded;
+        private Shift latestShift;
+        private NeededStaff neededStaff;
+
+        public MaxWorkHours(DateTime weekNeeded, Shift latestShift, NeededStaff neededStaff)
         {
-            return true;
+            this.weekNeeded = weekNeeded;
+            this.latestShift = latestShift;
+            this.neededStaff = neededStaff;
+        }
+
+
+        public bool IsRuleAdhered(StaffMember staff)
+        {
+            StaffSchedule staffSchedule = staff.Schedule.First(x => x.CurrentWeek == weekNeeded);
+
+            if (staffSchedule == null)
+            {
+                return false;
+            }
+
+           
+
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Logic.System.Generator.GeneraterHelp
             workRules = (IList<IWorkRule>)RuleManager.GetLoadableTypes();
         }
 
-
+        //TO DO split the work rules use interface splitting
         public bool AdheredAllWorkRules(StaffMember staff, NeededStaff needed)
         {
             bool adheredRule = true;
@@ -34,5 +34,8 @@ namespace Logic.System.Generator.GeneraterHelp
 
             return adheredRule;
         }
+
+
+       
     }
 }
