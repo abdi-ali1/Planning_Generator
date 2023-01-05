@@ -4,7 +4,7 @@ using Logic.Employee;
 using Logic.Interface;
 using Logic.Schedules;
 using Logic.Schedules.Company;
-
+using Logic.System.Generator.GeneraterHelp;
 
 namespace Logic.System.Generator
 {
@@ -79,7 +79,7 @@ namespace Logic.System.Generator
             {
                 foreach (StaffMember staff in staffMembers)
                 {
-                    if (availabilityChecker.MatchesNeed(needed, staff, date))
+                    if (availabilityChecker.MatchesNeed(needed, staff, schedule))
                     {
                         schedule.AddComapanyScheduleInfo(new CompanyScheduleInfo(staff, needed.NeededShift));
                     }
@@ -114,7 +114,6 @@ namespace Logic.System.Generator
                 return Result<IList<StaffMember>>.Fail(e);
             }
         }
-
     }
 
 }

@@ -1,6 +1,5 @@
 ﻿using Logic;
 using Logic.Companys.Request;
-using Logic.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;

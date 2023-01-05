@@ -1,5 +1,6 @@
 ﻿using Logic.Companys.Request;
 using Logic.Employee;
+using Logic.Schedules.Company;
 using Logic.Shifts;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ using System.Threading.Tasks;
 namespace Logic
 {
 
-   public interface IWorkRule
+   public interface IWorkRuleSchedule
    {
         // TODO: Maybe interface diversion
-        public bool IsRuleAdhered(StaffMember staff); 
+        public bool IsRuleAdhered(); 
    }
 }

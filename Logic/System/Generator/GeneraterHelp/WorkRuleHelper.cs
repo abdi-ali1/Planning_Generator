@@ -11,25 +11,25 @@ namespace Logic.System.Generator.GeneraterHelp
     internal class WorkRuleHelper
     {
 
-        private IList<IWorkRule> workRules;
+        private IList<IWorkRuleSchedule> workRules;
 
 
         public WorkRuleHelper()
         {
-            workRules = (IList<IWorkRule>)RuleManager.GetLoadableTypes();
+            workRules = (IList<IWorkRuleSchedule>)RuleManager.GetLoadableTypes();
         }
 
         //TO DO split the work rules use interface splitting
         public bool AdheredAllWorkRules(StaffMember staff, NeededStaff needed)
         {
             bool adheredRule = true;
-            foreach (IWorkRule rule in workRules)
+            foreach (IWorkRuleSchedule rule in workRules)
             {
-                if (!rule.IsRuleAdhered(staff, needed))
+                /*if (!rule.IsRuleAdhered(staff, needed))
                 {
                     adheredRule = false;
                     break;
-                }
+                }*/
             }
 
             return adheredRule;

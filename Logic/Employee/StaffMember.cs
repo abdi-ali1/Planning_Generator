@@ -74,14 +74,13 @@ namespace Logic.Employee
                 if (!schedule.Any(x => x.Equals(staffSchedule)))
                 {
                     schedule.Add(staffSchedule);
-                    return Result<string>.Ok("is added to list");
+                    return Result<string>.Ok("schedule is added to list");
                 }
 
                 return Result<string>.Fail(new Exception("schedule for this date already exist"));
             }
             catch (Exception e)
             {
-
                 return Result<string>.Fail(e);
             }
           

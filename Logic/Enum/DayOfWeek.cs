@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Enum
 {
- 
+
     public enum DayOfWeek
     {
         Monday = 1,

@@ -1,40 +1,60 @@
-﻿using Logic.Companys.Request;
-using Logic.Employee;
+﻿using Logic.Employee;
+using Logic.Schedules.Company;
 using Logic.Schedules.Staff;
 using Logic.Shifts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Logic.System.Generator.GeneraterHelp;
+using DayOfWeek = Logic.Enum.DayOfWeek;
 
 namespace Logic.WorkRules
 {
-    internal class MaxWorkHours : IWorkRule
+    internal class MaxWorkHours : WorkRule
     {
-        private DateTime weekNeeded;
-        private Shift latestShift;
-        private NeededStaff neededStaff;
+        private readonly IList<CompanyScheduleInfo> scheduleInfo;
+        private readonly DateTime date;
 
-        public MaxWorkHours(DateTime weekNeeded, Shift latestShift, NeededStaff neededStaff)
+        public MaxWorkHours(IList<CompanyScheduleInfo> scheduleInfos, StaffMember staff, DateTime date):base(staff)
         {
-            this.weekNeeded = weekNeeded;
-            this.latestShift = latestShift;
-            this.neededStaff = neededStaff;
+            this.scheduleInfo = scheduleInfos;
+            this.date = date;
+        
+        }
+
+        public override bool IsRuleAdhered()
+        {
+
+            Result<StaffSchedule> result = StaffScheduleLooper.GetNeededStaffSchedule(staff, date);
+            if (result.Success && result.Exception != null)
+            {
+
+                foreach (Shift shift in result.Value.AllShifts)
+                {
+                  
+                  
+                    
+                }
+
+            }
+            else
+            {
+
+            }
         }
 
 
-        public bool IsRuleAdhered(StaffMember staff)
+        private DayOfWeek DayOfBefore(Shift shift)
         {
-            StaffSchedule staffSchedule = staff.Schedule.First(x => x.CurrentWeek == weekNeeded);
-
-            if (staffSchedule == null)
+            DayOfWeek dayBefore;
+            if (scheduleInfo. != DayOfWeek.Monday)
             {
-                return false;
+                 dayBefore = shift.Day - 1;
             }
 
-           
 
+           
         }
+     
+
+
+       
     }
 }

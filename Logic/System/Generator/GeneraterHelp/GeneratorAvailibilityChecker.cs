@@ -1,6 +1,6 @@
 ﻿using Logic.Companys.Request;
 using Logic.Employee;
-using Logic.Interface;
+using Logic.Schedules;
 using Logic.Schedules.Company;
 using Logic.Shifts;
 using Logic.Shifts.Availibiltiy;
@@ -18,7 +18,7 @@ namespace Logic.System.Generator.GeneraterHelp
         private WorkRuleHelper workRuleHelper = new WorkRuleHelper();
      
 
-        public bool MatchesNeed(NeededStaff needed, StaffMember staff, DateTime date)
+        public bool MatchesNeed(NeededStaff needed, StaffMember staff, CompanySchedule schedule)
         {
             bool matches = false;
 

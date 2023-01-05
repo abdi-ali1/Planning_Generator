@@ -2,7 +2,6 @@ using System.Reflection.Metadata;
 using Logic.Companys;
 using Logic.Companys.Request;
 using Logic.Employee;
-using Logic.Interface;
 using NUnit.Framework;
 using UnitTest_Pl.Mocking.Companys;
 
