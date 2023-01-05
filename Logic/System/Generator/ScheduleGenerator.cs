@@ -4,7 +4,7 @@ using Logic.Employee;
 using Logic.Interface;
 using Logic.Schedules;
 using Logic.Schedules.Company;
-using Logic.System.Generator.GeneraterHelp;
+using Logic.System.Generator.GeneraterHelp.AvailibiltyMatcher;
 
 namespace Logic.System.Generator
 {
@@ -12,15 +12,15 @@ namespace Logic.System.Generator
     {
         private readonly IList<StaffMember> allStaffMembers;
         private readonly IGetLoopInfoWeeklyNeed getLoopInfoWeeklyNeed;
-        private readonly IAvailibiltyChecker availabilityChecker;
-        private readonly IAvailibiltyChecker secondaryAvailabilityChecker;
+        private readonly IAvailibiltyMatcher availabilityChecker;
+        private readonly IAvailibiltyMatcher secondaryAvailabilityChecker;
 
 
         public ScheduleGenerator(
             IList<StaffMember> allStaffMembers,
             IGetLoopInfoWeeklyNeed getLoopInfoWeeklyNeed,
-            IAvailibiltyChecker availabilityChecker,
-            IAvailibiltyChecker secondaryAvailabilityChecker)
+            IAvailibiltyMatcher availabilityChecker,
+            IAvailibiltyMatcher secondaryAvailabilityChecker)
         {
             this.allStaffMembers = allStaffMembers;
             this.getLoopInfoWeeklyNeed = getLoopInfoWeeklyNeed;
@@ -71,7 +71,7 @@ namespace Logic.System.Generator
             IList<NeededStaff> neededStaff,
             IList<StaffMember> staffMembers,
             DateTime date,
-            IAvailibiltyChecker availabilityChecker)
+            IAvailibiltyMatcher availabilityChecker)
         {
             CompanySchedule schedule = new CompanySchedule(date);
 
@@ -79,7 +79,7 @@ namespace Logic.System.Generator
             {
                 foreach (StaffMember staff in staffMembers)
                 {
-                    if (availabilityChecker.MatchesNeed(needed, staff, schedule))
+                    if (availabilityChecker.MatchesNeed(needed, staff, date, schedule.ScheduleInfos))
                     {
                         schedule.AddComapanyScheduleInfo(new CompanyScheduleInfo(staff, needed.NeededShift));
                     }

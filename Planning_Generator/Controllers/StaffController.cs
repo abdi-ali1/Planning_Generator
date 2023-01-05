@@ -32,7 +32,7 @@ namespace Planning_Generator.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddStaff(FormCollection collection)
+        public IActionResult AddStaff(IFormCollection collection)
         {
            /* Degree degree = new Degree(nameOfDegree, int.Parse(levelOfDegree));
             StaffMember staff = new StaffMember(userNameOfStaff, nameOfStaff, (Logic.Enum.Gender)int.Parse(gender),

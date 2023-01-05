@@ -20,7 +20,7 @@ namespace Logic.WorkRules
 
         public abstract bool IsRuleAdhered();
 
-        protected abstract bool WeeklyHourHigherThan16();
+       
     }
 
 }

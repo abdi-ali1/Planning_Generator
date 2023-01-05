@@ -4,27 +4,26 @@ using Logic.Schedules;
 using Logic.Schedules.Company;
 using Logic.Shifts;
 using Logic.Shifts.Availibiltiy;
-using Logic.System.Generator.GeneraterHelp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Logic.System.Generator
+namespace Logic.System.Generator.GeneraterHelp.AvailibiltyMatcher
 {
-    internal class GeneratorBackerChecker : IAvailibiltyChecker
+    internal class GeneratorBackerChecker : IAvailibiltyMatcher
     {
-        private WorkRuleHelper workRuleHelper = new WorkRuleHelper();
 
-        public bool MatchesNeed(NeededStaff needed, StaffMember staff, CompanySchedule schedule)
+
+        public bool MatchesNeed(NeededStaff needed, StaffMember staff, DateTime date, IList<CompanyScheduleInfo> scheduleInfos)
         {
             bool matches = false;
             foreach (AvailibiltyStaff availibilty in staff.Availibilty)
             {
                 foreach (Shift shift in availibilty.Shifts)
                 {
-                    if (needed.NeededShift.Equals(shift) && workRuleHelper.AdheredAllWorkRules(staff, needed))
+                    if (needed.NeededShift.Equals(shift) && WorkRuleHelper.AdheredAllWorkRules(staff, scheduleInfos, date, needed.NeededShift))
                     {
                         matches = true;
                         break;
