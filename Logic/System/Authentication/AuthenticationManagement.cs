@@ -1,39 +1,32 @@
 ﻿using Logic.Companys;
 using Logic.Employee;
 
-
 namespace Logic.System.Authentication
 {
-    
     public class AuthenticationManagement
     {
-        private IList<StaffMember> allStaffMembers;
-        private IList<Company> allCompanies;
+        private IList<StaffMember> staffMembers;
+        private IList<Company> companies;
 
-       
-        public AuthenticationManagement(IList<StaffMember> allStaffMembers, IList<Company> allCompanies)
+        public AuthenticationManagement(IList<StaffMember> staffMembers, IList<Company> companies)
         {
-            this.allStaffMembers = allStaffMembers;
-            this.allCompanies = allCompanies;
+            this.staffMembers = staffMembers;
+            this.companies = companies;
         }
 
         /// <summary>
-        /// Authenticates the current staffmemeber based on its username.
+        /// Authenticates the staff member with the given username.
         /// </summary>
-        /// <param name="username">A string value representing the username of the StaffMember to authenticate.</param>
-        /// <returns>
-        /// A Result<Company> object indicating the success or failure of the operation. If the operation is successful, 
-        /// the Ok variant will contain the authenticated StaffMember object. If the operation fails, the Fail variant will 
-        /// contain an Exception object with more information about the error.
-        /// </returns>
+        /// <param name="username">The username of the staff member to authenticate.</param>
+        /// <returns>A Result object containing the authenticated staff member, or an error message if the operation failed.</returns>
         public Result<StaffMember> AuthenticateCurrentStaffMember(string username)
         {
             try
             {
-                StaffMember currentStaffMember = allStaffMembers.FirstOrDefault(s => s.Name == username);
+                StaffMember currentStaffMember = staffMembers.FirstOrDefault(s => s.Name == username);
                 if (currentStaffMember == null)
                 {
-                    return Result<StaffMember>.Fail(new ArgumentException("staff member does not exist"));
+                    return Result<StaffMember>.Fail(new ArgumentException("staff member doesn't exist"));
                 }
                 return Result<StaffMember>.Ok(currentStaffMember);
             }
@@ -44,22 +37,18 @@ namespace Logic.System.Authentication
         }
 
         /// <summary>
-        /// Authenticates the current company based on its name.
+        /// Authenticates the company with the given name.
         /// </summary>
-        /// <param name="name">A string value representing the name of the company to authenticate.</param>
-        /// <returns>
-        /// A Result<Company> object indicating the success or failure of the operation. If the operation is successful, 
-        /// the Ok variant will contain the authenticated Company object. If the operation fails, the Fail variant will 
-        /// contain an Exception object with more information about the error.
-        /// </returns>
+        /// <param name="name">The name of the company to authenticate.</param>
+        /// <returns>A Result object containing the authenticated company, or an error message if the operation failed.</returns>
         public Result<Company> AuthenticateCurrentCompany(string name)
         {
             try
             {
-                Company currentCompany = allCompanies.FirstOrDefault(c => c.Name == name);
+                Company currentCompany = companies.FirstOrDefault(c => c.Name == name);
                 if (currentCompany == null)
                 {
-                    return Result<Company>.Fail(new ArgumentException("company does not exist"));
+                    return Result<Company>.Fail(new ArgumentException("company doesn't exist"));
                 }
                 return Result<Company>.Ok(currentCompany);
             }

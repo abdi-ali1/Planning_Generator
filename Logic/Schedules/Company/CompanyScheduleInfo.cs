@@ -1,37 +1,36 @@
 ﻿using Logic.Employee;
 using Logic.Shifts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic.Schedules.Company
 {
     public class CompanyScheduleInfo
     {
-
-        private StaffMember staff;
+        private StaffMember staffMember;
         private Shift shift;
 
-        public StaffMember Staff { get { return staff; }}
+        public StaffMember StaffMember { get { return staffMember; } }
         public Shift Shift { get { return shift; } }
 
-        public CompanyScheduleInfo(StaffMember staff, Shift shift)
+        public CompanyScheduleInfo(StaffMember staffMember, Shift shift)
         {
-            this.staff = staff;
+            this.staffMember = staffMember;
             this.shift = shift;
         }
 
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns>True if the specified object is equal to the current object, otherwise false.</returns>
         public override bool Equals(object? obj)
         {
-            if (obj == null || !this.GetType().Equals(obj.GetType()))
+            if (obj == null || !GetType().Equals(obj.GetType()))
             {
                 return false;
             }
 
             CompanyScheduleInfo info = (CompanyScheduleInfo)obj;
-            return (staff.Equals(info.staff)) && (shift.Equals(info.shift));
+            return (staffMember.Equals(info.staffMember)) && (shift.Equals(info.shift));
         }
     }
 }

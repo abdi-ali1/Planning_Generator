@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Logic.Companys.Request
+﻿namespace Logic.Companys.Request
 {
     [Serializable]
-    public class WeeklyNeed: IWeeklyNeed
+    public class WeeklyNeed : IWeeklyNeed
     {
         // fields
         private DateTime weekNeeded;
@@ -16,7 +10,7 @@ namespace Logic.Companys.Request
         // properties
         public DateTime WeekNeeded { get { return weekNeeded; } }
         public IList<NeededStaff> NeededStaff { get { return neededStaff.AsReadOnly(); } }
-        
+
         // constructors
         public WeeklyNeed(DateTime weekNeeded, List<NeededStaff> neededStaff)
         {
@@ -24,16 +18,11 @@ namespace Logic.Companys.Request
             this.neededStaff = neededStaff;
         }
 
-
         /// <summary>
-        /// Adds a NeededStaff object to the list of needed staff for the given week.
+        /// Adds a needed staff member to the list of needed staff members.
         /// </summary>
-        /// <param name="needed">The NeededStaff object to be added to the list.</param>
-        /// <returns>
-        /// A Result<string> object indicating the success or failure of the operation. If the operation is successful,
-        /// the Ok variant will contain a string message indicating that the NeededStaff object was added to the list. If 
-        /// the operation fails, the Fail variant will contain an Exception object with more information about the error.
-        /// </returns>
+        /// <param name="needed">The needed staff member to add to the list.</param>
+        /// <returns>A Result object indicating the success or failure of the operation, and any error message if applicable.</returns>
         public Result<string> AddNeededStaff(NeededStaff needed)
         {
             try
@@ -44,19 +33,12 @@ namespace Logic.Companys.Request
                 }
 
                 neededStaff.Add(needed);
-                return Result<string>.Ok("is added to list");
-
+                return Result<string>.Ok("is added to the list");
             }
             catch (Exception e)
             {
-
                 return Result<string>.Fail(e);
             }
-          
         }
-
-
-
-
     }
 }

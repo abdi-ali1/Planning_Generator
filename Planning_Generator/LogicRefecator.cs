@@ -9,9 +9,9 @@ using Logic.System.Generator;
 
 namespace Planning_Generator
 {
-    public  class LogicRefecator
+    public class LogicRefecator
     {
-        private static IBinarayFileManager fileManager;
+        private static IBinaryFileManager fileManager;
 
         private static AuthenticationManagement authentication;
         private static ScheduleGenerator scheduleGenerator;
@@ -24,13 +24,13 @@ namespace Planning_Generator
         public static AuthenticationManagement Authentication { get { return authentication; } }
 
 
-        private LogicRefecator()
+        static LogicRefecator()
         {
             fileManager = new BinaryFileManager();
             staffMemberModelManager = new StaffMemberModelManager(fileManager);
             companyModelManager = new CompanyModelManager(fileManager);
-            authentication = new AuthenticationManagement(staffMemberModelManager.AllStaffMembers, companyModelManager.AllCompanies);
-            //scheduleGenerator = new ScheduleGenerator(staffMemberModelManager.AllStaffMembers);
+            authentication = new AuthenticationManagement(staffMemberModelManager.StaffMembers, companyModelManager.Companies);
+            scheduleGenerator = new ScheduleGenerator(staffMemberModelManager.StaffMembers);
         }
 
 

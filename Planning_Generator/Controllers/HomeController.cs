@@ -1,5 +1,5 @@
-﻿using Logic.System;
-
+﻿using DTO_BinaryFile.Manager;
+using Logic.System;
 using Microsoft.AspNetCore.Mvc;
 using Planning_Generator.Models;
 using System.Diagnostics;
@@ -14,9 +14,6 @@ namespace Planning_Generator.Controllers
         {
 
 
-         
-
-       
 
             return View();
         }

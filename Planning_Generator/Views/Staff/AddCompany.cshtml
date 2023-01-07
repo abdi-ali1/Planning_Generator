@@ -1,21 +1,36 @@
 ﻿@{
+    ViewData["Title"] = "add new company";
 }
 
+@model Planning_Generator.Models.Company_M
+
 <div class="text-center">
-    <p class="display-4">Voeg een nieuw bedrijf toe!</p>
+    <p class="display-4">Add New Company!</p>
 </div>
 <br />
 <br />
 
-<div class="p content">
-    <form method="POST" action="">
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" name="nameOfCompany" id="nameOfCompany" placeholder="Naam van de nieuwe bedrijf">
-            <label for="nameOfCompany">Naam van de nieuwe bedrijf</label>
-        </div>
+
+
+ 
+@using (Html.BeginForm("AddCompany", "Staff", FormMethod.Post, new { @class = "form-control" }))
+{
+     <div class="form-floating mb-3">
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control mb-3", required = "Please enter the name of the new company" })
+        <label for="nameOfCompany">Name of the new company</label>
+    </div>
       
         <div class="mb-3">
-            <input type="submit" name="submit" value="Submit" class="btn btn-primary" />
-        </div>
-    </form>
-</div>
+            <input type="submit" name="submit" value="Submit" class="btn btn-primary" />    
+    </div>
+
+}
+
+</br>
+@if (ViewData["Message"] != null)
+{
+    <div class="alert alert-@ViewData["MessageType"] role="alert">
+        @ViewData["Message"]
+    </div>
+}
+

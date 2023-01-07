@@ -4,7 +4,7 @@ namespace Logic.System.ModelManager
 {
     public interface IStaffMemberModelManager
     {
-        public IList<StaffMember> AllStaffMembers { get; }
+        public IList<StaffMember> StaffMembers { get; }
         public Result<string> AddNewStaff(StaffMember staffMember);
         public void SaveStaffMembers();
     }

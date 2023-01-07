@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Logic.Enum
 {
 
-    public enum Occaption
+    public enum Occupation
     {
         Picker = 1,
         Driver = 2,

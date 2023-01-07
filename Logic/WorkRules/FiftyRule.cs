@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System;
-using Logic.Employee;
+﻿using Logic.Employee;
 using Logic.Schedules.Company;
 using Logic.System.Generator.GeneraterHelp;
 using Logic.Schedules.Staff;
@@ -10,32 +7,30 @@ namespace Logic.WorkRules
 {
     public class FiftyRule : WorkRule
     {
-        private readonly IList<CompanyScheduleInfo> scheduleInfo;
+        private readonly IList<CompanyScheduleInfo> companyScheduleInfos;
         private readonly DateTime date;
 
-        public FiftyRule(IList<CompanyScheduleInfo> scheduleInfo, StaffMember staff, DateTime date)
-            : base(staff)
+        public FiftyRule(IList<CompanyScheduleInfo> companyScheduleInfos, StaffMember staffMember, DateTime date)
+            : base(staffMember)
         {
-            this.scheduleInfo = scheduleInfo;
+            this.companyScheduleInfos = companyScheduleInfos;
             this.date = date;
         }
 
         /// <summary>
-        /// Determines whether the rule is adhered.
+        /// Determines if a staff member adheres to the age and weekly hours work rule.
         /// </summary>
-        /// <returns>
-        ///   <c>true</c> if the rule is adhered; otherwise, <c>false</c>.
-        /// </returns>
+        /// <returns>True if the staff member adheres to the rule, otherwise false.</returns>
         public override bool IsRuleAdhered()
         {
             // Check if the staff member's age is greater than 50
-            if (staff.Age > 50)
+            if (staffMember.Age > 50)
             {
                 return false;
             }
 
             // Check if the number of CompanyScheduleInfo objects in the scheduleInfo list is greater than 2
-            if (scheduleInfo.Count > 2)
+            if (companyScheduleInfos.Count > 2)
             {
                 // Check if the weekly hours for the staff member are higher than 16
                 if (WeeklyHourHigherThan16())
@@ -48,14 +43,12 @@ namespace Logic.WorkRules
         }
 
         /// <summary>
-        /// Determines whether the weekly hours for the staff member are higher than 16.
+        /// Determines if the weekly hours for a staff member are higher than 16.
         /// </summary>
-        /// <returns>
-        ///   <c>true</c> if the weekly hours for the staff member are higher than 16; otherwise, <c>false</c>.
-        /// </returns>
+        /// <returns>True if the weekly hours are higher than 16, otherwise false.</returns>
         private bool WeeklyHourHigherThan16()
         {
-            Result<StaffSchedule> scheduleResult = StaffScheduleLooper.GetNeededStaffSchedule(staff, date);
+            Result<StaffSchedule> scheduleResult = StaffScheduleLooper.GetNeededStaffSchedule(staffMember, date);
             return scheduleResult.Success && scheduleResult.Value.TotalWorkingHours > 16;
         }
     }

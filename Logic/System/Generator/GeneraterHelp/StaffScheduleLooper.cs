@@ -1,20 +1,21 @@
 ﻿using Logic.Employee;
 using Logic.Schedules.Staff;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic.System.Generator.GeneraterHelp
 {
     public class StaffScheduleLooper
     {
+        /// <summary>
+        /// Gets the schedule for a given staff member on a given date.
+        /// </summary>
+        /// <param name="staff">The staff member to get the schedule for.</param>
+        /// <param name="date">The date to get the schedule for.</param>
+        /// <returns>A result object containing either the schedule for the given staff member on the given date, or an exception if there was an error.</returns>
         public static Result<StaffSchedule> GetNeededStaffSchedule(StaffMember staff, DateTime date)
         {
             try
             {
-                StaffSchedule? currentSchedule = staff.Schedule.First(x => x.CurrentWeek == date);
+                StaffSchedule? currentSchedule = staff.StaffSchedule.First(x => x.CurrentWeek == date);
 
                 if (currentSchedule == null)
                 {

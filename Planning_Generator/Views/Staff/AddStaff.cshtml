@@ -1,61 +1,50 @@
 ﻿@{
 
 }
-
+@model StaffMemeber_M
 <div class="text-center">
-    <p class="display-4">Voeg een nieuwe medewerker toe!</p>
+    <p class="display-4">Add a new staff member!</p>
 </div>
 <br />
 <br />
 
-<div class="p content">
-    <form method="POST" action="AddStaff">
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" name="nameOfStaff" id="nameOfStaff" placeholder="Naam van de nieuwe medewerker">
-            <label for="nameOfStaff">Naam van de nieuwe medewerker</label>
-        </div>
+@using (Html.BeginForm("AddStaff", "Staff", FormMethod.Post))
+{
+    <div class="p content">
+        @Html.LabelFor(m => m.Name, new { @class = "form-floating mb-3" })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Name of the new staff member", required = "required" })
 
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" name="userNameOfStaff" id="userNameOfStaff" placeholder="Gebruikersnaam van de nieuwe medewerker">
-            <label for="userNameOfStaff">Gebruikersnaam van de nieuwe medewerker</label>
-        </div>
+        @Html.LabelFor(m => m.Username, new { @class = "form-floating mb-3" })
+        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", placeholder = "Username of the new staff member", required = "required" })
 
-        <label for="gender">Kies het geslacht</label>
-        <select class="form-select form-select-sm mb-3" name="gender" id="gender">
-            <option value="1">Man</option>
-            <option value="2">vrouw</option>
-        </select>
+        @Html.LabelFor(m => m.Gender, "Select the gender")
+        @Html.DropDownListFor(m => m.Gender, new SelectList(Enum.GetValues(typeof(Logic.Enum.Gender))), new { @class = "form-select form-select-sm mb-3", required = "required" })
 
-        <label for="occupation">Kies het Beroep</label>
-        <select class="form-select form-select-sm mb-3" name="occupation" id="occupation">
-            <option value="1">Picker</option>
-            <option value="2">Chaufeur</option>
-            <option value="3">Lasser</option>
-        </select>
+        @Html.LabelFor(m => m.Occaption, "Select the occupation")
+        @Html.DropDownListFor(m => m.Occaption, new SelectList(Enum.GetValues(typeof(Logic.Enum.Occupation))), new { @class = "form-select form-select-sm mb-3", required = "required" })
 
-        <label for="companyRole">Kies rol</label>
-        <select class="form-select form-select-sm mb-3" name="companyRole" id="companyRole">
-            <option value="1">Staff</option>
-            <option value="2">Manager</option>
-        </select>
+        @Html.LabelFor(m => m.Role, "Select the role")
+        @Html.DropDownListFor(m => m.Role, new SelectList(Enum.GetValues(typeof(Logic.Enum.CompanyRole))), new { @class = "form-select form-select-sm mb-3", required = "required" })
 
-        <div class="form-floating mb-3">
-            <input type="date" class="form-control" name="birthDate" id="birthDate" placeholder="Geboorte datum van de nieuwe medewerker">
-            <label for="birthDate">Geboorte datum van de nieuwe medewerker</label>
-        </div>
+        @Html.LabelFor(m => m.BirthDate, new { @class = "form-floating mb-3" })
+        @Html.TextBoxFor(m => m.BirthDate, new { @class = "form-control", placeholder = "Birth date of the new staff member", required = "required" })
 
-        <div class="form-floating mb-3">
-            <input type="text" class="form-control" name="nameOfDegree" id="nameOfDegree" placeholder="Naam van de diploma">
-            <label for="nameOfDegree">Naam van de diploma</label>
-        </div>
+        @Html.LabelFor(m => m.Degree_M.NameOfDegree, new { @class = "form-floating mb-3" })
+        @Html.TextBoxFor(m => m.Degree_M.NameOfDegree, new { @class = "form-control", placeholder = "Name of the degree", required = "required" })
 
-        <div class="form-floating mb-3">
-            <input type="number" class="form-control" name="levelOfDegree" id="levelOfDegree" placeholder="Niveau van de diploma">
-            <label for="levelOfDegree">Niveau van de diploma</label>
-        </div>
-      
-        <div class="mb-3">
+        @Html.LabelFor(m => m.Degree_M.DegreeLevel, new { @class = "form-floating mb-3" })
+        @Html.TextBoxFor(m => m.Degree_M.DegreeLevel, new { @class = "form-control", placeholder = "Level of the degree", required = "required", type = "number", pattern = "[1-6]" })
+
+    <br> <div class="mb-3">
             <input type="submit" name="submit" value="Submit" class="btn btn-primary" />
         </div>
-    </form>
-</div>
+    </div>
+}
+
+
+@if (ViewData["message"] != null)
+{
+   <div class="alert alert-@ViewData["MessageType"] role="alert">
+        @ViewData["Message"]
+   </div>
+}

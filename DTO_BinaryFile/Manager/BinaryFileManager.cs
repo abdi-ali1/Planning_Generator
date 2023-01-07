@@ -1,42 +1,38 @@
-﻿using Logic.Enum;
+﻿using Logic.Companys;
+using Logic.Employee;
+using Logic.Employee.Degrees;
+using Logic.Enum;
 using Logic.Interface;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace DTO_BinaryFile.Manager
 {
-    public class BinaryFileManager: IBinarayFileManager
+    public class BinaryFileManager : IBinaryFileManager
     {
 
-    
-
-        /*public BinaryFileManager()
-        {
-            this.fileLocation += fileName;
-        }*/
 
         /// <summary>
-        /// Writes the given object instance to a binary file.
-        /// <para>Object type (and all child types) must be decorated with the [Serializable] attribute.</para>
-        /// <para>To prevent a variable from being serialized, decorate it with the [NonSerialized] attribute; cannot be applied to properties.</para>
+        /// Writes the specified object to a binary file. If the file exists, it will be overwritten.
+        /// If the file does not exist, it will be created.
         /// </summary>
-        /// <typeparam name="T">The type of object being written to the XML file.</typeparam>
-        /// <param name="filePath">The file path to write the object instance to.</param>
-        /// <param name="objectToWrite">The object instance to write to the XML file.</param>
-        /// <param name="append">If false the file will be overwritten if it already exists. If true the contents will be appended to the file.</param>
+        /// <typeparam name="T">The type of object to write to the file.</typeparam>
+        /// <param name="objectToWrite">The object to write to the file.</param>
+        /// <param name="type">The type of repository to which the file belongs.</param>
         public void WriteToBinaryFile<T>(T objectToWrite, RepositoryType type)
         {
             using (Stream stream = File.Open(FileSetterManager.SetFileLocation(type), false ? FileMode.Append : FileMode.Create))
             {
-                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
                 binaryFormatter.Serialize(stream, objectToWrite);
             }
         }
 
         /// <summary>
-        /// Reads an object instance from a binary file.
+        /// Reads an object of type T from a binary file.
         /// </summary>
-        /// <typeparam name="T">The type of object to read from the XML.</typeparam>
-        /// <param name="filePath">The file path to read the object instance from.</param>
-        /// <returns>Returns a new instance of the object read from the binary file.</returns>
+        /// <typeparam name="T">The type of object to read from the file.</typeparam>
+        /// <param name="type">The type of repository to which the file belongs.</param>
+        /// <returns>An object of type T, read from the binary file.</returns>
         public T ReadFromBinaryFile<T>(RepositoryType type)
         {
             using (Stream stream = File.Open(FileSetterManager.SetFileLocation(type), FileMode.Open))
@@ -46,5 +42,35 @@ namespace DTO_BinaryFile.Manager
             }
         }
 
+/*
+        public void DummyData()
+        {
+
+
+
+            List<Company> companies = new List<Company>();
+            List<StaffMember> staffMembers = new List<StaffMember>();
+
+            staffMembers.Add(new StaffMember("abdi114@live.nl", "Abdi", Gender.Male, CompanyRole.StaffMember, Occaption.Picker, DateTime.Now, new Degree("Software Developer", 5)));
+            staffMembers.Add(new StaffMember("john.doe@gmail.com", "John", Gender.Male, CompanyRole.Manager, Occaption.Driver, DateTime.Now, new Degree("Business Administration", 3)));
+            staffMembers.Add(new StaffMember("jane.doe@gmail.com", "Jane", Gender.Female, CompanyRole.StaffMember, Occaption.Driver, DateTime.Now, new Degree("Supply Chain Management", 4)));
+
+            staffMembers.Add(new StaffMember("emily456@gmail.com", "Emily", Gender.Female, CompanyRole.StaffMember, Occaption.Picker, DateTime.Now, new Degree("Computer Engineering", 3)));
+            staffMembers.Add(new StaffMember("samuel789@gmail.com", "Samuel", Gender.Male, CompanyRole.StaffMember, Occaption.Picker, DateTime.Now, new Degree("Data Science", 2)));
+            staffMembers.Add(new StaffMember("david321@gmail.com", "David", Gender.Male, CompanyRole.Manager, Occaption.Picker, DateTime.Now, new Degree("Marketing", 3)));
+            staffMembers.Add(new StaffMember("olivia654@gmail.com", "Olivia", Gender.Female, CompanyRole.StaffMember, Occaption.Picker, DateTime.Now, new Degree("Graphic Design", 2)));
+
+            companies.Add(new Company("Tesla"));
+            companies.Add(new Company("Apple"));
+            companies.Add(new Company("Google"));
+
+            IList<Company> companies1 = companies;
+            IList<StaffMember> staffMembers1 = staffMembers;
+
+            WriteToBinaryFile<IList<Company>>(companies1, RepositoryType.Company);
+            WriteToBinaryFile<IList<StaffMember>>(staffMembers1, RepositoryType.Staff);
+
+
+        }*/
     }
 }

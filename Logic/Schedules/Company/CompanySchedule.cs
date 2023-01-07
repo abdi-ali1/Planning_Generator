@@ -1,70 +1,47 @@
-﻿using Logic.Employee;
-using Logic.Schedules.Company;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Logic.Schedules.Company;
 
 namespace Logic.Schedules
 {
     [Serializable]
     public class CompanySchedule
     {
-        private DateTime currentWeek; 
-        private List<CompanyScheduleInfo> scheduleInfos = new List<CompanyScheduleInfo>();
+        private DateTime currentWeek;
+        private List<CompanyScheduleInfo> companyScheduleInfos = new List<CompanyScheduleInfo>();
 
-
-        public DateTime CurrentWeek { get { return currentWeek; }  }
-        public IList<CompanyScheduleInfo> ScheduleInfos { get { return scheduleInfos.AsReadOnly(); } }
-
+        public DateTime CurrentWeek { get { return currentWeek; } }
+        public IList<CompanyScheduleInfo> CompanyScheduleInfos { get { return companyScheduleInfos.AsReadOnly(); } }
 
         public CompanySchedule(DateTime currentWeek)
         {
             this.currentWeek = currentWeek;
         }
 
-
-        public CompanySchedule(DateTime currentWeek, List<CompanyScheduleInfo> scheduleInfos)
+        public CompanySchedule(DateTime currentWeek, List<CompanyScheduleInfo> companyScheduleInfos)
         {
             this.currentWeek = currentWeek;
-            this.scheduleInfos = scheduleInfos;
+            this.companyScheduleInfos = companyScheduleInfos;
         }
 
         /// <summary>
-        /// Adds a CompanyScheduleInfo object to the list of ScheduleInfos for the CompanySchedule.
+        /// Adds a company schedule info to the list of company schedule infos.
         /// </summary>
-        /// <param name="scheduleInfo">The scheduleInfo object to be added to the list.</param>
-        /// <returns>
-        /// A Result<string> object indicating the success or failure of the operation. If the operation is successful,
-        /// the Ok variant will contain a string message indicating that the StaffSchedule object was added to the list. 
-        /// If the operation fails, the Fail variant will contain an Exception object with more information about the 
-        /// error.
-        /// </returns>
+        /// <param name="scheduleInfo">The company schedule info to add to the list.</param>
+        /// <returns>A Result object indicating the success or failure of the operation, and any error message if applicable.</returns>
         public Result<bool> AddComapanyScheduleInfo(CompanyScheduleInfo scheduleInfo)
         {
             try
             {
-                if (!scheduleInfos.Any(x => x.Staff == scheduleInfo.Staff && x.Shift == scheduleInfo.Shift))
+                if (!companyScheduleInfos.Any(x => x.StaffMember == scheduleInfo.StaffMember && x.Shift == scheduleInfo.Shift))
                 {
-                    scheduleInfos.Add(scheduleInfo);
+                    companyScheduleInfos.Add(scheduleInfo);
                     return Result<bool>.Ok(true);
                 }
-                return Result<bool>.Fail(new Exception("already exist"));
+                return Result<bool>.Fail(new Exception("already exists"));
             }
             catch (Exception e)
             {
                 return Result<bool>.Fail(e);
-            
-            }        
+            }
         }
-
-
-
-
-
-      
-
-
     }
 }

@@ -1,11 +1,8 @@
 ﻿using Logic.Employee.Degrees;
 using Logic.Employee.Formules;
 using Logic.Enum;
-using Logic.Schedules;
-using Logic.Schedules.Company;
 using Logic.Schedules.Staff;
 using Logic.Shifts.Availibiltiy;
-
 
 namespace Logic.Employee
 {
@@ -16,109 +13,99 @@ namespace Logic.Employee
         private string username;
         private string name;
         private Gender gender;
-        private CompanyRole role;
-        private Occaption occaption;
-        private DateTime birtDate;
+        private CompanyRole companyRole;
+        private Occupation occupation;
+        private DateTime birthDate;
         private Degree degree;
 
-        private List<StaffSchedule> schedule = new List<StaffSchedule>();
-        private List<AvailibiltyStaff> availibilty = new List<AvailibiltyStaff>();
-
+        private List<StaffSchedule> staffSchedules = new List<StaffSchedule>();
+        private List<AvailabilityStaff> availibiltyStaffs = new List<AvailabilityStaff>();
 
         //properties (getters//setters)
         public string Username { get { return username; } }
         public string Name { get { return name; } }
         public Gender Gender { get { return gender; } }
-        public CompanyRole Role { get { return role; } }
-        public int Age { get { return AgeCalculater.GetCurrentAge(birtDate); } }
-        public Occaption Occaption { get { return occaption; } }
+        public CompanyRole Role { get { return companyRole; } }
+        public int Age { get { return AgeCalculater.GetCurrentAge(birthDate); } }
+        public Occupation Occaption { get { return occupation; } }
         public Degree Degree { get { return degree; } }
 
-        public IList<StaffSchedule> Schedule { get { return schedule.AsReadOnly(); }  }
-        public IList<AvailibiltyStaff> Availibilty { get { return availibilty.AsReadOnly(); } }
+        public IList<StaffSchedule> StaffSchedule { get { return staffSchedules.AsReadOnly(); } }
+        public IList<AvailabilityStaff> AvailabilityStaff { get { return availibiltyStaffs.AsReadOnly(); } }
 
-        public StaffMember(string username, string name, Gender gender, CompanyRole role, Occaption occaption, DateTime birtDate, Degree degree)
+        public StaffMember(string username, string name, Gender gender, CompanyRole companyRole, Occupation occupation, DateTime birthDate, Degree degree)
         {
             this.username = username;
             this.name = name;
             this.gender = gender;
-            this.role = role;
-            this.occaption = occaption;
-            this.birtDate = birtDate;
+            this.companyRole = companyRole;
+            this.occupation = occupation;
+            this.birthDate = birthDate;
             this.degree = degree;
         }
 
-
-        public StaffMember(string username, string name, Gender gender, CompanyRole role, Occaption occaption, DateTime birtDate, Degree degree,
-            List<StaffSchedule> staffSchedules, List<AvailibiltyStaff> availibilties):
-            this(username, name, gender, role, occaption, birtDate, degree)
+        public StaffMember(string username, string name, Gender gender, CompanyRole companyRole, Occupation occupation, DateTime birthDate, Degree degree,
+            List<StaffSchedule> staffSchedules, List<AvailabilityStaff> availibiltyStaffs) :
+            this(username, name, gender, companyRole, occupation, birthDate, degree)
         {
-            this.schedule = staffSchedules;
-            this.availibilty = availibilties;
+            this.staffSchedules = staffSchedules;
+            this.availibiltyStaffs = availibiltyStaffs;
         }
 
         /// <summary>
-        /// Adds a StaffSchedule object to the list of schedules for the staff member.
+        /// Adds a staff schedule to the list of staff schedules.
         /// </summary>
-        /// <param name="staffSchedule">The StaffSchedule object to be added to the list.</param>
-        /// <returns>
-        /// A Result<string> object indicating the success or failure of the operation. If the operation is successful,
-        /// the Ok variant will contain a string message indicating that the StaffSchedule object was added to the list. 
-        /// If the operation fails, the Fail variant will contain an Exception object with more information about the 
-        /// error.
-        /// </returns>
+        /// <param name="staffSchedule">The staff schedule to add to the list.</param>
+        /// <returns>A Result object indicating the success or failure of the operation, and any error message if applicable.</returns>
         public Result<string> AddSchedule(StaffSchedule staffSchedule)
         {
             try
             {
-                if (!schedule.Any(x => x.Equals(staffSchedule)))
+                if (!staffSchedules.Any(x => x.Equals(staffSchedule)))
                 {
-                    schedule.Add(staffSchedule);
-                    return Result<string>.Ok("schedule is added to list");
+                    staffSchedules.Add(staffSchedule);
+                    return Result<string>.Ok("schedule is added to the list");
                 }
 
-                return Result<string>.Fail(new Exception("schedule for this date already exist"));
+                return Result<string>.Fail(new Exception("schedule for this date already exists"));
             }
             catch (Exception e)
             {
                 return Result<string>.Fail(e);
             }
-          
         }
 
         /// <summary>
-        /// Adds a AvailibiltyStaff object to the list of availibilties for the staff member.
+        /// Adds an availability for a staff member to the list of availabilities.
         /// </summary>
-        /// <param name="availibiltyStaff">The availibiltyStaff object to be added to the list.</param>
-        /// <returns>
-        /// A Result<string> object indicating the success or failure of the operation. If the operation is successful,
-        /// the Ok variant will contain a string message indicating that the StaffSchedule object was added to the list. 
-        /// If the operation fails, the Fail variant will contain an Exception object with more information about the 
-        /// error.
-        /// </returns>
-        public Result<string> AddAvailibilty(AvailibiltyStaff availibiltyStaff)
+        /// <param name="availibiltyStaff">The availability to add to the list.</param>
+        /// <returns>A Result object indicating the success or failure of the operation, and any error message if applicable.</returns>
+        public Result<string> AddAvailibilty(AvailabilityStaff availibiltyStaff)
         {
             try
             {
-                if (!availibilty.Any(x => x.Equals(availibiltyStaff)))
+                if (!availibiltyStaffs.Any(x => x.Equals(availibiltyStaff)))
                 {
-                    Availibilty.Add(availibiltyStaff);
-                    return Result<string>.Ok("is added to list");
+                    AvailabilityStaff.Add(availibiltyStaff);
+                    return Result<string>.Ok("is added to the list");
                 }
 
-                return Result<string>.Fail(new Exception("schedule for this date already exist"));
+                return Result<string>.Fail(new Exception("schedule for this date already exists"));
             }
             catch (Exception e)
             {
-
                 return Result<string>.Fail(e);
             }
         }
 
-
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns>True if the specified object is equal to the current object, otherwise false.</returns>
         public override bool Equals(object? obj)
         {
-            if (obj == null || !this.GetType().Equals(obj.GetType()))
+            if (obj == null || !GetType().Equals(obj.GetType()))
             {
                 return false;
             }
@@ -126,12 +113,5 @@ namespace Logic.Employee
             StaffMember staff = (StaffMember)obj;
             return (username == staff.Username);
         }
-
-
-
-
-
-
-
     }
 }

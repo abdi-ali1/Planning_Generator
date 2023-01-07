@@ -1,26 +1,16 @@
 ﻿using Logic.Employee;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic.WorkRules
 {
     public abstract class WorkRule : IWorkRuleSchedule
     {
-        protected StaffMember staff;
-     
+        protected StaffMember staffMember;
 
-        public WorkRule(StaffMember staff)
+        public WorkRule(StaffMember staffMember)
         {
-            this.staff = staff;
-       
+            this.staffMember = staffMember;
         }
 
         public abstract bool IsRuleAdhered();
-
-       
     }
-
 }

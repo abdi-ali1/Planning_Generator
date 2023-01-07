@@ -1,38 +1,37 @@
 ﻿using Logic.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using DayOfWeek = Logic.Enum.DayOfWeek;
-
 
 namespace Logic.Shifts
 {
     [Serializable]
     public class Shift
     {
-        private DayOfWeek day;
-        private ShiftHour kindOfShift;
+        private DayOfWeek dayOfWeek;
+        private ShiftHour shiftHour;
 
-        public DayOfWeek Day { get { return day; } }
-        public ShiftHour KindOfShift { get { return kindOfShift; } }
+        public DayOfWeek DayOfWeek { get { return dayOfWeek; } }
+        public ShiftHour ShiftHour { get { return shiftHour; } }
 
-        public Shift(DayOfWeek day, ShiftHour kindOfShift)
+        public Shift(DayOfWeek dayOfWeek, ShiftHour shiftHour)
         {
-            this.day = day;
-            this.kindOfShift = kindOfShift;
+            this.dayOfWeek = dayOfWeek;
+            this.shiftHour = shiftHour;
         }
 
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns>True if the specified object is equal to the current object, otherwise false.</returns>
         public override bool Equals(object obj)
         {
-            if (obj == null || !this.GetType().Equals(obj.GetType()))
+            if (obj == null || !GetType().Equals(obj.GetType()))
             {
                 return false;
             }
 
-            Shift shift = (Shift)obj; 
-            return (day == shift.Day ) && (kindOfShift == shift.KindOfShift);
+            Shift shift = (Shift)obj;
+            return (dayOfWeek == shift.DayOfWeek) && (shiftHour == shift.ShiftHour);
         }
     }
 }

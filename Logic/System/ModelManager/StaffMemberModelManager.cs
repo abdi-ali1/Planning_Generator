@@ -4,65 +4,49 @@ using Logic.Interface;
 
 namespace Logic.System.ModelManager
 {
-    public class StaffMemberModelManager: IStaffMemberModelManager
+    public class StaffMemberModelManager : IStaffMemberModelManager
     {
-        private List<StaffMember> allStaffMembers;
-        private IBinarayFileManager fileManager;
+        private List<StaffMember> staffMembers;
+        private IBinaryFileManager fileManager;
 
-        public IList<StaffMember> AllStaffMembers { get { return allStaffMembers.AsReadOnly(); } }
+        public IList<StaffMember> StaffMembers { get { return staffMembers.AsReadOnly(); } }
 
-
-        public StaffMemberModelManager(IBinarayFileManager fileManager)
+        public StaffMemberModelManager(IBinaryFileManager fileManager)
         {
 
-            this.fileManager = fileManager;    
-            this.allStaffMembers = fileManager.ReadFromBinaryFile<List<StaffMember>>(RepositoryType.Staff);
+            this.fileManager = fileManager;
+            this.staffMembers = fileManager.ReadFromBinaryFile<List<StaffMember>>(RepositoryType.Staff);
         }
 
         /// <summary>
-        /// Adds a new StaffMember object to the list of all staffmembers.
+        /// Adds a new staff member to the list of staff members.
         /// </summary>
-        /// <param name="staffMember">The staffmember object to be added to the list.</param>
-        /// <returns>
-        /// A Result<string> object indicating the success or failure of the operation. If the operation is successful, 
-        /// the Ok variant will contain a string message indicating that the Company object was added to the list. 
-        /// If the operation fails, the Fail variant will contain an Exception object with more information about the error.
-        /// </returns>
+        /// <param name="staffMember">The staff member to add.</param>
+        /// <returns>A result object containing either a success message or an exception if there was an error.</returns>
         public Result<string> AddNewStaff(StaffMember staffMember)
         {
             try
             {
-                if (!allStaffMembers.Any(x => x.Equals(staffMember)))
+                if (!staffMembers.Any(x => x.Equals(staffMember)))
                 {
-                    allStaffMembers.Add(staffMember);
-                    return Result<string>.Ok("is added to list");
+                    staffMembers.Add(staffMember);
+                    return Result<string>.Ok("is added to the list");
                 }
 
-                return Result<string>.Fail(new Exception("staffmember already exist"));
+                return Result<string>.Fail(new Exception("staffmember already exists"));
             }
             catch (Exception e)
             {
-
                 return Result<string>.Fail(e);
             }
-      
-
-          
-     
         }
 
         /// <summary>
-        /// Saves the list of all companies to a binary file.
+        /// Saves the list of staff members to a binary file.
         /// </summary>
         public void SaveStaffMembers()
         {
-            fileManager.WriteToBinaryFile<List<StaffMember>>(allStaffMembers, RepositoryType.Staff);
-           
+            fileManager.WriteToBinaryFile<List<StaffMember>>(staffMembers, RepositoryType.Staff);
         }
-
-
-
-
-
     }
 }

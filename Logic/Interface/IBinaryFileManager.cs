@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Logic.Interface
 {
-    public interface IBinarayFileManager
+    public interface IBinaryFileManager
     {
 
         public void WriteToBinaryFile<T>(T objectToWrite, RepositoryType type);

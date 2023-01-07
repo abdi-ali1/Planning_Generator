@@ -1,16 +1,17 @@
 ﻿using Logic.Companys;
 using Logic.Companys.Request;
 using Logic.Interface;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic.System.Generator
 {
     internal class WeeklyNeedLooper : IGetLoopInfoWeeklyNeed
     {
+        /// <summary>
+        /// Gets the weekly need for a given company on a given date.
+        /// </summary>
+        /// <param name="company">The company to get the weekly need for.</param>
+        /// <param name="dateTime">The date to get the weekly need for.</param>
+        /// <returns>A result object containing either the weekly need for the given company on the given date, or an exception if there was an error.</returns>
         public Result<WeeklyNeed> GetInfo(Company company, DateTime dateTime)
         {
             try

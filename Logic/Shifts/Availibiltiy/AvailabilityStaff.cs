@@ -1,28 +1,32 @@
-﻿using Logic.Schedules.Staff.formules;
-using Logic.Shifts;
+﻿using Logic.Companys;
 
-namespace Logic.Schedules.Staff
+namespace Logic.Shifts.Availibiltiy
 {
     [Serializable]
-    public class StaffSchedule
+    public class AvailabilityStaff
     {
         // fields
-        private DateTime currentWeek;
+        private DateTime weekAvailability;
+        private Company company;
         private List<Shift> shifts = new List<Shift>();
-        private Companys.Company company;
 
         // properties
-        public DateTime CurrentWeek { get { return currentWeek; } }
+        public DateTime WeekAvailability { get { return weekAvailability; } }
+        public Company Company { get { return company; } }
         public IList<Shift> Shifts { get { return shifts.AsReadOnly(); } }
-        public float TotalWorkingHours { get { return WorkHour.GetTotalWeekWorkingHour(shifts); } }
-        private Companys.Company Company { get { return company; } }
 
-        public StaffSchedule(DateTime currentWeek, Companys.Company company)
+        public AvailabilityStaff(DateTime neededWeek, Company company)
         {
-            this.currentWeek = currentWeek;
+            weekAvailability = neededWeek;
             this.company = company;
         }
 
+
+        public AvailabilityStaff(DateTime neededWeek, Company company, List<Shift> shifts) : this(neededWeek, company)
+        {
+            this.shifts = shifts;
+        }
+         
         /// <summary>
         /// Adds a new shift to the list of shifts.
         /// </summary>
@@ -35,10 +39,10 @@ namespace Logic.Schedules.Staff
                 if (!shifts.Any(x => x.Equals(shift)))
                 {
                     shifts.Add(shift);
-                    return Result<string>.Ok("added to the list");
+                    return Result<string>.Ok("Added to the list");
                 }
 
-                return Result<string>.Fail(new Exception("already exists"));
+                return Result<string>.Fail(new Exception("shift already exists"));
             }
             catch (Exception e)
             {
@@ -58,9 +62,9 @@ namespace Logic.Schedules.Staff
                 return false;
             }
 
-            StaffSchedule staffSchedule = (StaffSchedule)obj;
+            AvailabilityStaff availibiltyStaff = (AvailabilityStaff)obj;
 
-            return (staffSchedule.company == company && staffSchedule.CurrentWeek == currentWeek);
+            return ( availibiltyStaff.WeekAvailability == weekAvailability);
         }
     }
 }

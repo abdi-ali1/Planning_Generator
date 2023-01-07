@@ -10,63 +10,54 @@ namespace Logic.System.Generator
 {
     public class ScheduleGenerator
     {
-        private readonly IList<StaffMember> allStaffMembers;
+        private readonly IList<StaffMember> staffMembers;
         private readonly IGetLoopInfoWeeklyNeed getLoopInfoWeeklyNeed;
-        private readonly IAvailibiltyMatcher availabilityChecker;
-        private readonly IAvailibiltyMatcher secondaryAvailabilityChecker;
+        private readonly IAvailibiltyMatcher availabilityMatcher;
+        private readonly IAvailibiltyMatcher secondaryAvailabilityMatcher;
 
-
-        public ScheduleGenerator(
-            IList<StaffMember> allStaffMembers,
-            IGetLoopInfoWeeklyNeed getLoopInfoWeeklyNeed,
-            IAvailibiltyMatcher availabilityChecker,
-            IAvailibiltyMatcher secondaryAvailabilityChecker)
+        public ScheduleGenerator(IList<StaffMember> staffMembers)
         {
-            this.allStaffMembers = allStaffMembers;
-            this.getLoopInfoWeeklyNeed = getLoopInfoWeeklyNeed;
-            this.availabilityChecker = availabilityChecker;
-            this.secondaryAvailabilityChecker = secondaryAvailabilityChecker;
+            this.staffMembers = staffMembers;
+      
         }
 
         /// <summary>
-        /// Creates a schedule for a given company and week.
+        /// Creates a list of company schedules for the given week and company.
         /// </summary>
-        /// <param name="company">The company for which to create the schedule.</param>
-        /// <param name="weekNeeded">The week for which to create the schedule.</param>
-        /// <returns>A schedule for the given company and week.</returns
+        /// <param name="company">The company for which to create schedules.</param>
+        /// <param name="weekNeeded">The week for which to create schedules.</param>
+        /// <returns>A list of company schedules for the given week and company.</returns>
         public List<CompanySchedule> CreateCompanySchedulesForWeek(Company company, DateTime weekNeeded)
         {
             List<CompanySchedule> schedules = new List<CompanySchedule>();
 
             WeeklyNeed neededWeekData = getLoopInfoWeeklyNeed.GetInfo(company, weekNeeded).Value;
-            IList<StaffMember> staffMembersAvailibleOnDate = StaffMembersAvailibleOnDate(allStaffMembers, weekNeeded).Value;
+            IList<StaffMember> staffMembersAvailibleOnDate = StaffMembersAvailibleOnDate(staffMembers, weekNeeded).Value;
 
-            CompanySchedule schedule = FillSchedule(neededWeekData.NeededStaff, staffMembersAvailibleOnDate, weekNeeded, availabilityChecker);
+            CompanySchedule schedule = FillSchedule(neededWeekData.NeededStaff, staffMembersAvailibleOnDate, weekNeeded, availabilityMatcher);
             schedules.Add(schedule);
 
             // If there are still needed staff after the first schedule is created,
             // create another schedule with the remaining needed staff.
-            if (schedule.ScheduleInfos.Count < neededWeekData.NeededStaff.Count)
+            if (schedule.CompanyScheduleInfos.Count < neededWeekData.NeededStaff.Count)
             {
                 // Create a new schedule for the remaining needed staff.
-                CompanySchedule remainingSchedule = 
-                FillSchedule(neededWeekData.NeededStaff, staffMembersAvailibleOnDate, weekNeeded, secondaryAvailabilityChecker);
+                CompanySchedule remainingSchedule =
+                FillSchedule(neededWeekData.NeededStaff, staffMembersAvailibleOnDate, weekNeeded, secondaryAvailabilityMatcher);
                 schedules.Add(remainingSchedule);
             }
 
             return schedules;
         }
 
-
-
         /// <summary>
-        /// Fills a schedule with staff members who match the needed shifts.
+        /// Fills a company schedule for a given date with the available staff members.
         /// </summary>
-        /// <param name="neededStaff">The needed staff for the schedule.</param>
-        /// <param name="staffMembers">The available staff members.</param>
-        /// <param name="date">The date for the schedule.</param>
-        /// <param name="availabilityChecker">The availability checker to use.</param>
-        /// <returns>The filled schedule.</returns>
+        /// <param name="neededStaff">The list of needed staff positions for the given date.</param>
+        /// <param name="staffMembers">The list of staff members available for the given date.</param>
+        /// <param name="date">The date for which the schedule is being generated.</param>
+        /// <param name="availabilityChecker">The availability checker to use to determine if a staff member is available for a shift.</param>
+        /// <returns>A company schedule with the staff members assigned to the needed shifts.</returns>
         private CompanySchedule FillSchedule(
             IList<NeededStaff> neededStaff,
             IList<StaffMember> staffMembers,
@@ -79,7 +70,7 @@ namespace Logic.System.Generator
             {
                 foreach (StaffMember staff in staffMembers)
                 {
-                    if (availabilityChecker.MatchesNeed(needed, staff, date, schedule.ScheduleInfos))
+                    if (availabilityChecker.MatchesNeed(needed, staff, date, schedule.CompanyScheduleInfos))
                     {
                         schedule.AddComapanyScheduleInfo(new CompanyScheduleInfo(staff, needed.NeededShift));
                     }
@@ -89,23 +80,21 @@ namespace Logic.System.Generator
             return schedule;
         }
 
-
-
         /// <summary>
         /// Gets a list of staff members who are available on a given date.
         /// </summary>
-        /// <param name="staffMembers">The list of staff members to check.</param>
-        /// <param name="dateTime">The date to check.</param>
-        /// <returns>A list of staff members who are available on the given date, or an error if no staff members are available.</returns>
+        /// <param name="staffMembers">The list of staff members to check for availability.</param>
+        /// <param name="dateTime">The date to check for availability.</param>
+        /// <returns>A result object containing either a list of staff members who are available on the given date, or an exception if there was an error.</returns>
         private Result<IList<StaffMember>> StaffMembersAvailibleOnDate(IList<StaffMember> staffMembers, DateTime dateTime)
         {
             try
             {
-                IList<StaffMember> availibleStaffMembers = staffMembers.Where(staff => staff.Availibilty.Any(availability => availability.WeekAvailbilty == dateTime))
+                IList<StaffMember> availibleStaffMembers = staffMembers.Where(staff => staff.AvailabilityStaff.Any(availability => availability.WeekAvailability == dateTime))
                     .ToList();
                 if (availibleStaffMembers.Count == 0)
                 {
-                    return Result<IList<StaffMember>>.Fail(new Exception("there are no staff availible"));
+                    return Result<IList<StaffMember>>.Fail(new Exception("there is no staff available"));
                 }
                 return Result<IList<StaffMember>>.Ok(availibleStaffMembers);
             }
@@ -115,5 +104,4 @@ namespace Logic.System.Generator
             }
         }
     }
-
 }
