@@ -9,8 +9,6 @@ namespace Planning_Generator.Controllers
         {
 
 
-
-
             return View();
         }
 

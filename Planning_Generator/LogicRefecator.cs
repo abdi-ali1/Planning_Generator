@@ -22,6 +22,7 @@ namespace Planning_Generator
         public static StaffMemberModelManager StaffMemberModelManager { get { return staffMemberModelManager; } }
         public static CompanyModelManager CompanyModelManager { get { return companyModelManager; } }
         public static AuthenticationManagement Authentication { get { return authentication; } }
+     
 
 
         static LogicRefecator()

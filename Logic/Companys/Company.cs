@@ -11,12 +11,14 @@ namespace Logic.Companys
         private List<IWeeklyNeed> weeklyNeed = new List<IWeeklyNeed>();
 
         public string Name { get { return name; } }
-        public IList<CompanySchedule> Schedules { get => companySchedules.AsReadOnly(); }
-        public IList<WeeklyNeed> WeeklyNeed { get => (IList<WeeklyNeed>)weeklyNeed.AsReadOnly(); }
+        public IList<CompanySchedule> Schedules { get { return companySchedules.AsReadOnly(); } }
+        public IList<IWeeklyNeed> WeeklyNeed { get { return weeklyNeed.AsReadOnly(); } }
 
         public Company(string name)
         {
             this.name = name;
+            companySchedules = new List<CompanySchedule>();
+            weeklyNeed = new List<IWeeklyNeed>();
         }
 
         /// <summary>

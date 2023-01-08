@@ -42,6 +42,21 @@ namespace Logic.System.ModelManager
         }
 
         /// <summary>
+        /// Updates a specific staffMember in the list.
+        /// </summary>
+        /// <param name="staffMember">The staffMember to update.</param>
+        public void SaveStaffMember(StaffMember staffMember)
+        {
+            int index = staffMembers.FindIndex(x => x.Username == staffMember.Username);
+            if (index != -1)
+            {
+                staffMembers[index] = staffMember;
+            }
+        }
+
+    
+
+        /// <summary>
         /// Saves the list of staff members to a binary file.
         /// </summary>
         public void SaveStaffMembers()

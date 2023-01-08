@@ -1,9 +1,12 @@
-﻿<!DOCTYPE html>
+﻿@using Logic.Employee
+@using Logic.Companys
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Planning_Generator</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Planning_Generator.styles.css" asp-append-version="true" />
@@ -23,16 +26,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-
-                        <!-- Staff -->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Staff" asp-action="SendAvailibility">Staff</a>
-                        </li>
-
-                        <!-- Company -->
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Company" asp-action="requestStaff">Company</a>
-                        </li>
+                        @if (CurrentActive<StaffMember>.IsLoggedIn)
+                        {
+                            <!-- Staff -->
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Staff" asp-action="SendAvailibility">Staff</a>
+                            </li>
+                        }
+                        @if (CurrentActive<Company>.IsLoggedIn)
+                        {
+                            <!-- Company -->
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Company" asp-action="requestStaff">Company</a>
+                            </li>
+                        }
+                      
                     </ul>
                 </div>
             </div>

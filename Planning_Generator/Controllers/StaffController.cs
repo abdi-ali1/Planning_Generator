@@ -2,46 +2,43 @@
 using Logic.Companys;
 using Logic.Employee;
 using Logic.Employee.Degrees;
+using Logic.Enum;
+using Logic.Shifts;
 using Logic.Shifts.Availibiltiy;
 using Microsoft.AspNetCore.Mvc;
 using Planning_Generator.Models;
+using DayOfWeek = Logic.Enum.DayOfWeek;
 
 namespace Planning_Generator.Controllers
 {
     public class StaffController : Controller
     {
-        public IActionResult SendAvailibility(AvailabilityStaff_M availabilityStaff_M)
+      
+        public IActionResult SendAvailibility(AvailabilityStaff_M model)
         {
-            if (availabilityStaff_M.Company == null)
+            if (ModelState.IsValid)
             {
-               AvailabilityStaff availabilityStaff = new AvailabilityStaff
-                    (
-                    neededWeek: availabilityStaff_M.WeekAvailability,
-                 
-                   
-                    )
+                var company = LogicRefecator.CompanyModelManager.Companies.FirstOrDefault(x => x.Name == model.Company_Name);
+                var shifts = new List<Shift>();
 
-                Result<string> result = LogicRefecator.StaffMemberModelManager.AddNewStaff(staffMember);
-                if (result.Success)
+                foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
                 {
-                    ViewData["Message"] = result.Value;
-                    ViewData["MessageType"] = "success";
-                }
-                else
-                {
-                    if (result.IsExceptionType<Exception>())
+                    if (!string.IsNullOrEmpty(model.GetType().GetProperty("DayOfWeek" + day)?.GetValue(model)?.ToString()))
                     {
-                        ViewData["Message"] = result.Exception.Message;
+                        var shiftHour = (ShiftHour)Enum.Parse(typeof(ShiftHour), model.GetType().GetProperty("KindOfShift" + day)?.GetValue(model)?.ToString());
+                        shifts.Add(new Shift(day, shiftHour));
                     }
-                    else
-                    {
-                        ViewData["Message"] = "something went wrong try again!";
-                    }
-                    ViewData["MessageType"] = "danger";
                 }
+
+                var availabilityStaff = new AvailabilityStaff(model.WeekAvailability, company, shifts);
+
+                // do something with the availabilityStaff object
+                // ...
+
+                return RedirectToAction("Success");
             }
 
-            return View();
+            return View(model);
         }
 
         public IActionResult Shedule()
@@ -89,10 +86,8 @@ namespace Planning_Generator.Controllers
         }
 
 
-
         public IActionResult AddCompany(Company_M company_M)
         {
-          
             Result<string> result;
             if (company_M.Name != null)
             {

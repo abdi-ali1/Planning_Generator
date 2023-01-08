@@ -1,0 +1,14 @@
+﻿@{
+
+}
+@model Planning_Generator.Models.Login_M
+
+
+@using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-control" }))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.Username)
+        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", required = "Please enter the name of the new company" })
+    </div>
+    <button type="submit" class="btn btn-primary">Log in</button>
+}

@@ -41,6 +41,20 @@ namespace Logic.System.ModelManager
         }
 
         /// <summary>
+        /// Updates a specific company in the list.
+        /// </summary>
+        /// <param name="company">The company to update.</param>
+        public void SaveCompany(Company company)
+        {
+         
+            int index = companies.FindIndex(x => x.Name == company.Name);
+            if (index != -1)
+            {
+                companies[index] = company;
+            }
+        }
+
+        /// <summary>
         /// Saves the list of companies to a binary file.
         /// </summary>
         public void SafeProducts()

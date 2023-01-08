@@ -31,7 +31,7 @@ namespace Logic.System.Generator
         {
             List<CompanySchedule> schedules = new List<CompanySchedule>();
 
-            WeeklyNeed neededWeekData = getLoopInfoWeeklyNeed.GetInfo(company, weekNeeded).Value;
+            IWeeklyNeed neededWeekData = getLoopInfoWeeklyNeed.GetInfo(company, weekNeeded).Value;
             IList<StaffMember> staffMembersAvailibleOnDate = StaffMembersAvailibleOnDate(staffMembers, weekNeeded).Value;
 
             CompanySchedule schedule = FillSchedule(neededWeekData.NeededStaff, staffMembersAvailibleOnDate, weekNeeded, availabilityMatcher);
