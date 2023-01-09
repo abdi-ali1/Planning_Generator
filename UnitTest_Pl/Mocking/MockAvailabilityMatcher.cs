@@ -4,5 +4,7 @@ namespace UnitTest_Pl.Mocking
 {
     internal class MockAvailabilityMatcher : IAvailibiltyMatcher
     {
+
+       
     }
 }

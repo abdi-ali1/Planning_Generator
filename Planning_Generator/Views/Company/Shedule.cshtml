@@ -84,7 +84,7 @@
             <tr>
                 <td colspan="2">
                     Please select a week:
-                    <form method="post"  asp-action="ViewSchedule">
+                    <form method="post"  asp-action="GenereteShedules">
                         <select name="week" required>
                             @foreach (var weeklyNeed in CurrentActive<Company>.Current.WeeklyNeed)
                             {

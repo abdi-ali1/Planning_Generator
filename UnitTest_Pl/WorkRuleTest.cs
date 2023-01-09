@@ -32,12 +32,14 @@ namespace UnitTest_Pl
                 new CompanyScheduleInfo(staffMember1, new Logic.Shifts.Shift(Logic.Enum.DayOfWeek.Monday, ShiftHour.MorningShift)),
                 new CompanyScheduleInfo(staffMember1, new Logic.Shifts.Shift(Logic.Enum.DayOfWeek.Tuesday, ShiftHour.MorningShift))
              };
+
             IWorkRuleSchedule workRuleSchedule = new FiftyRule(companyScheduleInfos, staffMember1, week);
 
 
+            bool ruleTrue = workRuleSchedule.IsRuleAdhered();
 
-
-
+            //assert
+            Assert.IsTrue(ruleTrue);
         } 
 
 
