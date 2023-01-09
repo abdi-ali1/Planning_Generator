@@ -12,15 +12,15 @@ namespace Logic
         /// </summary>
         /// <param name="staff">The staff member to check.</param>
         /// <param name="companyScheduleInfos">The company schedule infos for the staff member.</param>
-        /// <param name="date">The date to check.</param>
+        /// <param name="week">The date to check.</param>
         /// <param name="shift">The shift to check.</param>
         /// <returns>True if the staff member adheres to all work rules, otherwise false.</returns>
-        public static bool AdheredAllWorkRules(StaffMember staff, IList<CompanyScheduleInfo> companyScheduleInfos, DateTime date, Shift shift)
+        public static bool AdheredAllWorkRules(StaffMember staff, IList<CompanyScheduleInfo> companyScheduleInfos, int week, Shift shift)
         {
             List<IWorkRuleSchedule> workRules = new List<IWorkRuleSchedule>()
         {
-            new FiftyRule(companyScheduleInfos, staff, date),
-            new MaxWorkHours(companyScheduleInfos, staff, date, shift)
+            new FiftyRule(companyScheduleInfos, staff, week),
+            new MaxWorkHours(companyScheduleInfos, staff, week, shift)
         };
 
             return ExecuteWorkRules(workRules);

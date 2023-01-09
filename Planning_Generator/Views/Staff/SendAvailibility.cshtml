@@ -9,47 +9,49 @@
 </div>
 <br />
 <br />
-
-
-<form method="post" asp-action="SendAvailibility">
+<<form method="post" asp-controller="Staff" asp-action="SendAvailibility">
     <div class="form-group">
         <label for="WeekAvailability">Week Availability:</label>
-        <input type="datetime" name="WeekAvailability" class="form-control" required />
+        <input type="number" name="WeekAvailability" min="1" max="52" class="form-control" required />
     </div>
     <div class="form-group">
-        <label for="Company">Company:</label>
+        <label for="Company_Name">Company Name:</label>
         <select name="Company_Name" class="form-control" required>
             @foreach (var company in LogicRefecator.CompanyModelManager.Companies)
             {
-                <option value="@company.Name">@company.Name</option>
+                 <option value="@company.Name">@company.Name.ToString()</option>
             }
         </select>
     </div>
     <div class="form-group">
-        <label for="Shifts">Shifts:</label>
-
-        @foreach (DayOfWeek day in Enum.GetValues(typeof(Logic.Enum.DayOfWeek)))
-        {
-            <div class="day-of-week">
-                <label>@day:</label>
-                <input type="checkbox" name="DayOfWeek@day" class="day-of-week" />
-            </div>
-            <br />
-            <div class="shift-hour" style="display:none;">
-                <select name="shift-hour" class="form-control" required>
-                    @foreach (var shift in Enum.GetValues(typeof(Logic.Enum.ShiftHour)))
-                    {
-                        <option value="@shift.ToString()">@shift.ToString()</option>
-                    }
-                </select>
-            </div>
-        }
+        <label for="DayOfWeek">Day of Week:</label>
+        <select name="DayOfWeek" class="form-control" required>
+            @foreach (DayOfWeek day in Enum.GetValues(typeof(Logic.Enum.DayOfWeek)))
+            {
+                <option value="@day">@day</option>
+            }
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="KindOfShift">Shift Hour:</label>
+        <select name="KindOfShift" class="form-control" required>
+            @foreach (var shift in Enum.GetValues(typeof(Logic.Enum.ShiftHour)))
+            {
+                <option value="@shift">@shift</option>
+            }
+        </select>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
 
 
+@if (ViewData["Message"] != null)
+{
+    <div class="alert alert-@ViewData["MessageType"] role="alert">
+        @ViewData["Message"]
+    </div>
+}
 
 
 
@@ -69,17 +71,4 @@
 
 
 
-<script>
-    var dayOfWeekElements = document.getElementsByClassName('day-of-week');
-    var shiftHourElements = document.getElementsByClassName('shift-hour');
 
-    for (var i = 0; i < dayOfWeekElements.length; i++) {
-        dayOfWeekElements[i].addEventListener('change', function () {
-            if (this.checked) {
-                shiftHourElements[i].style.display = 'block';
-            } else {
-                shiftHourElements[i].style.display = 'none';
-            }
-        });
-    }
-</script>

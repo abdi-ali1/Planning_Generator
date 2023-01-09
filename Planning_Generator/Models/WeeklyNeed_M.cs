@@ -1,19 +1,15 @@
-﻿using Logic.Companys;
-using Logic.Enum;
+﻿using Logic.Enum;
 using Logic.Shifts;
 using DayOfWeek = Logic.Enum.DayOfWeek;
 
 namespace Planning_Generator.Models
 {
-    public class AvailabilityStaff_M
+    public class WeeklyNeed_M
     {
-        public int WeekAvailability { get; set; }
-        public string Company_Name { get; set; }
+        public int CurrentWeek { get; set; }
+        public Occupation Occupation { get; set; }
         public DayOfWeek DayOfWeek { get; set; }
         public ShiftHour KindOfShift { get; set; }
-    
-
-
+        public int DegreeLevel { get; set; }
     }
-
 }

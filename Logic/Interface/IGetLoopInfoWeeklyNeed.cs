@@ -5,6 +5,6 @@ namespace Logic.Interface
 {
     public interface IGetLoopInfoWeeklyNeed
     {
-        public Result<IWeeklyNeed> GetInfo(Company company, DateTime dateTime);
+        public Result<IWeeklyNeed> GetInfo(Company company, int week);
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Logic;
 using Logic.Companys;
+using Logic.Companys.Request;
 using Logic.Employee;
 using Logic.Employee.Degrees;
 using Logic.Enum;
@@ -7,7 +8,6 @@ using Logic.Shifts;
 using Logic.Shifts.Availibiltiy;
 using Microsoft.AspNetCore.Mvc;
 using Planning_Generator.Models;
-using DayOfWeek = Logic.Enum.DayOfWeek;
 
 namespace Planning_Generator.Controllers
 {
@@ -16,37 +16,52 @@ namespace Planning_Generator.Controllers
       
         public IActionResult SendAvailibility(AvailabilityStaff_M model)
         {
-            if (ModelState.IsValid)
+            if (model.WeekAvailability != 0)
             {
-                var company = LogicRefecator.CompanyModelManager.Companies.FirstOrDefault(x => x.Name == model.Company_Name);
-                var shifts = new List<Shift>();
 
-                foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
+                Result<string> result;
+                StaffMember staff = CurrentActive<StaffMember>.Current;
+                int index = Getindex(staff.AvailabilityStaff, model.WeekAvailability);
+                if (index > -1)
                 {
-                    if (!string.IsNullOrEmpty(model.GetType().GetProperty("DayOfWeek" + day)?.GetValue(model)?.ToString()))
-                    {
-                        var shiftHour = (ShiftHour)Enum.Parse(typeof(ShiftHour), model.GetType().GetProperty("KindOfShift" + day)?.GetValue(model)?.ToString());
-                        shifts.Add(new Shift(day, shiftHour));
-                    }
+                    result = staff.AvailabilityStaff[index].AddNewShift
+                        (
+                          new Shift(model.DayOfWeek, model.KindOfShift)
+                       
+                        );
+                }
+                else
+                {
+                    Result<Company> companyResult = LogicRefecator.CompanyModelManager.GetCompanyByName(model.Company_Name);
+                    AvailabilityStaff availability = new AvailabilityStaff(model.WeekAvailability, companyResult.Value);
+                    result = availability.AddNewShift
+                        (
+                         new Shift(model.DayOfWeek, model.KindOfShift)
+
+                        );
+                    staff.AddAvailibilty(availability);
                 }
 
-                var availabilityStaff = new AvailabilityStaff(model.WeekAvailability, company, shifts);
+                if (result.Success)
+                {
+                    CurrentActive<StaffMember>.Current = staff;
+                    LogicRefecator.StaffMemberModelManager.SaveStaffMember(staff);
+                    LogicRefecator.StaffMemberModelManager.SaveStaffMembers();
+                }
 
-                // do something with the availabilityStaff object
-                // ...
+                SetResult<string>(result);
 
-                return RedirectToAction("Success");
+
             }
 
-            return View(model);
+            return View();
         }
 
         public IActionResult Shedule()
         {
             return View();
         }
-
-
+        
         public IActionResult AddStaff(StaffMemeber_M staffMemeber_M)
         {
             if (staffMemeber_M != null && staffMemeber_M.PropertiesAreNotNull())
@@ -85,7 +100,6 @@ namespace Planning_Generator.Controllers
             return View();
         }
 
-
         public IActionResult AddCompany(Company_M company_M)
         {
             Result<string> result;
@@ -114,6 +128,50 @@ namespace Planning_Generator.Controllers
                 }
             }
             return View();
+        }
+
+
+        private int Getindex(IList<AvailabilityStaff> values, int week)
+        {
+            int index = -1;
+            if (values.Count == 0)
+            {
+                return index;
+            }
+            for (int i = 0; i < values.Count; i++)
+            {
+                if (values[i].WeekAvailability == week)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            return index;
+        }
+
+
+        public void SetResult<T>(Result<T> result)
+        {
+            if (result == null) return;
+
+            if (result.Success)
+            {
+                ViewData["Message"] = result.Value;
+                ViewData["MessageType"] = "success";
+            }
+            else
+            {
+                if (result.IsExceptionType<Exception>())
+                {
+                    ViewData["Message"] = result.Exception.Message;
+                }
+                else
+                {
+                    ViewData["Message"] = "something went wrong try again!";
+                }
+                ViewData["MessageType"] = "danger";
+            }
         }
     }
 }

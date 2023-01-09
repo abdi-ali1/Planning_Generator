@@ -12,7 +12,7 @@ namespace Logic.Companys
 
         public string Name { get { return name; } }
         public IList<CompanySchedule> Schedules { get { return companySchedules.AsReadOnly(); } }
-        public IList<IWeeklyNeed> WeeklyNeed { get { return weeklyNeed.AsReadOnly(); } }
+        public IList<IWeeklyNeed> WeeklyNeed { get { return weeklyNeed; } }
 
         public Company(string name)
         {

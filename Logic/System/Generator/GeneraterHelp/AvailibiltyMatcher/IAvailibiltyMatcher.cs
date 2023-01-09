@@ -8,6 +8,6 @@ namespace Logic.System.Generator.GeneraterHelp.AvailibiltyMatcher
 {
     public interface IAvailibiltyMatcher
     {
-        public bool MatchesNeed(NeededStaff needed, StaffMember staff, DateTime date, IList<CompanyScheduleInfo> scheduleInfos);
+        public bool MatchesNeed(NeededStaff needed, StaffMember staff, int week, IList<CompanyScheduleInfo> scheduleInfos);
     }
 }

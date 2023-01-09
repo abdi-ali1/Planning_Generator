@@ -1,19 +1,75 @@
 ﻿@{
     ViewData["Title"] = "Company Schedule";
 }
+@model IList<Logic.Schedules.CompanySchedule>
+@using Logic.Companys
+@using Logic.Shifts
 
- <table class="table rounded BackgroundTable  LoadFromBottom ">
-            <thead>
-                <tr class="p">
-                    <th scope="col">#</th>
-                    <th scope="col">CoinName</th>
-                    <th scope="col">Symbol</th>
-                    <th scope="col">Value of coin</th>
-                    <th scope="col">24h change percentage</th>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Week</th>
+            <th scope="col">Schedules</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (CurrentActive<Company>.Current.Schedules.Count > 0)
+        {
+            var list = Model; 
+            if (Model == null)
+            {
+              list = CurrentActive<Company>.Current.Schedules;
+            }
+
+            foreach (var schedule in CurrentActive<Company>.Current.Schedules)
+            {
+                <tr>
+                    <th scope="row">@schedule.CurrentWeek</th>
+                    <td>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Employee</th>
+                                    <th scope="col">Shift</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var scheduleInfo in schedule.CompanyScheduleInfos)
+                                {
+                                    <tr>
+                                        <td>@scheduleInfo.StaffMember.Name</td>
+                                        <td>@scheduleInfo.Shift.DayOfWeek</td>
+                                        <td>@scheduleInfo.Shift.ShiftHour</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </td>
                 </tr>
-            </thead>
-            <tbody>
-
-             
-            </tbody>
-        </table>
+            }
+        }
+        else if (CurrentActive<Company>.Current.WeeklyNeed.Count > 0)
+        {
+            <tr>
+                <td colspan="2">
+                    Please select a week:
+                    <form method="post"  asp-action="ViewSchedule">
+                        <select name="week" required>
+                            @foreach (var weeklyNeed in CurrentActive<Company>.Current.WeeklyNeed)
+                            {
+                                <option value="@weeklyNeed.WeekNeeded">Week @weeklyNeed.WeekNeeded</option>
+                            }
+                        </select>
+                        <button type="submit" class="btn btn-primary">Generate Schedule</button>
+                    </form>
+                </td>
+            </tr>
+        }
+        else
+        {
+            <tr>
+                <td colspan="2">Please send a request to view schedules.</td>
+            </tr>
+        }
+    </tbody>
+</table>

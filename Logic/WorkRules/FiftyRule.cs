@@ -8,13 +8,13 @@ namespace Logic.WorkRules
     public class FiftyRule : WorkRule
     {
         private readonly IList<CompanyScheduleInfo> companyScheduleInfos;
-        private readonly DateTime date;
+        private readonly int week;
 
-        public FiftyRule(IList<CompanyScheduleInfo> companyScheduleInfos, StaffMember staffMember, DateTime date)
+        public FiftyRule(IList<CompanyScheduleInfo> companyScheduleInfos, StaffMember staffMember, int date)
             : base(staffMember)
         {
             this.companyScheduleInfos = companyScheduleInfos;
-            this.date = date;
+            this.week = date;
         }
 
         /// <summary>
@@ -48,7 +48,7 @@ namespace Logic.WorkRules
         /// <returns>True if the weekly hours are higher than 16, otherwise false.</returns>
         private bool WeeklyHourHigherThan16()
         {
-            Result<StaffSchedule> scheduleResult = StaffScheduleLooper.GetNeededStaffSchedule(staffMember, date);
+            Result<StaffSchedule> scheduleResult = StaffScheduleLooper.GetNeededStaffSchedule(staffMember, week);
             return scheduleResult.Success && scheduleResult.Value.TotalWorkingHours > 16;
         }
     }

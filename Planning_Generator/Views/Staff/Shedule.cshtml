@@ -1,20 +1,38 @@
 ﻿@{
     ViewData["Title"] = "Staff Schedule";
 }
+@using Logic.Employee;
 
-
- <table class="table rounded BackgroundTable  LoadFromBottom ">
-            <thead>
-                <tr class="p">
-                    <th scope="col">#</th>
-                    <th scope="col">CoinName</th>
-                    <th scope="col">Symbol</th>
-                    <th scope="col">Value of coin</th>
-                    <th scope="col">24h change percentage</th>
-                </tr>
-            </thead>
-            <tbody>
-
-             
-            </tbody>
-        </table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Current Week</th>
+            <th>Company</th>
+            <th>Day</th>
+            <th>Shift</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (CurrentActive<StaffMember>.Current.StaffSchedule.Count > 0)
+        {
+            foreach (var schedule in CurrentActive<StaffMember>.Current.StaffSchedule)
+            {
+                foreach (var shift in schedule.Shifts)
+                {
+                    <tr>
+                        <td>@schedule.CurrentWeek</td>
+                        <td>@schedule.Company.Name</td>
+                        <td>@shift.DayOfWeek</td>
+                        <td>@shift.ShiftHour</td>
+                    </tr>
+                }
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="4" class="text-center">There are no schedules to display.</td>
+            </tr>
+        }
+    </tbody>
+</table>

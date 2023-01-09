@@ -20,5 +20,11 @@
 else
 {
     <partial name="_LoginForm" />
+    @if (ViewData["Message"] != null)
+    {
+        <div class="alert alert-@ViewData["MessageType"] role="alert">
+            @ViewData["Message"]
+        </div>
+    }
 }
 

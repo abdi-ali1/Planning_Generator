@@ -1,4 +1,5 @@
 ﻿using Logic.Companys;
+using System.Globalization;
 
 namespace Logic.Shifts.Availibiltiy
 {
@@ -6,23 +7,23 @@ namespace Logic.Shifts.Availibiltiy
     public class AvailabilityStaff
     {
         // fields
-        private DateTime weekAvailability;
+        private int weekAvailability;
         private Company company;
         private List<Shift> shifts = new List<Shift>();
 
         // properties
-        public DateTime WeekAvailability { get { return weekAvailability; } }
+        public int WeekAvailability { get { return weekAvailability; } }
         public Company Company { get { return company; } }
         public IList<Shift> Shifts { get { return shifts.AsReadOnly(); } }
 
-        public AvailabilityStaff(DateTime neededWeek, Company company)
+        public AvailabilityStaff(int neededWeek, Company company)
         {
             weekAvailability = neededWeek;
             this.company = company;
         }
 
 
-        public AvailabilityStaff(DateTime neededWeek, Company company, List<Shift> shifts) : this(neededWeek, company)
+        public AvailabilityStaff(int neededWeek, Company company, List<Shift> shifts) : this(neededWeek, company)
         {
             this.shifts = shifts;
         }
@@ -62,9 +63,10 @@ namespace Logic.Shifts.Availibiltiy
                 return false;
             }
 
+          
             AvailabilityStaff availibiltyStaff = (AvailabilityStaff)obj;
 
-            return ( availibiltyStaff.WeekAvailability == weekAvailability);
+            return availibiltyStaff.WeekAvailability == weekAvailability;
         }
     }
 }

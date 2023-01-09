@@ -86,7 +86,7 @@ namespace Logic.Employee
             {
                 if (!availibiltyStaffs.Any(x => x.Equals(availibiltyStaff)))
                 {
-                    AvailabilityStaff.Add(availibiltyStaff);
+                    availibiltyStaffs.Add(availibiltyStaff);
                     return Result<string>.Ok("is added to the list");
                 }
 

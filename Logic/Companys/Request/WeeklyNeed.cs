@@ -1,20 +1,27 @@
-﻿namespace Logic.Companys.Request
+﻿using System.Xml.Linq;
+
+namespace Logic.Companys.Request
 {
     [Serializable]
     public class WeeklyNeed : IWeeklyNeed
     {
         // fields
-        private DateTime weekNeeded;
+        private int weekNeeded;
         private List<NeededStaff> neededStaff = new List<NeededStaff>();
 
         // properties
-        public DateTime WeekNeeded { get { return weekNeeded; } }
+        public int WeekNeeded { get { return weekNeeded; } }
         public IList<NeededStaff> NeededStaff { get { return neededStaff.AsReadOnly(); } }
 
-        // constructors
-        public WeeklyNeed(DateTime weekNeeded, List<NeededStaff> neededStaff)
+        public WeeklyNeed(int weekNeeded)
         {
             this.weekNeeded = weekNeeded;
+        }
+
+
+        // constructors
+        public WeeklyNeed(int weekNeeded, List<NeededStaff> neededStaff):this(weekNeeded)
+        {
             this.neededStaff = neededStaff;
         }
 
@@ -39,6 +46,19 @@
             {
                 return Result<string>.Fail(e);
             }
+        }
+
+
+
+        public override bool Equals(object? obj)
+        {
+            if (obj == null || !GetType().Equals(obj.GetType()))
+            {
+                return false;
+            }
+
+            WeeklyNeed weeklyNeed = (WeeklyNeed)obj;
+            return (weeklyNeed.weekNeeded == weekNeeded);
         }
     }
 }

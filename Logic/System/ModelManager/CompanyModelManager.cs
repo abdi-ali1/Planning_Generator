@@ -54,10 +54,23 @@ namespace Logic.System.ModelManager
             }
         }
 
+        public Result<Company> GetCompanyByName(string name)
+        {
+            Company company = companies.First(x => x.Name == name);
+            if (company == null)
+            {
+                return Result<Company>.Fail(new ArgumentNullException("there is no company with This name"));
+            }
+            else
+            {
+                return Result<Company>.Ok(company);
+            }
+        }
+
         /// <summary>
         /// Saves the list of companies to a binary file.
         /// </summary>
-        public void SafeProducts()
+        public void SaveCompanies()
         {
             binaryFileManager.WriteToBinaryFile<List<Company>>(companies, RepositoryType.Company);
         }

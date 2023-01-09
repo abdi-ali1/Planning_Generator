@@ -9,14 +9,14 @@ namespace Logic.WorkRules
     internal class MaxWorkHours : WorkRule
     {
         private readonly IList<CompanyScheduleInfo> scheduleInfo;
-        private readonly DateTime date;
+        private readonly int week;
         private readonly Shift newShift;
 
-        public MaxWorkHours(IList<CompanyScheduleInfo> scheduleInfos, StaffMember staff, DateTime date, Shift newShift)
+        public MaxWorkHours(IList<CompanyScheduleInfo> scheduleInfos, StaffMember staff, int  week, Shift newShift)
             : base(staff)
         {
             this.scheduleInfo = scheduleInfos;
-            this.date = date;
+            this.week = week;
             this.newShift = newShift;
         }
 
@@ -26,7 +26,7 @@ namespace Logic.WorkRules
         /// <returns>True if the staff member adheres to the rule, otherwise false.</returns>
         public override bool IsRuleAdhered()
         {
-            var result = StaffScheduleLooper.GetNeededStaffSchedule(staffMember, date);
+            var result = StaffScheduleLooper.GetNeededStaffSchedule(staffMember, week);
             IList<Shift> companySchedeluShifts = GetScheduleShifts();
             if (result.Success)
             {

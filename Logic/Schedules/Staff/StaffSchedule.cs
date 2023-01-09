@@ -1,5 +1,6 @@
 ﻿using Logic.Schedules.Staff.formules;
 using Logic.Shifts;
+using Logic.Companys;
 
 namespace Logic.Schedules.Staff
 {
@@ -7,17 +8,17 @@ namespace Logic.Schedules.Staff
     public class StaffSchedule
     {
         // fields
-        private DateTime currentWeek;
+        private int currentWeek;
         private List<Shift> shifts = new List<Shift>();
         private Companys.Company company;
 
         // properties
-        public DateTime CurrentWeek { get { return currentWeek; } }
+        public int CurrentWeek { get { return currentWeek; } }
         public IList<Shift> Shifts { get { return shifts.AsReadOnly(); } }
         public float TotalWorkingHours { get { return WorkHour.GetTotalWeekWorkingHour(shifts); } }
-        private Companys.Company Company { get { return company; } }
+        public Companys.Company Company { get { return company; } }
 
-        public StaffSchedule(DateTime currentWeek, Companys.Company company)
+        public StaffSchedule(int currentWeek, Companys.Company company)
         {
             this.currentWeek = currentWeek;
             this.company = company;

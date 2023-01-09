@@ -5,18 +5,18 @@ namespace Logic.Schedules
     [Serializable]
     public class CompanySchedule
     {
-        private DateTime currentWeek;
+        private int currentWeek;
         private List<CompanyScheduleInfo> companyScheduleInfos = new List<CompanyScheduleInfo>();
 
-        public DateTime CurrentWeek { get { return currentWeek; } }
+        public int CurrentWeek { get { return currentWeek; } }
         public IList<CompanyScheduleInfo> CompanyScheduleInfos { get { return companyScheduleInfos.AsReadOnly(); } }
 
-        public CompanySchedule(DateTime currentWeek)
+        public CompanySchedule(int currentWeek)
         {
             this.currentWeek = currentWeek;
         }
 
-        public CompanySchedule(DateTime currentWeek, List<CompanyScheduleInfo> companyScheduleInfos)
+        public CompanySchedule(int currentWeek, List<CompanyScheduleInfo> companyScheduleInfos)
         {
             this.currentWeek = currentWeek;
             this.companyScheduleInfos = companyScheduleInfos;

@@ -9,13 +9,13 @@ namespace Logic.System.Generator.GeneraterHelp
         /// Gets the schedule for a given staff member on a given date.
         /// </summary>
         /// <param name="staff">The staff member to get the schedule for.</param>
-        /// <param name="date">The date to get the schedule for.</param>
+        /// <param name="week">The date to get the schedule for.</param>
         /// <returns>A result object containing either the schedule for the given staff member on the given date, or an exception if there was an error.</returns>
-        public static Result<StaffSchedule> GetNeededStaffSchedule(StaffMember staff, DateTime date)
+        public static Result<StaffSchedule> GetNeededStaffSchedule(StaffMember staff, int week)
         {
             try
             {
-                StaffSchedule? currentSchedule = staff.StaffSchedule.First(x => x.CurrentWeek == date);
+                StaffSchedule? currentSchedule = staff.StaffSchedule.First(x => x.CurrentWeek == week);
 
                 if (currentSchedule == null)
                 {
