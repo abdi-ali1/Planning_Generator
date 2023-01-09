@@ -10,18 +10,21 @@ namespace UnitTest_Pl.Mocking.Companys
 {
     public class WeeklyNeedMock : IWeeklyNeed
     {
-        private DateTime weekNeeded;
-        private List<NeededStaff> neededStaff = new List<NeededStaff>();
-        public DateTime WeekNeeded => weekNeeded;
+        private int weekNeeded;
+        private IList<NeededStaff> neededStaff = new List<NeededStaff>();
+        public int WeekNeeded => weekNeeded;
+        public IList<NeededStaff> NeededStaff { get { return neededStaff; } };
 
-        IList<NeededStaff> IWeeklyNeed.NeededStaff => neededStaff;
+        int IWeeklyNeed.WeekNeeded => throw new NotImplementedException();
 
-        public WeeklyNeedMock(DateTime weekNeeded)
+      
+
+        public WeeklyNeedMock(int weekNeeded)
         {
             this.weekNeeded = weekNeeded;
         }
 
-        public IList<NeededStaff> NeededStaff = new List<NeededStaff>();
+
 
         public Result<string> AddNeededStaff(NeededStaff needed)
         {
