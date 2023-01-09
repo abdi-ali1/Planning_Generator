@@ -24,19 +24,22 @@ namespace Logic.WorkRules
         public override bool IsRuleAdhered()
         {
             // Check if the staff member's age is greater than 50
-            if (staffMember.Age > 50)
+            if (staffMember.Age < 50)
             {
-                return false;
+                return true;
             }
 
             // Check if the number of CompanyScheduleInfo objects in the scheduleInfo list is greater than 2
             if (companyScheduleInfos.Count > 2)
             {
-                // Check if the weekly hours for the staff member are higher than 16
-                if (WeeklyHourHigherThan16())
-                {
-                    return false;
-                }
+                return false;
+               
+            }
+
+            // Check if the weekly hours for the staff member are higher than 16
+            if (WeeklyHourHigherThan16())
+            {
+                return false;
             }
 
             return true;

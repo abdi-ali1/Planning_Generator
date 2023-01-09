@@ -20,22 +20,29 @@ namespace Logic.WorkRules
             this.newShift = newShift;
         }
 
-        /// <summary>
-        /// Determines if a staff member adheres to the shift work rule.
-        /// </summary>
-        /// <returns>True if the staff member adheres to the rule, otherwise false.</returns>
         public override bool IsRuleAdhered()
         {
-            var result = StaffScheduleLooper.GetNeededStaffSchedule(staffMember, week);
-            IList<Shift> companySchedeluShifts = GetScheduleShifts();
-            if (result.Success)
+            var resultStaffSchedule = StaffScheduleLooper.GetNeededStaffSchedule(staffMember, week);
+            var companyScheduledShifts = GetScheduleShifts();
+
+            if (resultStaffSchedule.Success)
             {
-                return CanAddShift(result.Value.Shifts) && CanAddShift(companySchedeluShifts);
+                if (companyScheduledShifts.Success)
+                {
+                    return CanAddShift(resultStaffSchedule.Value.Shifts) && CanAddShift(companyScheduledShifts.Value);
+                }
+
+                return CanAddShift(resultStaffSchedule.Value.Shifts);
             }
-            else
+            else if (resultStaffSchedule.Value == null)
             {
-                return false;
+                if (companyScheduledShifts.Success)
+                {
+                    return CanAddShift(companyScheduledShifts.Value);
+                }
             }
+
+            return true;
         }
 
         /// <summary>
@@ -50,6 +57,7 @@ namespace Logic.WorkRules
             {
                 if (shift.DayOfWeek == newShift.DayOfWeek)
                 {
+
                     // If the new shift and the existing shift are on the same day, check if there is a 16-hour gap between them
                     int gap = ((int)newShift.ShiftHour - (int)shift.ShiftHour) * 8;
                     return gap < 16;
@@ -76,9 +84,25 @@ namespace Logic.WorkRules
         /// Gets the shifts for the current company schedule.
         /// </summary>
         /// <returns>The list of shifts for the current company schedule.</returns>
-        private IList<Shift> GetScheduleShifts()
+        private Result<IList<Shift>> GetScheduleShifts()
         {
-            return scheduleInfo.Select(x => x.Shift).ToList();
+             IList<Shift> scheduleInfoList = new List<Shift>();
+
+            foreach (CompanyScheduleInfo info in scheduleInfo)
+            {
+                if (info.StaffMember.Equals(staffMember))
+                {
+                    scheduleInfoList.Add(info.Shift);
+                }
+            }
+
+            if (scheduleInfoList.Count > 0)
+            {
+                return Result<IList<Shift>>.Ok(scheduleInfoList);
+            }
+            return Result<IList<Shift>>.Fail(new Exception("doesnt have any in list"));
+
+
         }
     }
 }

@@ -36,46 +36,30 @@ namespace Logic.System.Generator
         /// <returns>A list of company schedules for the given week and company.</returns>
         public Result<List<CompanySchedule>> CreateCompanySchedulesForWeek(Company company, int week)
         {
-            try
+            List<CompanySchedule> schedules = new List<CompanySchedule>();
+            IWeeklyNeed neededWeekData = getLoopInfoWeeklyNeed.GetInfo(company, week).Value;
+            IList<StaffMember> staffMembersAvailibleOnDate = StaffMembersAvailibleOnDate(staffMembers, week).Value;
+
+            if (staffMembersAvailibleOnDate == null || staffMembersAvailibleOnDate.Count == 0)
             {
-                List<CompanySchedule> schedules = new List<CompanySchedule>();
-                Result<List<CompanySchedule>> result;
-                 IWeeklyNeed neededWeekData = getLoopInfoWeeklyNeed.GetInfo(company, week).Value;
-                IList<StaffMember> staffMembersAvailibleOnDate = StaffMembersAvailibleOnDate(staffMembers, week).Value;
-
-                if (staffMembersAvailibleOnDate == null || staffMembersAvailibleOnDate.Count == 0)
-                {
-                    result = Result<List<CompanySchedule>>.Fail(new Exception("there are no Availible staff members"));
-                }
-
-
-
-                CompanySchedule schedule = FillSchedule(neededWeekData.NeededStaff, staffMembersAvailibleOnDate, week, availabilityMatcher);
-                schedules.Add(schedule);
-
-
-                if (schedule.CompanyScheduleInfos.Count < neededWeekData.NeededStaff.Count)
-                {
-                    // Create a new schedule for the remaining needed staff.
-                    CompanySchedule remainingSchedule =
-                    FillSchedule(neededWeekData.NeededStaff, staffMembersAvailibleOnDate, week, secondaryAvailabilityMatcher);
-                    schedules.Add(remainingSchedule);
-                }
-
-                result = Result<List<CompanySchedule>>.Ok(schedules);
-
-                return result;
+                return Result<List<CompanySchedule>>.Fail(new Exception("There are no availible staff members"));
             }
-            catch (Exception e)
+
+            CompanySchedule schedule = FillSchedule(neededWeekData.NeededStaff, staffMembersAvailibleOnDate, week, availabilityMatcher);
+            schedules.Add(schedule);
+
+            if (schedule.CompanyScheduleInfos.Count < neededWeekData.NeededStaff.Count)
             {
-
-                return Result<List<CompanySchedule>>.Fail(e);
+                CompanySchedule remainingSchedule = FillSchedule(neededWeekData.NeededStaff, staffMembersAvailibleOnDate, week, secondaryAvailabilityMatcher);
+                schedules.Add(remainingSchedule);
             }
-      
 
-       
+            if (schedules.Any(x => x.CompanyScheduleInfos.Count == 0))
+            {
+                return Result<List<CompanySchedule>>.Fail(new Exception("There are no staff members availible"));
+            }
 
-        
+            return Result<List<CompanySchedule>>.Ok(schedules);
         }
 
         /// <summary>

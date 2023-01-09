@@ -1,6 +1,10 @@
 ﻿using Logic;
 using Logic.Companys;
 using Logic.Companys.Request;
+using Logic.Employee;
+using Logic.Schedules;
+using Logic.Schedules.Company;
+using Logic.System.Generator.GeneraterHelp;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using Planning_Generator.Models;
@@ -56,18 +60,52 @@ namespace Planning_Generator.Controllers
 
 
         [HttpPost]
-        public IActionResult ViewSchedule(int week)
+        public IActionResult GenereteShedules(int week)
         {
             Company company = CurrentActive<Company>.Current;
-            LogicRefecator.ScheduleGenerator.CreateCompanySchedulesForWeek(company, week);
+            Result<List<CompanySchedule>> result = LogicRefecator.ScheduleGenerator.CreateCompanySchedulesForWeek(company, week);
+            Result<string> stringResult;
+
+            if (result.Success)
+            {
+                stringResult = Result<string>.Ok("Created some schedules");
+                SetResult<string>(stringResult);
+                return RedirectToAction("Shedule", result.Value);
+            }
 
 
+            stringResult = Result<string>.Fail(result.Exception);
+            SetResult<string>(stringResult);
             return Redirect("Shedule");
         }
 
-        public IActionResult Shedule()
+        [HttpPost]
+        public IActionResult SetSchedule(CompanySchedule companySchedule)
         {
-            return View();
+            var company = CurrentActive<Company>.Current;
+            company.AddSchedules(companySchedule);
+            LogicRefecator.CompanyModelManager.SaveCompany(CurrentActive<Company>.Current);
+
+            foreach (var info in companySchedule.CompanyScheduleInfos)
+            {
+                var manager = new StaffSchedueManager(info.StaffMember, companySchedule.CompanyScheduleInfos, companySchedule.CurrentWeek);
+                var result = manager.SetStaffSchedule(company);
+                if (result.Success)
+                {
+                    LogicRefecator.StaffMemberModelManager.SaveStaffMember(result.Value);
+                }
+            }
+
+            LogicRefecator.CompanyModelManager.SaveCompanies();
+            LogicRefecator.StaffMemberModelManager.SaveStaffMembers();
+
+            return Redirect("Schedule");
+        }
+
+        public IActionResult Shedule(IList<Logic.Schedules.CompanySchedule> companySchedules)
+        {
+            
+            return View(companySchedules);
         }
 
         private int Getindex(IList<IWeeklyNeed> values, int week)
