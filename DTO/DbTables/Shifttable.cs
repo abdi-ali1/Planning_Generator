@@ -1,11 +1,6 @@
 ﻿using DTO.Models.CompanyModels;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DTO.DbTables
 {
@@ -18,6 +13,11 @@ namespace DTO.DbTables
             this.dbContext = dbContext;
         }
 
+        /// <summary>
+        /// Retrieves a list of needed staff members with the given weekly need ID.
+        /// </summary>
+        /// <param name="id">The weekly need ID of the needed staff members to retrieve.</param>
+        /// <returns>A list of needed staff members with the given weekly need ID.</returns>
         public List<NeededStaff> GetNeededStaffStaff(int id)
         {
             List<NeededStaff> neededStaff = new List<NeededStaff>();
@@ -31,14 +31,16 @@ namespace DTO.DbTables
 
             foreach (DataRow data in table.Tables["Tables"].Rows)
             {
-                neededStaff.Add(new NeededStaff((int)data["id"], (int)data["occupation"], (int)data["kindOfShift"]));
+                neededStaff.Add(
+                    new NeededStaff(
+                        (int)data["id"],
+                        (int)data["occupation"],
+                        (int)data["kindOfShift"]
+                    )
+                );
             }
 
             return neededStaff;
         }
-
-
-
-
     }
 }

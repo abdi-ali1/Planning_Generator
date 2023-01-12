@@ -8,7 +8,7 @@
     <p class="display-4">Verstuur jouw beschikbaarheid!</p>
 </div>
 <br />
-<br />
+
 <<form method="post" asp-controller="Staff" asp-action="SendAvailibility">
     <div class="form-group">
         <label for="WeekAvailability">Week Availability:</label>
@@ -44,16 +44,12 @@
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
 
-
-
 @if (ViewData["Message"] != null)
 {
     <div class="alert alert-@ViewData["MessageType"] role="alert">
         @ViewData["Message"]
     </div>
 }
-
-
 
     <div class="mb-3">
         <a class="btn btn-outline-primary" asp-action="Shedule">Zie rooster</a>
@@ -68,7 +64,3 @@
             <a class="btn btn-outline-primary" asp-action="AddCompany">Management add company</a>
         </div>
         }
-
-
-
-

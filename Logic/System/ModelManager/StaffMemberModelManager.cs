@@ -9,13 +9,15 @@ namespace Logic.System.ModelManager
         private List<StaffMember> staffMembers;
         private IBinaryFileManager fileManager;
 
-        public IList<StaffMember> StaffMembers { get { return staffMembers.AsReadOnly(); } }
+        public IList<StaffMember> StaffMembers
+        {
+            get { return staffMembers.AsReadOnly(); }
+        }
 
         public StaffMemberModelManager(IBinaryFileManager fileManager)
         {
-
             this.fileManager = fileManager;
-            this.staffMembers = fileManager.ReadFromBinaryFile<List<StaffMember>>(RepositoryType.Staff);
+            staffMembers = fileManager.ReadFromBinaryFile<List<StaffMember>>(RepositoryType.Staff);
         }
 
         /// <summary>
@@ -53,8 +55,6 @@ namespace Logic.System.ModelManager
                 staffMembers[index] = staffMember;
             }
         }
-
-    
 
         /// <summary>
         /// Saves the list of staff members to a binary file.

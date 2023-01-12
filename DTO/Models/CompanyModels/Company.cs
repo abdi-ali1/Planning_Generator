@@ -1,11 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DTO.Models.CompanyModels
+﻿namespace DTO.Models.CompanyModels
 {
     public class Company
     {
@@ -14,11 +7,25 @@ namespace DTO.Models.CompanyModels
         private List<CompanySchedule>? schedules;
         private List<WeeklyNeed>? weeklyNeeds;
 
-        public string Name { get { return name; } }
-        public List<CompanySchedule> Schedules { get => schedules; set => schedules = value; }
-        public List<WeeklyNeed> WeeklyNeeds { get => weeklyNeeds; set => weeklyNeeds = value; }
-        public int Id { get { return id; } set { id = value; } }
-
+        public string Name
+        {
+            get { return name; }
+        }
+        public List<CompanySchedule> Schedules
+        {
+            get => schedules;
+            set => schedules = value;
+        }
+        public List<WeeklyNeed> WeeklyNeeds
+        {
+            get => weeklyNeeds;
+            set => weeklyNeeds = value;
+        }
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
 
         public Company(int id, string name)
         {
@@ -26,15 +33,15 @@ namespace DTO.Models.CompanyModels
             this.name = name;
         }
 
-        public Company(int id, string name, List<CompanySchedule> schedules, List<WeeklyNeed> weeklyNeeds):this(id, name)
+        public Company(
+            int id,
+            string name,
+            List<CompanySchedule> schedules,
+            List<WeeklyNeed> weeklyNeeds
+        ) : this(id, name)
         {
-           
             this.schedules = schedules;
             this.weeklyNeeds = weeklyNeeds;
         }
-
-
-
-
     }
 }

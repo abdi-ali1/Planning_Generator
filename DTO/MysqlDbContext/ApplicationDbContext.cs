@@ -1,10 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DTO
 {
@@ -13,21 +8,17 @@ namespace DTO
         //fields
         private MySqlConnection conn;
 
-        /// <summary>
-        /// sets connection 
-        /// </summary>
-        /// <param name="connectionstring"></param>
         public ApplicationDbContext(string connectionstring)
         {
             conn = new MySqlConnection(connectionstring);
         }
 
         /// <summary>
-        /// returns a filled Dataset
+        /// Executes the given query and returns the resulting data as a DataSet.
         /// </summary>
-        /// <param name="query"></param>
-        /// <param name="tableName"></param>
-        /// <returns></returns>
+        /// <param name="query">The query to execute.</param>
+        /// <param name="mySqlParameter">The parameters for the query.</param>
+        /// <returns>The resulting data as a DataSet.</returns>
         public DataSet GetReturnData(string query, List<MySqlParameter> mySqlParameter)
         {
             DataSet dt = new DataSet();
@@ -51,15 +42,13 @@ namespace DTO
             }
 
             return dt;
-
         }
 
         /// <summary>
-        /// returns a filled Dataset
+        /// Executes the given query and returns the resulting data as a DataSet.
         /// </summary>
-        /// <param name="query"></param>
-        /// <param name="tableName"></param>
-        /// <returns></returns>
+        /// <param name="query">The query to execute.</param>
+        /// <returns>The resulting data as a DataSet.</returns>
         public DataSet GetReturnData(string query)
         {
             DataSet dt = new DataSet();
@@ -81,10 +70,10 @@ namespace DTO
         }
 
         /// <summary>
-        /// insert data to the database
+        /// Executes the given query and inserts the given data into the database.
         /// </summary>
-        /// <param name="query"></param>
-        /// <param name="mySqlParameter"></param>
+        /// <param name="query">The query to execute.</param>
+        /// <param name="mySqlParameter">The data to insert.</param>
         public void InsertData(string query, List<MySqlParameter> mySqlParameter)
         {
             try
@@ -104,8 +93,6 @@ namespace DTO
             {
                 Console.WriteLine(ex.ToString());
             }
-
-
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Logic.Schedules.Staff.formules;
 using Logic.Shifts;
-using Logic.Companys;
 
 namespace Logic.Schedules.Staff
 {
@@ -13,10 +12,22 @@ namespace Logic.Schedules.Staff
         private Companys.Company company;
 
         // properties
-        public int CurrentWeek { get { return currentWeek; } }
-        public IList<Shift> Shifts { get { return shifts.AsReadOnly(); } }
-        public float TotalWorkingHours { get { return WorkHour.GetTotalWeekWorkingHour(shifts); } }
-        public Companys.Company Company { get { return company; } }
+        public int CurrentWeek
+        {
+            get { return currentWeek; }
+        }
+        public IList<Shift> Shifts
+        {
+            get { return shifts.AsReadOnly(); }
+        }
+        public float TotalWorkingHours
+        {
+            get { return WorkHour.GetTotalWeekWorkingHour(shifts); }
+        }
+        public Companys.Company Company
+        {
+            get { return company; }
+        }
 
         public StaffSchedule(int currentWeek, Companys.Company company)
         {
@@ -61,7 +72,7 @@ namespace Logic.Schedules.Staff
 
             StaffSchedule staffSchedule = (StaffSchedule)obj;
 
-            return (staffSchedule.company == company && staffSchedule.CurrentWeek == currentWeek);
+            return staffSchedule.company.Equals(company) && staffSchedule.CurrentWeek == currentWeek;
         }
     }
 }

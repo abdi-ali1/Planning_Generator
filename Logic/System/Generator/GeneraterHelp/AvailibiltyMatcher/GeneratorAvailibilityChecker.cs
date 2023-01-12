@@ -20,11 +20,21 @@ namespace Logic.System.Generator.GeneraterHelp.AvailibiltyMatcher
         {
             bool matches = false;
 
-            AvailabilityStaff availibilty = staff.AvailabilityStaff.First(availibilty => availibilty.WeekAvailability == week);
+            AvailabilityStaff availibilty = staff.AvailabilityStaff.First(
+                availibilty => availibilty.WeekAvailability == week
+            );
             foreach (Shift shift in availibilty.Shifts)
             {
-                if (needed.NeededShift.Equals(shift) && IsEligible(needed, staff) &&
-                    WorkRuleHelper.AdheredAllWorkRules(staff, scheduleInfos, week, needed.NeededShift))
+                if (
+                    needed.NeededShift.Equals(shift)
+                    && IsEligible(needed, staff)
+                    && WorkRuleHelper.AdheredAllWorkRules(
+                        staff,
+                        scheduleInfos,
+                        week,
+                        needed.NeededShift
+                    )
+                )
                 {
                     matches = true;
                     break;

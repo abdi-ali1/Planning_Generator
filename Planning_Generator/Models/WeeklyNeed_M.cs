@@ -1,5 +1,4 @@
 ﻿using Logic.Enum;
-using Logic.Shifts;
 using DayOfWeek = Logic.Enum.DayOfWeek;
 
 namespace Planning_Generator.Models

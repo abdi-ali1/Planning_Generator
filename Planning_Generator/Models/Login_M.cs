@@ -7,7 +7,7 @@ namespace Planning_Generator.Models
     {
         public string Username { get; set; }
         public bool IsAuthenticated { get; set; }
-        public  StaffMember? AuthenticatedStaffMember { get; set; }
-        public  Company? AuthenticatedCompany { get; set; }
+        public StaffMember? AuthenticatedStaffMember { get; set; }
+        public Company? AuthenticatedCompany { get; set; }
     }
 }

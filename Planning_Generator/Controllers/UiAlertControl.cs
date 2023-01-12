@@ -5,28 +5,27 @@ namespace Planning_Generator.Controllers
 {
     internal class UiAlertControl : Controller
     {
-
-    /*    public static  void SetResult<T>(Result<T> result)
-        {
-            if (result == null) return;
-
-            if (result.Success)
+        /*    public static  void SetResult<T>(Result<T> result)
             {
-                ViewData["Message"] = result.Value;
-                ViewData["MessageType"] = "success";
-            }
-            else
-            {
-                if (result.IsExceptionType<Exception>())
+                if (result == null) return;
+
+                if (result.Success)
                 {
-                    ViewData["Message"] = result.Exception.Message;
+                    ViewData["Message"] = result.Value;
+                    ViewData["MessageType"] = "success";
                 }
                 else
                 {
-                    ViewData["Message"] = "something went wrong try again!";
+                    if (result.IsExceptionType<Exception>())
+                    {
+                        ViewData["Message"] = result.Exception.Message;
+                    }
+                    else
+                    {
+                        ViewData["Message"] = "something went wrong try again!";
+                    }
+                    ViewData["MessageType"] = "danger";
                 }
-                ViewData["MessageType"] = "danger";
-            }
-        }*/
+            }*/
     }
 }

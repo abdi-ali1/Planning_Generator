@@ -26,7 +26,9 @@ namespace Logic.System.Authentication
                 StaffMember currentStaffMember = staffMembers.FirstOrDefault(s => s.Username == username);
                 if (currentStaffMember == null)
                 {
-                    return Result<StaffMember>.Fail(new ArgumentException("staff member doesn't exist"));
+                    return Result<StaffMember>.Fail(
+                        new ArgumentException("staff member doesn't exist")
+                    );
                 }
                 return Result<StaffMember>.Ok(currentStaffMember);
             }

@@ -6,7 +6,6 @@
     <p class="display-4">Add a new staff member!</p>
 </div>
 <br />
-<br />
 
 @using (Html.BeginForm("AddStaff", "Staff", FormMethod.Post))
 {
@@ -40,7 +39,6 @@
         </div>
     </div>
 }
-
 
 @if (ViewData["message"] != null)
 {

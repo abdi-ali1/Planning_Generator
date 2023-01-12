@@ -9,7 +9,10 @@ namespace Logic.System.ModelManager
         private List<Company> companies;
         private IBinaryFileManager binaryFileManager { get; set; }
 
-        public IList<Company> Companies { get { return companies.AsReadOnly(); } }
+        public IList<Company> Companies
+        {
+            get { return companies.AsReadOnly(); }
+        }
 
         public CompanyModelManager(IBinaryFileManager binaryFileManager)
         {
@@ -46,7 +49,6 @@ namespace Logic.System.ModelManager
         /// <param name="company">The company to update.</param>
         public void SaveCompany(Company company)
         {
-         
             int index = companies.FindIndex(x => x.Name == company.Name);
             if (index != -1)
             {
@@ -59,7 +61,9 @@ namespace Logic.System.ModelManager
             Company company = companies.First(x => x.Name == name);
             if (company == null)
             {
-                return Result<Company>.Fail(new ArgumentNullException("there is no company with This name"));
+                return Result<Company>.Fail(
+                    new ArgumentNullException("there is no company with This name")
+                );
             }
             else
             {

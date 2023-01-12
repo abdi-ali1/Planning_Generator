@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\Logic\\Logic.csproj": {}
+    "D:\\temp\\Planning_Generator\\Logic\\Logic.csproj": {}
   },
   "projects": {
-    "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\Logic\\Logic.csproj": {
+    "D:\\temp\\Planning_Generator\\Logic\\Logic.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\Logic\\Logic.csproj",
+        "projectUniqueName": "D:\\temp\\Planning_Generator\\Logic\\Logic.csproj",
         "projectName": "Logic",
-        "projectPath": "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\Logic\\Logic.csproj",
+        "projectPath": "D:\\temp\\Planning_Generator\\Logic\\Logic.csproj",
         "packagesPath": "C:\\Users\\abdi1\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\Logic\\obj\\",
+        "outputPath": "D:\\temp\\Planning_Generator\\Logic\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

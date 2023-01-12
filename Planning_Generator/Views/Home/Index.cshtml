@@ -9,10 +9,6 @@
     <p class="display-4">Welkom bij de schedule generator!</p>
 </div>
 
-
-
-
-
 @if (CurrentActive<StaffMember>.IsLoggedIn || CurrentActive<Company>.IsLoggedIn)
 {
     <partial name="HomePage_Content" />
@@ -27,4 +23,3 @@ else
         </div>
     }
 }
-

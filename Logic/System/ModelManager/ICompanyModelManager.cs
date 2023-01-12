@@ -7,6 +7,6 @@ namespace Logic.Interface
         public IList<Company> Companies { get; }
         public Result<string> AddNewCompany(Company company);
         public void SaveCompanies();
-        public void SaveCompany(Company company);   
+        public void SaveCompany(Company company);
     }
 }

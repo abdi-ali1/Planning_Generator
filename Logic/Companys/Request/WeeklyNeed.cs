@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace Logic.Companys.Request
+﻿namespace Logic.Companys.Request
 {
     [Serializable]
     public class WeeklyNeed : IWeeklyNeed
@@ -10,17 +8,22 @@ namespace Logic.Companys.Request
         private List<NeededStaff> neededStaff = new List<NeededStaff>();
 
         // properties
-        public int WeekNeeded { get { return weekNeeded; } }
-        public IList<NeededStaff> NeededStaff { get { return neededStaff.AsReadOnly(); } }
+        public int WeekNeeded
+        {
+            get { return weekNeeded; }
+        }
+        public IList<NeededStaff> NeededStaff
+        {
+            get { return neededStaff.AsReadOnly(); }
+        }
 
         public WeeklyNeed(int weekNeeded)
         {
             this.weekNeeded = weekNeeded;
         }
 
-
         // constructors
-        public WeeklyNeed(int weekNeeded, List<NeededStaff> neededStaff):this(weekNeeded)
+        public WeeklyNeed(int weekNeeded, List<NeededStaff> neededStaff) : this(weekNeeded)
         {
             this.neededStaff = neededStaff;
         }
@@ -48,8 +51,13 @@ namespace Logic.Companys.Request
             }
         }
 
-
-
+        /// <summary>
+        /// Determines whether the specified object is equal to the current object.
+        /// </summary>
+        /// <param name="obj">The object to compare with the current object.</param>
+        /// <returns>
+        /// True if the specified object is equal to the current object, false otherwise.
+        /// </returns>
         public override bool Equals(object? obj)
         {
             if (obj == null || !GetType().Equals(obj.GetType()))

@@ -8,8 +8,14 @@ namespace Logic.Schedules.Company
         private StaffMember staffMember;
         private Shift shift;
 
-        public StaffMember StaffMember { get { return staffMember; } }
-        public Shift Shift { get { return shift; } }
+        public StaffMember StaffMember
+        {
+            get { return staffMember; }
+        }
+        public Shift Shift
+        {
+            get { return shift; }
+        }
 
         public CompanyScheduleInfo(StaffMember staffMember, Shift shift)
         {

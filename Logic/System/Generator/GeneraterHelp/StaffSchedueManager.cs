@@ -2,16 +2,9 @@
 using Logic.Employee;
 using Logic.Schedules.Company;
 using Logic.Schedules.Staff;
-using Logic.Shifts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Logic.System.Generator.GeneraterHelp
 {
-
     public class StaffSchedueManager
     {
         private StaffMember staffMember;
@@ -21,7 +14,7 @@ namespace Logic.System.Generator.GeneraterHelp
         public StaffSchedueManager(StaffMember staffMember, IList<CompanyScheduleInfo> companyScheduleInfo, int week)
         {
             this.staffMember = staffMember;
-            this.companyScheduleInfos = companyScheduleInfo;
+            companyScheduleInfos = companyScheduleInfo;
             this.week = week;
         }
 
@@ -37,7 +30,9 @@ namespace Logic.System.Generator.GeneraterHelp
                 IList<CompanyScheduleInfo> staffMemberShift = GetStaffMemberShift();
                 if (staffMemberShift == null)
                 {
-                    return Result<StaffMember>.Fail(new Exception("there are no shift for this user"));
+                    return Result<StaffMember>.Fail(
+                        new Exception("there are no shift for this user")
+                    );
                 }
 
                 int staffScheduleIndex = GetStaffScheduleIfExist();
@@ -73,8 +68,8 @@ namespace Logic.System.Generator.GeneraterHelp
                     companyScheduleInfos.Add(info);
                 }
             }
-          
-            //addvencde 
+
+            //addvencde
             return companyScheduleInfos.Count > 0 ? companyScheduleInfos : null;
         }
 
@@ -100,7 +95,10 @@ namespace Logic.System.Generator.GeneraterHelp
         /// </summary>
         /// <param name="staffMemberShift">The shift information for the staff member.</param>
         /// <param name="company">The company for which the schedule is being set.</param>
-        private void CreateAndAddStaffSchedule(IList<CompanyScheduleInfo> staffMemberShift, Company company)
+        private void CreateAndAddStaffSchedule(
+            IList<CompanyScheduleInfo> staffMemberShift,
+            Company company
+        )
         {
             StaffSchedule schedule = new StaffSchedule(week, company);
             foreach (CompanyScheduleInfo scheduleInfo in staffMemberShift)
@@ -116,7 +114,10 @@ namespace Logic.System.Generator.GeneraterHelp
         /// </summary>
         /// <param name="staffMemberShift">The shift information for the staff member.</param>
         /// <param name="staffScheduleIndex">The index of the staff member's schedule.</param>
-        private void AddShiftsToExistingStaffSchedule(IList<CompanyScheduleInfo> staffMemberShift, int staffScheduleIndex)
+        private void AddShiftsToExistingStaffSchedule(
+            IList<CompanyScheduleInfo> staffMemberShift,
+            int staffScheduleIndex
+        )
         {
             foreach (CompanyScheduleInfo scheduleInfo in staffMemberShift)
             {
@@ -124,7 +125,5 @@ namespace Logic.System.Generator.GeneraterHelp
             }
         }
     }
-
-
 }
 

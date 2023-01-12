@@ -9,8 +9,14 @@ namespace Logic.Shifts
         private DayOfWeek dayOfWeek;
         private ShiftHour shiftHour;
 
-        public DayOfWeek DayOfWeek { get { return dayOfWeek; } }
-        public ShiftHour ShiftHour { get { return shiftHour; } }
+        public DayOfWeek DayOfWeek
+        {
+            get { return dayOfWeek; }
+        }
+        public ShiftHour ShiftHour
+        {
+            get { return shiftHour; }
+        }
 
         public Shift(DayOfWeek dayOfWeek, ShiftHour shiftHour)
         {

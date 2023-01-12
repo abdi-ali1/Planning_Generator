@@ -1,8 +1,6 @@
 ﻿using Logic.Companys.Request;
 using Logic.Employee;
-using Logic.Schedules;
 using Logic.Schedules.Company;
-
 
 namespace Logic.System.Generator.GeneraterHelp.AvailibiltyMatcher
 {

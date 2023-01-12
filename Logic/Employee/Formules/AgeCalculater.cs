@@ -1,9 +1,7 @@
 ﻿namespace Logic.Employee.Formules
 {
-
     public class AgeCalculater
     {
-
         /// <summary>
         /// Calculates and returns the current age of a person based on their birth date.
         /// </summary>
@@ -19,6 +17,5 @@
             }
             return age;
         }
-
     }
 }

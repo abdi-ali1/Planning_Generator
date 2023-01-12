@@ -12,17 +12,25 @@ namespace Planning_Generator.Models
         public Occupation Occaption { get; set; }
         public Degree_M Degree_M { get; set; }
 
+        /// <summary>
+        /// Determines whether all of the properties of this object are not null.
+        /// </summary>
+        /// <returns>
+        /// True if all properties are not null, false otherwise.
+        /// </returns>
         public bool PropertiesAreNotNull()
         {
-            if (Username != null &&
-                Name != null &&
-                Gender != null &&
-                Role != null &&
-                BirthDate != null &&
-                Occaption != null &&
-                Degree_M != null &&
-                Degree_M.NameOfDegree != null &&
-                Degree_M.DegreeLevel != null)
+            if (
+                Username != null
+                && Name != null
+                && Gender != null
+                && Role != null
+                && BirthDate != null
+                && Occaption != null
+                && Degree_M != null
+                && Degree_M.NameOfDegree != null
+                && Degree_M.DegreeLevel != null
+            )
             {
                 return true;
             }

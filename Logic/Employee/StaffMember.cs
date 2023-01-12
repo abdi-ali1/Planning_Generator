@@ -9,7 +9,7 @@ namespace Logic.Employee
     [Serializable]
     public class StaffMember
     {
-        //fields 
+        //fields
         private string username;
         private string name;
         private Gender gender;
@@ -22,16 +22,43 @@ namespace Logic.Employee
         private List<AvailabilityStaff> availibiltyStaffs = new List<AvailabilityStaff>();
 
         //properties (getters//setters)
-        public string Username { get { return username; } }
-        public string Name { get { return name; } }
-        public Gender Gender { get { return gender; } }
-        public CompanyRole Role { get { return companyRole; } }
-        public int Age { get { return AgeCalculater.GetCurrentAge(birthDate); } }
-        public Occupation Occaption { get { return occupation; } }
-        public Degree Degree { get { return degree; } }
+        public string Username
+        {
+            get { return username; }
+        }
+        public string Name
+        {
+            get { return name; }
+        }
+        public Gender Gender
+        {
+            get { return gender; }
+        }
+        public CompanyRole Role
+        {
+            get { return companyRole; }
+        }
+        public int Age
+        {
+            get { return AgeCalculater.GetCurrentAge(birthDate); }
+        }
+        public Occupation Occaption
+        {
+            get { return occupation; }
+        }
+        public Degree Degree
+        {
+            get { return degree; }
+        }
 
-        public IList<StaffSchedule> StaffSchedule { get { return staffSchedules.AsReadOnly(); } }
-        public IList<AvailabilityStaff> AvailabilityStaff { get { return availibiltyStaffs.AsReadOnly(); } }
+        public IList<StaffSchedule> StaffSchedule
+        {
+            get { return staffSchedules.AsReadOnly(); }
+        }
+        public IList<AvailabilityStaff> AvailabilityStaff
+        {
+            get { return availibiltyStaffs.AsReadOnly(); }
+        }
 
         public StaffMember(string username, string name, Gender gender, CompanyRole companyRole, Occupation occupation, DateTime birthDate, Degree degree)
         {
@@ -44,9 +71,8 @@ namespace Logic.Employee
             this.degree = degree;
         }
 
-        public StaffMember(string username, string name, Gender gender, CompanyRole companyRole, Occupation occupation, DateTime birthDate, Degree degree,
-            List<StaffSchedule> staffSchedules, List<AvailabilityStaff> availibiltyStaffs) :
-            this(username, name, gender, companyRole, occupation, birthDate, degree)
+        public StaffMember(string username, string name, Gender gender, CompanyRole companyRole, Occupation occupation, DateTime birthDate, Degree degree, 
+            List<StaffSchedule> staffSchedules, List<AvailabilityStaff> availibiltyStaffs) : this(username, name, gender, companyRole, occupation, birthDate, degree)
         {
             this.staffSchedules = staffSchedules;
             this.availibiltyStaffs = availibiltyStaffs;

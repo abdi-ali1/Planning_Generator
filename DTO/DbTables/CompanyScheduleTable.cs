@@ -1,12 +1,7 @@
 ﻿using DTO.Models.CompanyModels;
 using DTO.Models.StaffMemberModels;
 using MySql.Data.MySqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DTO.DbTables
 {
@@ -21,6 +16,11 @@ namespace DTO.DbTables
             Shifttable = new Shifttable(dbContext);
         }
 
+        /// <summary>
+        /// Retrieves a list of company schedules with the given ID.
+        /// </summary>
+        /// <param name="id">The ID of the company schedules to retrieve.</param>
+        /// <returns>A list of company schedules with the given ID.</returns>
         public List<CompanySchedule> GetCompanySchedule(int id)
         {
             List<CompanySchedule> shedules = new List<CompanySchedule>();
@@ -34,16 +34,21 @@ namespace DTO.DbTables
 
             foreach (DataRow data in table.Tables["Tables"].Rows)
             {
-                shedules.Add(new CompanySchedule((int)data["id"], (DateTime)data["neededWeek"], null));
+                shedules.Add(
+                    new CompanySchedule((int)data["id"], (DateTime)data["neededWeek"], null)
+                );
             }
 
             return shedules;
-
         }
 
-        private List<StaffMember> GetNeededStaffMembers(int id) 
+        /// <summary>
+        /// Retrieves a list of staff members with the given ID.
+        /// </summary>
+        /// <param name="id">The ID of the staff members to retrieve.</param>
+        /// <returns>A list of staff members with the given ID.</returns>
+        private List<StaffMember> GetNeededStaffMembers(int id)
         {
-
             List<StaffMember> staffMembers = new List<StaffMember>();
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
@@ -60,8 +65,5 @@ namespace DTO.DbTables
 
             return staffMembers;
         }
-
-
-
     }
 }

@@ -1,11 +1,4 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DTO.Models.CompanyModels
+﻿namespace DTO.Models.CompanyModels
 {
     public class NeededStaff
     {
@@ -13,18 +6,24 @@ namespace DTO.Models.CompanyModels
         private int occaption;
         private int neededShift;
 
-        public int Occaption { get { return occaption; } }
-        public int NeededShift { get { return NeededShift; } }
-        public int Id { get { return id; } }
+        public int Occaption
+        {
+            get { return occaption; }
+        }
+        public int NeededShift
+        {
+            get { return NeededShift; }
+        }
+        public int Id
+        {
+            get { return id; }
+        }
 
-
-
-        public NeededStaff(int id,int occaption, int neededShift)
+        public NeededStaff(int id, int occaption, int neededShift)
         {
             this.id = id;
             this.occaption = occaption;
             this.neededShift = neededShift;
         }
-
     }
 }

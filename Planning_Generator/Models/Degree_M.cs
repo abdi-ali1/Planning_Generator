@@ -4,8 +4,5 @@
     {
         public string NameOfDegree { get; set; }
         public int DegreeLevel { get; set; }
-
-       
-
     }
 }

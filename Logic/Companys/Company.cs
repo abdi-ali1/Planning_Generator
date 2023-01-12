@@ -10,9 +10,18 @@ namespace Logic.Companys
         private List<CompanySchedule> companySchedules = new List<CompanySchedule>();
         private List<IWeeklyNeed> weeklyNeed = new List<IWeeklyNeed>();
 
-        public string Name { get { return name; } }
-        public IList<CompanySchedule> Schedules { get { return companySchedules.AsReadOnly(); } }
-        public IList<IWeeklyNeed> WeeklyNeed { get { return weeklyNeed; } }
+        public string Name
+        {
+            get { return name; }
+        }
+        public IList<CompanySchedule> Schedules
+        {
+            get { return companySchedules.AsReadOnly(); }
+        }
+        public IList<IWeeklyNeed> WeeklyNeed
+        {
+            get { return weeklyNeed; }
+        }
 
         public Company(string name)
         {
@@ -37,7 +46,9 @@ namespace Logic.Companys
                 }
                 else
                 {
-                    return Result<string>.Fail(new Exception("schedule already exists for this week"));
+                    return Result<string>.Fail(
+                        new Exception("schedule already exists for this week")
+                    );
                 }
             }
             catch (Exception e)
@@ -62,7 +73,9 @@ namespace Logic.Companys
                 }
                 else
                 {
-                    return Result<string>.Fail(new Exception("weekly need already exists for this week"));
+                    return Result<string>.Fail(
+                        new Exception("weekly need already exists for this week")
+                    );
                 }
             }
             catch (Exception e)
@@ -70,7 +83,6 @@ namespace Logic.Companys
                 return Result<string>.Fail(e);
             }
         }
-
 
         /// <summary>
         /// Determines whether the specified object is equal to the current object.

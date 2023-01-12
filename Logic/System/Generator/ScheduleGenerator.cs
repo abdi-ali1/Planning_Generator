@@ -15,12 +15,12 @@ namespace Logic.System.Generator
         private readonly IAvailibiltyMatcher availabilityMatcher;
         private readonly IAvailibiltyMatcher secondaryAvailabilityMatcher;
 
-      
-
-        public ScheduleGenerator(IList<StaffMember> staffMembers, 
-            IGetLoopInfoWeeklyNeed getLoopInfoWeeklyNeed, 
-            IAvailibiltyMatcher availabilityMatcher, 
-            IAvailibiltyMatcher secondaryAvailabilityMatcher)
+        public ScheduleGenerator(
+            IList<StaffMember> staffMembers,
+            IGetLoopInfoWeeklyNeed getLoopInfoWeeklyNeed,
+            IAvailibiltyMatcher availabilityMatcher,
+            IAvailibiltyMatcher secondaryAvailabilityMatcher
+        )
         {
             this.staffMembers = staffMembers;
             this.getLoopInfoWeeklyNeed = getLoopInfoWeeklyNeed;
@@ -34,7 +34,10 @@ namespace Logic.System.Generator
         /// <param name="company">The company for which to create schedules.</param>
         /// <param name="weekNeeded">The week for which to create schedules.</param>
         /// <returns>A list of company schedules for the given week and company.</returns>
-        public Result<List<CompanySchedule>> CreateCompanySchedulesForWeek(Company company, int week)
+        public Result<IList<CompanySchedule>> CreateCompanySchedulesForWeek(
+            Company company,
+            int week
+        )
         {
             List<CompanySchedule> schedules = new List<CompanySchedule>();
             IWeeklyNeed neededWeekData = getLoopInfoWeeklyNeed.GetInfo(company, week).Value;
@@ -42,24 +45,38 @@ namespace Logic.System.Generator
 
             if (staffMembersAvailibleOnDate == null || staffMembersAvailibleOnDate.Count == 0)
             {
-                return Result<List<CompanySchedule>>.Fail(new Exception("There are no availible staff members"));
+                return Result<IList<CompanySchedule>>.Fail(
+                    new Exception("There are no availible staff members")
+                );
             }
 
-            CompanySchedule schedule = FillSchedule(neededWeekData.NeededStaff, staffMembersAvailibleOnDate, week, availabilityMatcher);
+            CompanySchedule schedule = FillSchedule(
+                neededWeekData.NeededStaff,
+                staffMembersAvailibleOnDate,
+                week,
+                availabilityMatcher
+            );
             schedules.Add(schedule);
 
             if (schedule.CompanyScheduleInfos.Count < neededWeekData.NeededStaff.Count)
             {
-                CompanySchedule remainingSchedule = FillSchedule(neededWeekData.NeededStaff, staffMembersAvailibleOnDate, week, secondaryAvailabilityMatcher);
+                CompanySchedule remainingSchedule = FillSchedule(
+                    neededWeekData.NeededStaff,
+                    staffMembersAvailibleOnDate,
+                    week,
+                    secondaryAvailabilityMatcher
+                );
                 schedules.Add(remainingSchedule);
             }
 
             if (schedules.Any(x => x.CompanyScheduleInfos.Count == 0))
             {
-                return Result<List<CompanySchedule>>.Fail(new Exception("There are no staff members availible"));
+                return Result<IList<CompanySchedule>>.Fail(
+                    new Exception("There are no staff members availible")
+                );
             }
 
-            return Result<List<CompanySchedule>>.Ok(schedules);
+            return Result<IList<CompanySchedule>>.Ok(schedules);
         }
 
         /// <summary>
@@ -74,7 +91,8 @@ namespace Logic.System.Generator
             IList<NeededStaff> neededStaff,
             IList<StaffMember> staffMembers,
             int week,
-            IAvailibiltyMatcher availabilityChecker)
+            IAvailibiltyMatcher availabilityChecker
+        )
         {
             CompanySchedule schedule = new CompanySchedule(week);
 
@@ -82,9 +100,18 @@ namespace Logic.System.Generator
             {
                 foreach (StaffMember staff in staffMembers)
                 {
-                    if (availabilityChecker.MatchesNeed(needed, staff, week, schedule.CompanyScheduleInfos))
+                    if (
+                        availabilityChecker.MatchesNeed(
+                            needed,
+                            staff,
+                            week,
+                            schedule.CompanyScheduleInfos
+                        )
+                    )
                     {
-                        schedule.AddComapanyScheduleInfo(new CompanyScheduleInfo(staff, needed.NeededShift));
+                        schedule.AddComapanyScheduleInfo(
+                            new CompanyScheduleInfo(staff, needed.NeededShift)
+                        );
                     }
                 }
             }
@@ -98,15 +125,26 @@ namespace Logic.System.Generator
         /// <param name="staffMembers">The list of staff members to check for availability.</param>
         /// <param name="week">The date to check for availability.</param>
         /// <returns>A result object containing either a list of staff members who are available on the given date, or an exception if there was an error.</returns>
-        private Result<IList<StaffMember>> StaffMembersAvailibleOnDate(IList<StaffMember> staffMembers, int week)
+        private Result<IList<StaffMember>> StaffMembersAvailibleOnDate(
+            IList<StaffMember> staffMembers,
+            int week
+        )
         {
             try
             {
-                IList<StaffMember> availibleStaffMembers = staffMembers.Where(staff => staff.AvailabilityStaff.Any(availability => availability.WeekAvailability == week))
+                IList<StaffMember> availibleStaffMembers = staffMembers
+                    .Where(
+                        staff =>
+                            staff.AvailabilityStaff.Any(
+                                availability => availability.WeekAvailability == week
+                            )
+                    )
                     .ToList();
                 if (availibleStaffMembers.Count == 0)
                 {
-                    return Result<IList<StaffMember>>.Fail(new Exception("there is no staff available"));
+                    return Result<IList<StaffMember>>.Fail(
+                        new Exception("there is no staff available")
+                    );
                 }
                 return Result<IList<StaffMember>>.Ok(availibleStaffMembers);
             }

@@ -18,10 +18,10 @@ namespace Logic
         public static bool AdheredAllWorkRules(StaffMember staff, IList<CompanyScheduleInfo> companyScheduleInfos, int week, Shift shift)
         {
             List<IWorkRuleSchedule> workRules = new List<IWorkRuleSchedule>()
-        {
-            new FiftyRule(companyScheduleInfos, staff, week),
-            new MaxWorkHours(companyScheduleInfos, staff, week, shift)
-        };
+            {
+                new FiftyRule(companyScheduleInfos, staff, week),
+                new MaxWorkHours(companyScheduleInfos, staff, week, shift)
+            };
 
             return ExecuteWorkRules(workRules);
         }

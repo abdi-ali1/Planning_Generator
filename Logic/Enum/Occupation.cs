@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Logic.Enum
+﻿namespace Logic.Enum
 {
-
     public enum Occupation
     {
         Picker = 1,
         Driver = 2,
-        Mechinic = 3
+        Mechinic = 3,
     }
 }

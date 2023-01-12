@@ -8,8 +8,14 @@
         private int degreeLevel;
 
         //properties (getters and setters)
-        public string NameOfDegree { get { return nameOfDegree; } }
-        public int DegreeLevel { get { return degreeLevel; } }
+        public string NameOfDegree
+        {
+            get { return nameOfDegree; }
+        }
+        public int DegreeLevel
+        {
+            get { return degreeLevel; }
+        }
 
         public Degree(string nameOfDegree, int degreeLevel)
         {
@@ -24,7 +30,7 @@
         /// <returns>True if the specified object is equal to the current object, otherwise false.</returns>
         public override bool Equals(object? obj)
         {
-            if (obj == null || !this.GetType().Equals(obj.GetType()))
+            if (obj == null || !GetType().Equals(obj.GetType()))
             {
                 return false;
             }

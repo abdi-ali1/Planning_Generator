@@ -3,12 +3,11 @@
 }
 @model Planning_Generator.Models.Login_M
 
-
 @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-control" }))
 {
-    <div class="form-group mb-5">
+    <div class="form-group mb-3">
         @Html.LabelFor(m => m.Username)
-        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", required = "Please enter the name of the new company" })
+        @Html.TextBoxFor(m => m.Username, new { @class = "form-control", required = "Please enter your username or the name of a company." })
     </div>
-    <button type="submit" class="btn btn-primary mb-5">Log in</button>
+    <button type="submit" class="btn btn-primary mb-3">Login</button>
 }

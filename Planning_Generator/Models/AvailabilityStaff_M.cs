@@ -1,6 +1,4 @@
-﻿using Logic.Companys;
-using Logic.Enum;
-using Logic.Shifts;
+﻿using Logic.Enum;
 using DayOfWeek = Logic.Enum.DayOfWeek;
 
 namespace Planning_Generator.Models
@@ -11,9 +9,5 @@ namespace Planning_Generator.Models
         public string Company_Name { get; set; }
         public DayOfWeek DayOfWeek { get; set; }
         public ShiftHour KindOfShift { get; set; }
-    
-
-
     }
-
 }

@@ -1,7 +1,4 @@
-﻿using Logic.Companys;
-using Logic.Employee;
-using Logic.Employee.Degrees;
-using Logic.Enum;
+﻿using Logic.Enum;
 using Logic.Interface;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -9,8 +6,6 @@ namespace DTO_BinaryFile.Manager
 {
     public class BinaryFileManager : IBinaryFileManager
     {
-
-
         /// <summary>
         /// Writes the specified object to a binary file. If the file exists, it will be overwritten.
         /// If the file does not exist, it will be created.
@@ -37,13 +32,12 @@ namespace DTO_BinaryFile.Manager
         {
             using (Stream stream = File.Open(FileSetterManager.SetFileLocation(type), FileMode.Open))
             {
-                var binaryFormatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                BinaryFormatter binaryFormatter = new BinaryFormatter();
                 return (T)binaryFormatter.Deserialize(stream);
             }
         }
 
-
-    /*    public void DummyData()
+        /*    public void DummyData()
         {
             List<Company> companies = new List<Company>();
             List<StaffMember> staffMembers = new List<StaffMember>();
@@ -66,8 +60,6 @@ namespace DTO_BinaryFile.Manager
 
             WriteToBinaryFile<IList<Company>>(companies1, RepositoryType.Company);
             WriteToBinaryFile<IList<StaffMember>>(staffMembers1, RepositoryType.Staff);
-
-
         }*/
     }
 }

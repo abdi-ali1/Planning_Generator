@@ -1,5 +1,4 @@
 ﻿using Logic.Companys;
-using System.Globalization;
 
 namespace Logic.Shifts.Availibiltiy
 {
@@ -12,9 +11,18 @@ namespace Logic.Shifts.Availibiltiy
         private List<Shift> shifts = new List<Shift>();
 
         // properties
-        public int WeekAvailability { get { return weekAvailability; } }
-        public Company Company { get { return company; } }
-        public IList<Shift> Shifts { get { return shifts.AsReadOnly(); } }
+        public int WeekAvailability
+        {
+            get { return weekAvailability; }
+        }
+        public Company Company
+        {
+            get { return company; }
+        }
+        public IList<Shift> Shifts
+        {
+            get { return shifts.AsReadOnly(); }
+        }
 
         public AvailabilityStaff(int neededWeek, Company company)
         {
@@ -22,12 +30,12 @@ namespace Logic.Shifts.Availibiltiy
             this.company = company;
         }
 
-
-        public AvailabilityStaff(int neededWeek, Company company, List<Shift> shifts) : this(neededWeek, company)
+        public AvailabilityStaff(int neededWeek, Company company, List<Shift> shifts)
+            : this(neededWeek, company)
         {
             this.shifts = shifts;
         }
-         
+
         /// <summary>
         /// Adds a new shift to the list of shifts.
         /// </summary>
@@ -63,7 +71,6 @@ namespace Logic.Shifts.Availibiltiy
                 return false;
             }
 
-          
             AvailabilityStaff availibiltyStaff = (AvailabilityStaff)obj;
 
             return availibiltyStaff.WeekAvailability == weekAvailability;

@@ -8,8 +8,14 @@ namespace Logic.Schedules
         private int currentWeek;
         private List<CompanyScheduleInfo> companyScheduleInfos = new List<CompanyScheduleInfo>();
 
-        public int CurrentWeek { get { return currentWeek; } }
-        public IList<CompanyScheduleInfo> CompanyScheduleInfos { get { return companyScheduleInfos.AsReadOnly(); } }
+        public int CurrentWeek
+        {
+            get { return currentWeek; }
+        }
+        public IList<CompanyScheduleInfo> CompanyScheduleInfos
+        {
+            get { return companyScheduleInfos.AsReadOnly(); }
+        }
 
         public CompanySchedule(int currentWeek)
         {

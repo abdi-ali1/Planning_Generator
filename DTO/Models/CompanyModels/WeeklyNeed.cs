@@ -1,11 +1,4 @@
-﻿using Google.Protobuf.WellKnownTypes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DTO.Models.CompanyModels
+﻿namespace DTO.Models.CompanyModels
 {
     public class WeeklyNeed
     {
@@ -15,17 +8,24 @@ namespace DTO.Models.CompanyModels
         private List<NeededStaff> neededStaff = new();
 
         // properties
-        public DateTime WeekNeeded { get { return weekNeeded; } }
-        public List<NeededStaff> NeededStaff { get { return neededStaff; } }
-        public int Id { get { return id; } }
+        public DateTime WeekNeeded
+        {
+            get { return weekNeeded; }
+        }
+        public List<NeededStaff> NeededStaff
+        {
+            get { return neededStaff; }
+        }
+        public int Id
+        {
+            get { return id; }
+        }
 
         // constructors
-        public WeeklyNeed(int id,DateTime weekNeeded, List<NeededStaff> neededStaff)
+        public WeeklyNeed(int id, DateTime weekNeeded, List<NeededStaff> neededStaff)
         {
             this.weekNeeded = weekNeeded;
             this.neededStaff = neededStaff;
         }
-     
-
     }
 }

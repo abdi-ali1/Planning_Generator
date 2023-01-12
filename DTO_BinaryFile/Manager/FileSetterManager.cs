@@ -1,11 +1,4 @@
-﻿using Logic.Companys;
-using Logic.Employee;
-using Logic.Enum;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Logic.Enum;
 
 namespace DTO_BinaryFile.Manager
 {
@@ -21,10 +14,10 @@ namespace DTO_BinaryFile.Manager
             switch (type)
             {
                 case RepositoryType.Staff:
-                    return "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\DTO_BinaryFile\\Files\\StaffMember.bin";
+                    return "D:\\temp\\Planning_Generator\\DTO_BinaryFile\\Files\\StaffMember.bin";
 
                 case RepositoryType.Company:
-                    return "C:\\Users\\abdi1\\source\\repos\\PlanningGenerator\\DTO_BinaryFile\\Files\\Company.bin";
+                    return "D:\\temp\\Planning_Generator\\DTO_BinaryFile\\Files\\Company.bin";
 
                 default:
                     return "";

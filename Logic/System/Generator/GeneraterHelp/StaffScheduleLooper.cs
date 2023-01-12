@@ -20,7 +20,9 @@ namespace Logic.System.Generator.GeneraterHelp
                 if (currentSchedule == null)
                 {
                     // Return an Fail result with a null value when there is no schedule for the specified date
-                    return Result<StaffSchedule>.Fail(new Exception("there are no schedule on this week"));
+                    return Result<StaffSchedule>.Fail(
+                        new Exception("there are no schedule on this week")
+                    );
                 }
 
                 // Return an Ok result with the current schedule when it is found

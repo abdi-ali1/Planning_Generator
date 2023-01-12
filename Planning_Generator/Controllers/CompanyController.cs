@@ -3,13 +3,10 @@ using Logic.Companys;
 using Logic.Companys.Request;
 using Logic.Employee;
 using Logic.Schedules;
-using Logic.Schedules.Company;
 using Logic.System.Generator.GeneraterHelp;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using Planning_Generator.Models;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Planning_Generator.Controllers
 {
@@ -19,29 +16,22 @@ namespace Planning_Generator.Controllers
         {
             if (model.CurrentWeek != 0)
             {
-
                 Result<string> result;
                 Company company = CurrentActive<Company>.Current;
                 int index = Getindex(company.WeeklyNeed, model.CurrentWeek);
                 if (index > -1)
                 {
-                  result =  company.WeeklyNeed[index].AddNeededStaff(new NeededStaff
-                        (
-                            model.Occupation,
-                            new Logic.Shifts.Shift(model.DayOfWeek, model.KindOfShift),
-                            model.DegreeLevel
-                        ));
+                    result = company.WeeklyNeed[index].AddNeededStaff(
+                        new NeededStaff(model.Occupation, new Logic.Shifts.Shift(model.DayOfWeek, model.KindOfShift), model.DegreeLevel)
+                    );
                 }
                 else
                 {
                     IWeeklyNeed weeklyNeed = new WeeklyNeed(model.CurrentWeek);
                     company.AddWeeklyNeed(weeklyNeed);
-                    result =  weeklyNeed.AddNeededStaff(new NeededStaff
-                        (
-                            model.Occupation,
-                            new Logic.Shifts.Shift(model.DayOfWeek, model.KindOfShift),
-                            model.DegreeLevel
-                        ));
+                    result = weeklyNeed.AddNeededStaff(
+                        new NeededStaff(model.Occupation, new Logic.Shifts.Shift(model.DayOfWeek, model.KindOfShift), model.DegreeLevel)
+                    );
                 }
 
                 if (result.Success)
@@ -53,30 +43,38 @@ namespace Planning_Generator.Controllers
 
                 SetResult<string>(result);
             }
-           
+
             return View();
         }
 
+        public IActionResult Signout()
+        {
+            CurrentActive<Company>.Current = null;
 
+            return RedirectToAction("Index", "Home");
+        }
 
         [HttpPost]
         public IActionResult GenereteShedules(int week)
         {
             Company company = CurrentActive<Company>.Current;
-            Result<List<CompanySchedule>> result = LogicRefecator.ScheduleGenerator.CreateCompanySchedulesForWeek(company, week);
+            Result<IList<CompanySchedule>> result = LogicRefecator.ScheduleGenerator.CreateCompanySchedulesForWeek(company, week);
             Result<string> stringResult;
 
             if (result.Success)
             {
                 stringResult = Result<string>.Ok("Created some schedules");
-                SetResult<string>(stringResult);
-                return RedirectToAction("Shedule", result.Value);
+                List<string> viewdataList = SetResult<string>(stringResult);
+                List<CompanySchedule> companySchedules = (List<CompanySchedule>)result.Value; 
+                return RedirectToAction(
+                    "Shedule",
+                    new { companySchedules = companySchedules, viewdataList = viewdataList }
+                );
             }
 
-
             stringResult = Result<string>.Fail(result.Exception);
-            SetResult<string>(stringResult);
-            return Redirect("Shedule");
+            List<string> viewdataList1 = SetResult<string>(stringResult);
+            return RedirectToAction("Shedule",   new { viewdataList = viewdataList1 });
         }
 
         [HttpPost]
@@ -88,8 +86,8 @@ namespace Planning_Generator.Controllers
 
             foreach (var info in companySchedule.CompanyScheduleInfos)
             {
-                var manager = new StaffSchedueManager(info.StaffMember, companySchedule.CompanyScheduleInfos, companySchedule.CurrentWeek);
-                var result = manager.SetStaffSchedule(company);
+                StaffSchedueManager manager = new StaffSchedueManager(info.StaffMember, companySchedule.CompanyScheduleInfos, companySchedule.CurrentWeek);
+                Result<StaffMember> result = manager.SetStaffSchedule(company);
                 if (result.Success)
                 {
                     LogicRefecator.StaffMemberModelManager.SaveStaffMember(result.Value);
@@ -102,15 +100,26 @@ namespace Planning_Generator.Controllers
             return Redirect("Schedule");
         }
 
-        public IActionResult Shedule(IList<Logic.Schedules.CompanySchedule> companySchedules)
+        public IActionResult Shedule(List<CompanySchedule> companySchedules,  List<string> viewdataList = null)
         {
-            
+            if (viewdataList != null && viewdataList.Count == 2)
+            {
+                ViewData["Message"] = viewdataList[0];
+                ViewData["MessageType"] = viewdataList[1];
+            }
+
             return View(companySchedules);
         }
 
+        /// <summary>
+        /// Gets the index of the element with the specified week value in the specified list.
+        /// </summary>
+        /// <param name="values">The list to search in.</param>
+        /// <param name="week">The week value to search for.</param>
+        /// <returns>The index of the element with the specified week value, or -1 if the element is not found.</returns>
         private int Getindex(IList<IWeeklyNeed> values, int week)
         {
-            int index = -1;  
+            int index = -1;
             if (values.Count == 0)
             {
                 return index;
@@ -127,28 +136,38 @@ namespace Planning_Generator.Controllers
             return index;
         }
 
-      
-        public void SetResult<T>(Result<T> result)
+        /// <summary>
+        /// Creates a list from the specified result object.
+        /// </summary>
+        /// <typeparam name="T">The type of the result value.</typeparam>
+        /// <param name="result">The result object to create the list from.</param>
+        /// <returns>A list containing the result value and status, or null if the result is null.</returns>
+        public List<string> SetResult<T>(Result<T> result)
         {
-            if (result == null) return;
+            if (result == null)
+                return null;
+
+            List<string> list = new List<string>();
 
             if (result.Success)
             {
-                ViewData["Message"] = result.Value;
-                ViewData["MessageType"] = "success";
+                list.Insert(0, result.Value.ToString());
+                list.Insert(1, "success");
             }
             else
             {
                 if (result.IsExceptionType<Exception>())
                 {
-                    ViewData["Message"] = result.Exception.Message;
+                    list.Insert(0, result.Exception.Message);
                 }
                 else
                 {
-                    ViewData["Message"] = "something went wrong try again!";
+                    list.Insert(0, "something went wrong try again!");
                 }
-                ViewData["MessageType"] = "danger";
+                list.Insert(1, "danger");
             }
+
+            return list;
         }
     }
 }

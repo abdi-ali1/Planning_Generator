@@ -1,5 +1,6 @@
 ﻿using Logic.Employee;
 using Logic.Schedules.Company;
+using Logic.Schedules.Staff;
 using Logic.Shifts;
 using Logic.System.Generator.GeneraterHelp;
 using DayOfWeek = Logic.Enum.DayOfWeek;
@@ -12,24 +13,24 @@ namespace Logic.WorkRules
         private readonly int week;
         private readonly Shift newShift;
 
-        public MaxWorkHours(IList<CompanyScheduleInfo> scheduleInfos, StaffMember staff, int  week, Shift newShift)
-            : base(staff)
+        public MaxWorkHours(IList<CompanyScheduleInfo> scheduleInfos, StaffMember staff, int week, Shift newShift) : base(staff)
         {
-            this.scheduleInfo = scheduleInfos;
+            scheduleInfo = scheduleInfos;
             this.week = week;
             this.newShift = newShift;
         }
 
         public override bool IsRuleAdhered()
         {
-            var resultStaffSchedule = StaffScheduleLooper.GetNeededStaffSchedule(staffMember, week);
-            var companyScheduledShifts = GetScheduleShifts();
+            Result<StaffSchedule> resultStaffSchedule = StaffScheduleLooper.GetNeededStaffSchedule(staffMember, week);
+            Result<IList<Shift>> companyScheduledShifts = GetScheduleShifts();
 
             if (resultStaffSchedule.Success)
             {
                 if (companyScheduledShifts.Success)
                 {
-                    return CanAddShift(resultStaffSchedule.Value.Shifts) && CanAddShift(companyScheduledShifts.Value);
+                    return CanAddShift(resultStaffSchedule.Value.Shifts)
+                        && CanAddShift(companyScheduledShifts.Value);
                 }
 
                 return CanAddShift(resultStaffSchedule.Value.Shifts);
@@ -53,31 +54,35 @@ namespace Logic.WorkRules
         private bool CanAddShift(IList<Shift> shifts)
         {
             // Check if there is a 16-hour gap between the new shift and each of the existing shifts
-            return !shifts.Any(shift =>
-            {
-                if (shift.DayOfWeek == newShift.DayOfWeek)
+            return !shifts.Any(
+                shift =>
                 {
-
-                    // If the new shift and the existing shift are on the same day, check if there is a 16-hour gap between them
-                    int gap = ((int)newShift.ShiftHour - (int)shift.ShiftHour) * 8;
-                    return gap < 16;
-                }
-                else
-                {
-                    // If the new shift and the existing shift are on different days, check if there is
-                    // a 16-hour gap between them accounting for the end of one day and the start of the next
-                    int gap;
-                    if (shift.DayOfWeek == DayOfWeek.Friday && newShift.DayOfWeek == DayOfWeek.Monday)
+                    if (shift.DayOfWeek == newShift.DayOfWeek)
                     {
-                        gap = 0;
+                        // If the new shift and the existing shift are on the same day, check if there is a 16-hour gap between them
+                        int gap = ((int)newShift.ShiftHour - (int)shift.ShiftHour) * 8;
+                        return gap < 16;
                     }
                     else
                     {
-                        gap = ((int)newShift.ShiftHour - (int)shift.ShiftHour + 2) * 8;
+                        // If the new shift and the existing shift are on different days, check if there is
+                        // a 16-hour gap between them accounting for the end of one day and the start of the next
+                        int gap;
+                        if (
+                            shift.DayOfWeek == DayOfWeek.Friday
+                            && newShift.DayOfWeek == DayOfWeek.Monday
+                        )
+                        {
+                            gap = 0;
+                        }
+                        else
+                        {
+                            gap = ((int)newShift.ShiftHour - (int)shift.ShiftHour + 2) * 8;
+                        }
+                        return gap < 16;
                     }
-                    return gap < 16;
                 }
-            });
+            );
         }
 
         /// <summary>
@@ -86,7 +91,7 @@ namespace Logic.WorkRules
         /// <returns>The list of shifts for the current company schedule.</returns>
         private Result<IList<Shift>> GetScheduleShifts()
         {
-             IList<Shift> scheduleInfoList = new List<Shift>();
+            IList<Shift> scheduleInfoList = new List<Shift>();
 
             foreach (CompanyScheduleInfo info in scheduleInfo)
             {
@@ -101,8 +106,6 @@ namespace Logic.WorkRules
                 return Result<IList<Shift>>.Ok(scheduleInfoList);
             }
             return Result<IList<Shift>>.Fail(new Exception("doesnt have any in list"));
-
-
         }
     }
 }
