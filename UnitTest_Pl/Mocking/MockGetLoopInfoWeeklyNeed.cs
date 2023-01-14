@@ -9,9 +9,9 @@ namespace UnitTest_Pl.Mocking
     {
         public Result<IWeeklyNeed> GetInfo(Company company, int week)
         {
-            IWeeklyNeed info = new WeeklyNeed(week);
+           
 
-           Result<IWeeklyNeed> result =   Result<IWeeklyNeed>.Ok(info);
+           Result<IWeeklyNeed> result =   Result<IWeeklyNeed>.Ok(company.WeeklyNeed.First(x => x.WeekNeeded == week));
 
             return  result;
         }

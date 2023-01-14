@@ -2,7 +2,9 @@
 using Logic.Schedules.Company;
 using Logic.Shifts;
 using Logic.WorkRules;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("UnitTest_Pl")]
 namespace Logic
 {
     internal class WorkRuleHelper

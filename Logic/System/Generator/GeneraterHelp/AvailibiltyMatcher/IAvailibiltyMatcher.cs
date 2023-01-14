@@ -2,7 +2,7 @@
 using Logic.Employee;
 using Logic.Schedules.Company;
 
-namespace Logic.System.Generator.GeneraterHelp.AvailibiltyMatcher
+namespace Logic
 {
     public interface IAvailibiltyMatcher
     {

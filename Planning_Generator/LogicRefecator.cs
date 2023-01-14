@@ -3,7 +3,7 @@ using Logic.System.Authentication;
 using Logic.Interface;
 using Logic.System.ModelManager;
 using Logic.System.Generator;
-using Logic.System.Generator.GeneraterHelp.AvailibiltyMatcher;
+using Logic;
 
 namespace Planning_Generator
 {

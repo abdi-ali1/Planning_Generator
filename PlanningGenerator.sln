@@ -11,7 +11,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Planning_Generator", "Plann
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DTO_BinaryFile", "DTO_BinaryFile\DTO_BinaryFile.csproj", "{0F6F82ED-622C-4573-98A9-05FC1E1883D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest_Pl", "UnitTest_Pl\UnitTest_Pl.csproj", "{3988A92D-FCB5-4A7D-9B66-62967CE9F518}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTest_Pl", "UnitTest_Pl\UnitTest_Pl.csproj", "{3988A92D-FCB5-4A7D-9B66-62967CE9F518}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A1BE2082-E4FC-419F-9D4A-4743D5E2435F}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

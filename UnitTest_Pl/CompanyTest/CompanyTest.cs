@@ -10,7 +10,7 @@ namespace UnitTest_Pl
 {
     public class CompanyTest
     {
-        private Company _company;
+        private Company company;
         private ICompanyModelManager _companyModelManager;
 
         [SetUp]
@@ -27,23 +27,23 @@ namespace UnitTest_Pl
             string companyName = "Mosadex";
 
             // Act
-            _company = new Company(companyName);
+            company = new Company(companyName);
 
             // Assert
-            Assert.AreEqual(companyName, _company.Name, "Company name should be set correctly");
+            Assert.AreEqual(companyName, company.Name, "Company name should be set correctly");
         }
 
         [Test]
         public void CompanyAddWeeklyNeed_AddingExistingWeeklyNeed_ReturnsFalse()
         {
             // Arrange
-            _company = new Company("Mosadex");
+            company = new Company("Mosadex");
             IWeeklyNeed weeklyNeed = new WeeklyNeedMock(3);
             IWeeklyNeed sameWeek = new WeeklyNeedMock(3);
-            _company.AddWeeklyNeed(weeklyNeed);
+            company.AddWeeklyNeed(weeklyNeed);
 
             // Act
-            Result<string> result = _company.AddWeeklyNeed(sameWeek);
+            Result<string> result = company.AddWeeklyNeed(sameWeek);
 
             // Assert
             Assert.IsFalse(result.Success, $"Adding existing weekly need should have returned false, but got {result.Success}");
@@ -53,12 +53,16 @@ namespace UnitTest_Pl
         public void CompanyAddWeeklyNeed_AddingNewWeeklyNeed_ReturnsTrue()
         {
             // Arrange
+            company = new Company("Mosadex");
             IWeeklyNeed weeklyNeed = new WeeklyNeedMock(3);
-            IWeeklyNeed differentWeek = new WeeklyNeedMock(4);
-            _company.AddWeeklyNeed(weeklyNeed);
+            IWeeklyNeed differentWeek = new WeeklyNeedMock(5);
+            company.AddWeeklyNeed(differentWeek);
+
+
+            Console.WriteLine();
 
             // Act
-            Result<string> result = _company.AddWeeklyNeed(differentWeek);
+            Result<string> result = company.AddWeeklyNeed(weeklyNeed);
 
             Assert.IsTrue(result.Success, $"Adding non-existing weekly need should have returned true, but got {result.Success}");
         }
@@ -80,7 +84,6 @@ namespace UnitTest_Pl
         public void CompanyModelManager_AddingDuplicateCompany_ReturnsFalse()
         {
             // Arrange
-
             Company company1 = new Company("Tesla");
 
             // Act

@@ -3,10 +3,13 @@ using Logic.Schedules.Company;
 using Logic.Schedules.Staff;
 using Logic.Shifts;
 using Logic.System.Generator.GeneraterHelp;
+using System.Runtime.CompilerServices;
 using DayOfWeek = Logic.Enum.DayOfWeek;
 
+[assembly: InternalsVisibleTo("UnitTest_Pl")]
 namespace Logic.WorkRules
 {
+ 
     internal class MaxWorkHours : WorkRule
     {
         private readonly IList<CompanyScheduleInfo> scheduleInfo;

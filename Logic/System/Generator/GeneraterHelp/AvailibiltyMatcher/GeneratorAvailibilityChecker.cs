@@ -4,7 +4,7 @@ using Logic.Schedules.Company;
 using Logic.Shifts;
 using Logic.Shifts.Availibiltiy;
 
-namespace Logic.System.Generator.GeneraterHelp.AvailibiltyMatcher
+namespace Logic
 {
     public class GeneratorAvailibilityMatcher : IAvailibiltyMatcher
     {

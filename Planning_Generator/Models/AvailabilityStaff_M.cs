@@ -9,5 +9,6 @@ namespace Planning_Generator.Models
         public string Company_Name { get; set; }
         public DayOfWeek DayOfWeek { get; set; }
         public ShiftHour KindOfShift { get; set; }
+         
     }
 }

@@ -7,10 +7,11 @@ namespace UnitTest_Pl.Mocking.Companys
     {
         private int weekNeeded;
         private IList<NeededStaff> neededStaff = new List<NeededStaff>();
-        public int WeekNeeded => weekNeeded;
+
+        public int WeekNeeded { get { return weekNeeded; } }
         public IList<NeededStaff> NeededStaff { get { return neededStaff; } }
 
-        int IWeeklyNeed.WeekNeeded => throw new NotImplementedException();
+       
 
         public WeeklyNeedMock(int weekNeeded)
         {

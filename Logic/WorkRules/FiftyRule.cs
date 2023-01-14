@@ -2,10 +2,12 @@
 using Logic.Schedules.Company;
 using Logic.System.Generator.GeneraterHelp;
 using Logic.Schedules.Staff;
+using System.Runtime.CompilerServices;
 
-namespace Logic.WorkRules
+[assembly: InternalsVisibleTo("UnitTest_Pl")]
+namespace Logic
 {
-    public class FiftyRule : WorkRule
+    internal class FiftyRule : WorkRule
     {
         private readonly IList<CompanyScheduleInfo> companyScheduleInfos;
         private readonly int week;
@@ -28,11 +30,13 @@ namespace Logic.WorkRules
                 return true;
             }
 
-            // Check if the number of CompanyScheduleInfo objects in the scheduleInfo list is greater than 2
-            if (companyScheduleInfos.Count > 2)
+            // Check if the number of CompanyScheduleInfo objects in the scheduleInfo list is greater or equal than 2
+            if (companyScheduleInfos.Count >= 2)
             {
                 return false;
             }
+
+
 
             // Check if the weekly hours for the staff member are higher than 16
             if (WeeklyHourHigherThan16())
@@ -50,7 +54,7 @@ namespace Logic.WorkRules
         private bool WeeklyHourHigherThan16()
         {
             Result<StaffSchedule> scheduleResult = StaffScheduleLooper.GetNeededStaffSchedule(staffMember,week);
-            return scheduleResult.Success && scheduleResult.Value.TotalWorkingHours > 16;
+            return scheduleResult.Success && scheduleResult.Value.TotalWorkingHours >= 16;
         }
     }
 }

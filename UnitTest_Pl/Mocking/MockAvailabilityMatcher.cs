@@ -1,7 +1,7 @@
 ﻿using Logic.Companys.Request;
 using Logic.Employee;
 using Logic.Schedules.Company;
-using Logic.System.Generator.GeneraterHelp.AvailibiltyMatcher;
+using Logic;
 
 namespace UnitTest_Pl.Mocking
 {

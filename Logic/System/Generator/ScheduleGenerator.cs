@@ -4,7 +4,7 @@ using Logic.Employee;
 using Logic.Interface;
 using Logic.Schedules;
 using Logic.Schedules.Company;
-using Logic.System.Generator.GeneraterHelp.AvailibiltyMatcher;
+using Logic;
 
 namespace Logic.System.Generator
 {

@@ -1,8 +1,10 @@
-﻿using Logic.Employee;
+﻿using System.Runtime.CompilerServices;
+using Logic.Employee;
 
-namespace Logic.WorkRules
+[assembly: InternalsVisibleTo("UnitTest_Pl")]
+namespace Logic
 {
-    public abstract class WorkRule : IWorkRuleSchedule
+    internal abstract class WorkRule : IWorkRuleSchedule
     {
         protected StaffMember staffMember;
 
