@@ -1,4 +1,5 @@
-﻿using Logic;
+﻿using DTO_BinaryFile.Manager;
+using Logic;
 using Logic.Companys;
 using Logic.Employee;
 using Microsoft.AspNetCore.Mvc;
@@ -10,6 +11,8 @@ namespace Planning_Generator.Controllers
     {
         public IActionResult Index(Login_M model)
         {
+        
+
             return View(model);
         }
 

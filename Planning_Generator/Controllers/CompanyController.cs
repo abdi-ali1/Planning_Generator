@@ -5,6 +5,7 @@ using Logic.Employee;
 using Logic.Schedules;
 using Logic.System.Generator.GeneraterHelp;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Planning_Generator.Models;
 
@@ -55,7 +56,7 @@ namespace Planning_Generator.Controllers
         }
 
         [HttpPost]
-        public IActionResult GenereteShedules(int week)
+        public IActionResult ExampleSchedules(int week)
         {
             Company company = CurrentActive<Company>.Current;
             Result<IList<CompanySchedule>> result = LogicRefecator.ScheduleGenerator.CreateCompanySchedulesForWeek(company, week);
@@ -65,28 +66,25 @@ namespace Planning_Generator.Controllers
             {
                 stringResult = Result<string>.Ok("Created some schedules");
                 List<string> viewdataList = SetResult<string>(stringResult);
-                List<CompanySchedule> companySchedules = (List<CompanySchedule>)result.Value; 
-                return RedirectToAction(
-                    "Shedule",
-                    new { companySchedules = companySchedules, viewdataList = viewdataList }
-                );
+                return View(result.Value);
             }
 
             stringResult = Result<string>.Fail(result.Exception);
             List<string> viewdataList1 = SetResult<string>(stringResult);
-            return RedirectToAction("Shedule",   new { viewdataList = viewdataList1 });
+            return View();
         }
 
         [HttpPost]
-        public IActionResult SetSchedule(CompanySchedule companySchedule)
+        public IActionResult SetSchedule(CompanySchedule schedule)
         {
-            var company = CurrentActive<Company>.Current;
-            company.AddSchedules(companySchedule);
+
+            Company company = CurrentActive<Company>.Current;
+            company.AddSchedules(schedule);
             LogicRefecator.CompanyModelManager.SaveCompany(CurrentActive<Company>.Current);
 
-            foreach (var info in companySchedule.CompanyScheduleInfos)
+            foreach (var info in schedule.CompanyScheduleInfos)
             {
-                StaffSchedueManager manager = new StaffSchedueManager(info.StaffMember, companySchedule.CompanyScheduleInfos, companySchedule.CurrentWeek);
+                StaffSchedueManager manager = new StaffSchedueManager(info.StaffMember, schedule.CompanyScheduleInfos, schedule.CurrentWeek);
                 Result<StaffMember> result = manager.SetStaffSchedule(company);
                 if (result.Success)
                 {
@@ -97,10 +95,10 @@ namespace Planning_Generator.Controllers
             LogicRefecator.CompanyModelManager.SaveCompanies();
             LogicRefecator.StaffMemberModelManager.SaveStaffMembers();
 
-            return Redirect("Schedule");
+            return Redirect("Shedule");
         }
 
-        public IActionResult Shedule(List<CompanySchedule> companySchedules,  List<string> viewdataList = null)
+        public IActionResult Shedule(IList<CompanySchedule> companySchedules, List<string> viewdataList = null)
         {
             if (viewdataList != null && viewdataList.Count == 2)
             {

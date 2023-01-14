@@ -3,6 +3,7 @@ using Logic.Shifts;
 
 namespace Logic.Schedules.Company
 {
+    [Serializable]
     public class CompanyScheduleInfo
     {
         private StaffMember staffMember;

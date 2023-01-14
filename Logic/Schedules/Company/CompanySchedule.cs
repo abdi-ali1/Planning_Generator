@@ -28,6 +28,7 @@ namespace Logic.Schedules
             this.companyScheduleInfos = companyScheduleInfos;
         }
 
+
         /// <summary>
         /// Adds a company schedule info to the list of company schedule infos.
         /// </summary>

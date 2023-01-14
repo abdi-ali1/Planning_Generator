@@ -1,4 +1,7 @@
-﻿using Logic.Enum;
+﻿using Logic.Companys;
+using Logic.Employee;
+using Logic.Employee.Degrees;
+using Logic.Enum;
 using Logic.Interface;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -37,7 +40,7 @@ namespace DTO_BinaryFile.Manager
             }
         }
 
-        /*    public void DummyData()
+        public void DummyData()
         {
             List<Company> companies = new List<Company>();
             List<StaffMember> staffMembers = new List<StaffMember>();
@@ -60,6 +63,6 @@ namespace DTO_BinaryFile.Manager
 
             WriteToBinaryFile<IList<Company>>(companies1, RepositoryType.Company);
             WriteToBinaryFile<IList<StaffMember>>(staffMembers1, RepositoryType.Staff);
-        }*/
+        }
     }
 }
