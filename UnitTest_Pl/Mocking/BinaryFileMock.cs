@@ -26,7 +26,7 @@ namespace UnitTest_Pl.Mocking
 
         public void WriteToBinaryFile<T>(T objectToWrite, RepositoryType type)
         {
-            throw new NotImplementedException();
+            Console.WriteLine("doesnt do anything");
         }
     }
 }

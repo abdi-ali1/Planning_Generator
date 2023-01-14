@@ -11,26 +11,25 @@ namespace UnitTest_Pl
     public class CompanyTest
     {
         private Company company;
-        private ICompanyModelManager _companyModelManager;
+        private ICompanyModelManager companyModelManager;
 
         [SetUp]
         public void Setup()
         {
-
-            _companyModelManager = new CompanyModelManager(new BinaryFileMock());
+            companyModelManager = new CompanyModelManager(new BinaryFileMock());
         }
 
         [Test]
-        public void CompanyNameTest()
+        [TestCase("Tesla")]
+        [TestCase("Apple")]
+        [TestCase("Amazon")]
+        public void CompanyNameTest(string name)
         {
-            // Arrange
-            string companyName = "Mosadex";
-
             // Act
-            company = new Company(companyName);
+            company = new Company(name);
 
             // Assert
-            Assert.AreEqual(companyName, company.Name, "Company name should be set correctly");
+            Assert.AreEqual(name, company.Name, "Company name should be set correctly");
         }
 
         [Test]
@@ -59,12 +58,13 @@ namespace UnitTest_Pl
             company.AddWeeklyNeed(differentWeek);
 
 
-            Console.WriteLine();
+
 
             // Act
             Result<string> result = company.AddWeeklyNeed(weeklyNeed);
 
             Assert.IsTrue(result.Success, $"Adding non-existing weekly need should have returned true, but got {result.Success}");
+            Assert.AreEqual("is added to list", result.Value);
         }
 
         [Test]
@@ -74,7 +74,7 @@ namespace UnitTest_Pl
             Company company = new Company("GorrilaGames");
 
             // Act
-            Result<string> result = _companyModelManager.AddNewCompany(company);
+            Result<string> result = companyModelManager.AddNewCompany(company);
 
             // Assert
             Assert.IsTrue(result.Success, $"Adding new company should have returned true, but got {result.Success}");
@@ -88,7 +88,7 @@ namespace UnitTest_Pl
 
             // Act
             // Company Tesla already exist in the companymodelManager
-            Result<string> result = _companyModelManager.AddNewCompany(company1);
+            Result<string> result = companyModelManager.AddNewCompany(company1);
 
             // Assert
             Assert.IsFalse(result.Success, $"Adding duplicate company should have returned false, but got {result.Success}");

@@ -8,19 +8,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Logic.Employee;
-using Logic.Companys.Request;
 using Logic.Shifts;
+using Logic.Companys.Request;
 using DayOfWeek = Logic.Enum.DayOfWeek;
-using System.Collections;
-using Logic.Companys;
 using Logic.Employee.Degrees;
+using Logic.Companys;
 
-namespace UnitTest_Pl.MatcherTest
+namespace UnitTest_Pl.ScheduleGeneratorTest.MatcherTest
 {
-    internal class AvailibilityMatcherTest
+    internal class LooseAvailibilityMatcherTest
     {
 
-        private GeneratorAvailibilityMatcher _matcher;
+        private IAvailibiltyMatcher matcher;
         private StaffMember staff;
         private NeededStaff needed;
         private AvailabilityStaff availability;
@@ -29,7 +28,7 @@ namespace UnitTest_Pl.MatcherTest
         [SetUp]
         public void SetUp()
         {
-            _matcher = new GeneratorAvailibilityMatcher();
+            matcher = new GeneratorBackerMatcher();
             availability = new AvailabilityStaff(1, new Company("Tesla"), new List<Shift>()
             {
                 new Shift(DayOfWeek.Monday, ShiftHour.MorningShift)
@@ -44,8 +43,6 @@ namespace UnitTest_Pl.MatcherTest
                  new DateTime(05 / 29 / 1960),
                  new Degree("Software Developer", 5)
              );
-
-      
         }
 
         [Test]
@@ -56,13 +53,14 @@ namespace UnitTest_Pl.MatcherTest
                  staff,
                  new Shift(DayOfWeek.Wednesday, ShiftHour.MorningShift)
              ));
-            needed = new NeededStaff(Occupation.Picker, new Shift(DayOfWeek.Thursday, ShiftHour.MorningShift), 5);
+            // the occupation is diffrent
+            needed = new NeededStaff(Occupation.Mechinic, new Shift(DayOfWeek.Thursday, ShiftHour.MorningShift), 5);
             availability.AddNewShift(new Shift(DayOfWeek.Thursday, ShiftHour.MorningShift));
             staff.AddAvailibilty(availability);
-            
+
 
             //Act
-            bool result = _matcher.MatchesNeed(needed, staff, 1, scheduleInfo);
+            bool result = matcher.MatchesNeed(needed, staff, 1, scheduleInfo);
 
             //Assert
             Assert.IsTrue(result);
@@ -75,6 +73,7 @@ namespace UnitTest_Pl.MatcherTest
                  staff,
                  new Shift(DayOfWeek.Wednesday, ShiftHour.MorningShift)
              ));
+          
             needed = new NeededStaff(Occupation.Driver, new Shift(DayOfWeek.Thursday, ShiftHour.MorningShift), 5);
             availability.AddNewShift(new Shift(DayOfWeek.Friday, ShiftHour.MorningShift));
 
@@ -82,11 +81,10 @@ namespace UnitTest_Pl.MatcherTest
 
 
             //Act
-            bool result = _matcher.MatchesNeed(needed, staff, 1, scheduleInfo);
+            bool result = matcher.MatchesNeed(needed, staff, 1, scheduleInfo);
 
             //Assert
             Assert.IsFalse(result);
         }
-
     }
 }
