@@ -75,9 +75,9 @@ namespace Planning_Generator.Controllers
         }
 
         [HttpPost]
-        public IActionResult SetSchedule(CompanySchedule schedule)
+        public IActionResult SetSchedule()
         {
-
+            CompanySchedule schedule = @CompanyScheduleUi.Schedule;
             Company company = CurrentActive<Company>.Current;
             company.AddSchedules(schedule);
             LogicRefecator.CompanyModelManager.SaveCompany(CurrentActive<Company>.Current);
@@ -95,7 +95,7 @@ namespace Planning_Generator.Controllers
             LogicRefecator.CompanyModelManager.SaveCompanies();
             LogicRefecator.StaffMemberModelManager.SaveStaffMembers();
 
-            return Redirect("Shedule");
+            return View("Shedule");
         }
 
         public IActionResult Shedule(IList<CompanySchedule> companySchedules, List<string> viewdataList = null)
