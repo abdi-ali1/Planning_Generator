@@ -65,12 +65,12 @@ namespace Planning_Generator.Controllers
             if (result.Success)
             {
                 stringResult = Result<string>.Ok("Created some schedules");
-                List<string> viewdataList = SetResult<string>(stringResult);
+                SetResult<string>(stringResult);
                 return View(result.Value);
             }
 
             stringResult = Result<string>.Fail(result.Exception);
-            List<string> viewdataList1 = SetResult<string>(stringResult);
+             SetResult<string>(stringResult);
             return View();
         }
 
@@ -135,37 +135,32 @@ namespace Planning_Generator.Controllers
         }
 
         /// <summary>
-        /// Creates a list from the specified result object.
+        /// Sets the view data based on the success or failure of the given result.
         /// </summary>
         /// <typeparam name="T">The type of the result value.</typeparam>
-        /// <param name="result">The result object to create the list from.</param>
-        /// <returns>A list containing the result value and status, or null if the result is null.</returns>
-        public List<string> SetResult<T>(Result<T> result)
+        /// <param name="result">The result to process.</param>
+        public void SetResult<T>(Result<T> result)
         {
             if (result == null)
-                return null;
-
-            List<string> list = new List<string>();
+                return;
 
             if (result.Success)
             {
-                list.Insert(0, result.Value.ToString());
-                list.Insert(1, "success");
+                ViewData["Message"] = result.Value;
+                ViewData["MessageType"] = "success";
             }
             else
             {
                 if (result.IsExceptionType<Exception>())
                 {
-                    list.Insert(0, result.Exception.Message);
+                    ViewData["Message"] = result.Exception.Message;
                 }
                 else
                 {
-                    list.Insert(0, "something went wrong try again!");
+                    ViewData["Message"] = "something went wrong try again!";
                 }
-                list.Insert(1, "danger");
+                ViewData["MessageType"] = "danger";
             }
-
-            return list;
         }
     }
 }

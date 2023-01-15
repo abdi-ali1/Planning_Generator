@@ -15,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-        @if (Model.Count > 0)
+        @if ( Model != null && Model.Count > 0)
         {
             foreach (CompanySchedule schedule in Model)
             {
@@ -53,5 +53,12 @@
         }
     </tbody>
 </table>
+
+@if (ViewData["Message"] != null)
+{
+    <div class="alert alert-@ViewData["MessageType"] role="alert">
+        @ViewData["Message"]
+    </div>
+}
 
 
