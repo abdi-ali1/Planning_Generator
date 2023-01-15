@@ -71,12 +71,7 @@ namespace Logic.Employee
             this.degree = degree;
         }
 
-        public StaffMember(string username, string name, Gender gender, CompanyRole companyRole, Occupation occupation, DateTime birthDate, Degree degree, 
-            List<StaffSchedule> staffSchedules, List<AvailabilityStaff> availibiltyStaffs) : this(username, name, gender, companyRole, occupation, birthDate, degree)
-        {
-            this.staffSchedules = staffSchedules;
-            this.availibiltyStaffs = availibiltyStaffs;
-        }
+      
 
         /// <summary>
         /// Adds a staff schedule to the list of staff schedules.

@@ -14,6 +14,7 @@ namespace Logic.Companys
         {
             get { return name; }
         }
+
         public IList<CompanySchedule> Schedules
         {
             get { return companySchedules.AsReadOnly(); }
