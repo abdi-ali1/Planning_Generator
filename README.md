@@ -47,4 +47,4 @@ If you would like to contribute to the Schedule Generator application, please fo
 
 ## License
 
-This application is licensed under the MIT license. See the LICENSE file for more details.
+This application is licensed under the MIT license. See the [LICENSE](LICENSE) file for more details.
