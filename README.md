@@ -1,14 +1,15 @@
-# Planning Generator 
+# Planning Generator
 
-This is a Schedule Generator application built using the ASP.NET MVC framework in C#. The application is designed to generate schedules for employment agencies. The agencies can request employees with specific skills and the employees can provide their weekly availability.
+This is a Schedule Generator application built using the ASP.NET MVC framework in C#. The application is designed to generate schedules for employment agencies. The agencies can request employees with specific skills, degree level and availability, and the employees can provide their weekly availability.
 
 ## Features
 
 The Schedule Generator application provides the following features:
 
-- Employment agencies can request employees with specific skills.
-- Employees can provide their weekly availability.
+- Employment agencies can request employees with specific skills, degree level, and availability.
+- The host of the application can add new companies that need staff and new staff members.
 - The application generates schedules based on the requests and availability.
+- The application can create example schedules that are close to the ideal schedule of the company that requested it.
 - Schedules can be viewed and printed by employment agencies.
 
 ## Architecture
